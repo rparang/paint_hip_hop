@@ -1,4 +1,12 @@
 Jams::Application.routes.draw do
+  root :to => 'pages#home'
+  
+  #get "pages/home"
+  #get "pages/user"
+
+  match '/user', :to => 'pages#user'
+  #get "pages/home"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

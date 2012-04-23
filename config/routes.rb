@@ -4,7 +4,9 @@ Jams::Application.routes.draw do
   #get "pages/home"
   #get "pages/user"
 
-  match '/user', :to => 'pages#user'
+  match '/user',  :to => 'pages#user'
+  match '/video', :to => 'pages#video'  
+  
   #get "pages/home"
 
   # The priority is based upon order of creation:

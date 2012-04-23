@@ -21,5 +21,5 @@ gem 'jquery-rails'
 group :production do
   # gems specifically for Heroku go here
   gem "pg"
-  gem 'therubyracer', '~> 0.9.3.beta1'
+  gem 'therubyracer'
 end

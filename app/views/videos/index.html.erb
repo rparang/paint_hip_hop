@@ -1,0 +1,10 @@
+<p>VIDEO INDEX</p>
+
+<ul>
+	<% @videos.each do |v| %>
+	<li>
+		<%= v.title %>
+		<%= v.description %>
+	</li>
+	<% end %>
+</ul>

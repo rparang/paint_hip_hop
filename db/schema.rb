@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425044358) do
+ActiveRecord::Schema.define(:version => 20120425060624) do
 
   create_table "users", :force => true do |t|
     t.string   "first_name"
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(:version => 20120425044358) do
   create_table "videos", :force => true do |t|
     t.string   "title"
     t.integer  "user_id"
-    t.integer  "youtube_id"
+    t.string   "youtube_id"
     t.text     "description"
     t.integer  "duration"
     t.integer  "youtube_view_count"

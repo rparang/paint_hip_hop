@@ -1,11 +1,11 @@
 Jams::Application.routes.draw do
-
-  get "users/new"
-
+  
   root :to => 'pages#home'
   
+  resources :users
+  match '/signup', :to => 'users#new'
+   
   resources :videos
-  
   match '/search', :to => 'videos#search'
   
   #match '/meta' => 'videos#new'

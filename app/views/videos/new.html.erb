@@ -18,6 +18,7 @@
   <%= f.text_field :duration, :value => @vids.duration %><br />
   <%= f.label :youtube_view_count %>
   <%= f.text_field :youtube_view_count, :value => @vids.view_count %><br />
+  <%= f.hidden_field :youtube_id, :value => @vids.video_id.split(":").last %>
 
   <%= f.submit "Create" %>
 <% end %>

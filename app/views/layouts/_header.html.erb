@@ -1,9 +1,13 @@
 <div id="header-container">
 	<header>
 		<% if signed_in? %>
+			<% if current_user.admin? %>
+				<p>ADMIN</p>
+			<% end %>
 			<%= link_to "Videos", videos_path %>
 			<%= link_to "Users", users_path %>
 			<%= link_to "Sign Out", signout_path %>
+			<%= link_to "Edit your shit", edit_user_path(current_user) %>
 		<% else %>
 			<%= link_to "Home", root_path %>
 			<%= link_to "Search", search_path %>

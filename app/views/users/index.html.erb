@@ -3,5 +3,8 @@
 		<li><%= u.first_name %></li>
 		<li><%= u.last_name %></li>
 		<li><%= u.email %></li>
+		<% if current_user.admin? && !current_user?(u) %>
+		  | <%= link_to "delete", u, method: :delete, confirm: "You sure?" %>
+		<% end %>
 	</ul>
 <% end %>

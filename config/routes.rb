@@ -8,6 +8,10 @@ Jams::Application.routes.draw do
   resources :videos
   match '/search', :to => 'videos#search'
   
+  resources :sessions, :only => [:new, :create, :destroy]
+  match '/signin',  :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
+  
   #match '/meta' => 'videos#new'
   
   #get "pages/home"

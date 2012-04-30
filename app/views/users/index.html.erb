@@ -1,6 +1,6 @@
 <% @users.each do |u| %>
 	<ul>
-		<li><%= u.first_name %></li>
+		<li><%= link_to u.first_name, u %></li>
 		<li><%= u.last_name %></li>
 		<li><%= u.email %></li>
 		<% if current_user.admin? && !current_user?(u) %>

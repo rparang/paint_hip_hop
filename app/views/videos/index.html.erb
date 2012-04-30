@@ -3,8 +3,10 @@
 <ul>
 	<% @videos.each do |v| %>
 	<li>
-		<%= v.title %>
+		<%= link_to v.title, v %>
 		<%= v.description %>
+		- <%= link_to v.user.first_name, v.user %>
 	</li>
+
 	<% end %>
 </ul>

@@ -1,3 +1,12 @@
 <p><%= @user.first_name %></p>
 <p><%= @user.last_name %></p>
 <p><%= @user.email %></p>
+
+<ul>
+	<% @videos.each do |v| %>
+	<li>
+		<%= link_to v.title, "http://www.youtube.com/watch?v=#{v.youtube_id}", :target => '_blank' %>
+		<%= v.description %>
+	</li>
+	<% end %>
+</ul>

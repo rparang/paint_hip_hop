@@ -1,4 +1,5 @@
 class VideosController < ApplicationController
+  before_filter :signed_in_user, :only => [:create, :destroy]
  
   def search
     @yt_client = YouTubeIt::Client.new
@@ -18,6 +19,7 @@ class VideosController < ApplicationController
   end
 
   def show
+    @video = Video.find(params[:id])
   end
 
   def edit
@@ -27,9 +29,13 @@ class VideosController < ApplicationController
   end
 
   def create
-      @video = Video.new(params[:video], :youtube_id => "3fumBcKC6RE")
-      @video.save!
-      redirect_to @video
+      @video = current_user.videos.build(params[:video])
+      if @video.save
+        flash[:succes] = "Video created biaatch"
+        redirect_to @video
+      else
+        render '/pages/home'
+      end
   end
   
   def update

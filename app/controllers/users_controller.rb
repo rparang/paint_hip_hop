@@ -6,6 +6,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @videos = @user.videos
   end
   
   def new
@@ -50,14 +51,6 @@ class UsersController < ApplicationController
   
   
   private
-  
-    def signed_in_user
-      unless signed_in?
-        store_location
-        flash[:notice] = "Please sign in to do that"
-        redirect_to signin_path
-      end
-    end
   
     def correct_user
       @user = User.find(params[:id])

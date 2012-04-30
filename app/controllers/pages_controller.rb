@@ -1,6 +1,9 @@
 class PagesController < ApplicationController
   
-  def home 
+  def home
+  	if signed_in?
+  		@feed_items = current_user.feed
+  	end
   end
 
   def user

@@ -14,4 +14,11 @@
 #
 
 class Video < ActiveRecord::Base
+  attr_accessible :title, :user_id, :youtube_id, :description, :duration, :youtube_view_count
+  belongs_to :user
+
+  validates :user_id, :presence => true
+
+  default_scope order: 'videos.created_at DESC'
+  
 end

@@ -4,6 +4,9 @@
 			<% if current_user.admin? %>
 				<p>ADMIN</p>
 			<% end %>
+			<b><%= link_to current_user.first_name, current_user %></b><br />
+			<%= link_to "Home", root_path %>
+			<%= link_to "Search", search_path %>
 			<%= link_to "Videos", videos_path %>
 			<%= link_to "Users", users_path %>
 			<%= link_to "Sign Out", signout_path %>

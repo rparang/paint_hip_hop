@@ -1,0 +1,5 @@
+<p>Name: <%= @user.first_name %></p>
+<%= provide(:title, @title) %>
+<% @users.each do |u| %>
+	<p><%= u.first_name %> <%= u.last_name %></p>
+<% end %>

@@ -4,6 +4,7 @@ class PagesController < ApplicationController
   	if signed_in?
   		@feed_items = current_user.feed
   	end
+  	@videos = Video.all
   end
 
   def user

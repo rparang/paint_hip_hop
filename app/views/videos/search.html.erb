@@ -1,7 +1,7 @@
 <%= form_tag(search_path, :method => "get") do %>
   <%= label_tag(:s, "Search for:") %>
   <%= text_field_tag(:s) %>
-  <%= submit_tag("Search") %>
+  <%= submit_tag("Search", :class => "btn") %>
 <% end %>
 
 <% @vids.videos.size.times do |i| %>

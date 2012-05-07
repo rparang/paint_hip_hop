@@ -3,24 +3,14 @@
   <table summary="User stats">
     <tr>
       <td>FOLLOWING:
-        <p><%= @user.following.count %></p>
         <a href="<%= following_user_path(@user) %>">
-          <span id="following" class="stat">
-            <% @user.following.each do |u| %>
-            <%= u.first_name %> <%= u.last_name %>,&nbsp;
-            <% end %>
-          </span>
+          <span id="following-count"><%= @user.following.count %></span>
         </a>
       </td>
 
       <td>FOLLOWERS:
-        <p><%= @user.followers.count %></p>
         <a href="<%= followers_user_path(@user) %>">
-          <span id="followers" class="stat">
-            <% @user.followers.each do |u| %>
-            <%= u.first_name %> <%= u.last_name %>,&nbsp;
-            <% end %>
-          </span>
+          <span id="followers-count"><%= @user.followers.count %></span>
         </a>
       </td>
     </tr>

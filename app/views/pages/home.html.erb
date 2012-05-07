@@ -1,2 +1,40 @@
 <h1>Home</h1>
-<p><%= @feed_items %></p>
+<% if signed_in? %>
+
+<div class="left-container">
+
+<%= render 'shared/feed' %>
+
+</div>
+
+
+<div class="right-container">
+	I'm the right container
+
+</div>
+
+
+
+
+
+
+
+
+<% else %>
+Gooz! You have no videos! Figure out what to do for the home page if the user isn't signed in or isn't following anyone. Refactor so that each video is using :collection
+
+<p>VIDEO INDEX</p>
+
+<ul>
+	<% @videos.each do |v| %>
+	<li>
+		<%= link_to v.title, v %>
+		<%= v.description %>
+		- <%= link_to v.user.first_name, v.user %>
+	</li>
+
+	<% end %>
+</ul>
+
+
+<% end %>

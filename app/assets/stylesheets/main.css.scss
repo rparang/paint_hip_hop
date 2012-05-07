@@ -1,0 +1,230 @@
+@import "reset";
+
+@import "variables"; // Modify this for custom colors, font-sizes, etc
+@import "mixins";
+
+//@import "scaffolding"; // Grid system and page structure
+//@import "grid";
+//@import "layouts";
+
+@import "type";
+@import "forms";
+
+@import "buttons";
+
+//@import "navs";
+
+body {
+  margin: 0;
+  font-family: $baseFontFamily;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  color: $textColor;
+  background-color: $bodyBackground;
+  background-image: url('/assets/furley_bg.png')
+}
+
+
+// LINKS
+// -----
+
+a {
+  color: $linkColor;
+  text-decoration: none;
+}
+a:hover {
+  color: $linkColorHover;
+  text-decoration: underline;
+}
+
+
+nav {
+	width: 100%;
+	text-align: right;
+	margin-bottom: 20px;
+
+	#nav-wrapper {
+		//background-image: url('/assets/nav-background.png');
+		width: 100%;
+		height: 48px;
+		background-color: #F7F7F7;
+		box-shadow: 0 3px 3px #c4c4c4;
+		border: 0 none;
+		position: fixed;
+		top: 0;
+		z-index: 10;
+
+
+		.nav-container{
+			width: $containerWidth;
+			@include container-fixed();
+			//@include testing();
+
+			ul.nav {
+				display: inline;
+				margin-left: 0;
+  				margin-bottom: $baseLineHeight;
+  				list-style: none;
+			}
+
+			ul.nav-left {
+				float: left;
+
+				a {
+					padding: 9px 10px 11px;
+					display: block;
+					line-height: 19px;
+					text-decoration: none;
+					color: #444;
+					font-size: 13px;
+					text-shadow: 0 1px white;
+					font-weight: bold;
+				}
+				a:hover {
+					color: $grayLighter;
+
+				}
+			}
+
+			ul.nav-right {
+				float: right;
+			}
+
+			ul.nav li {
+				float: left;
+			}
+
+
+
+
+		}
+	}
+}
+
+.container {
+	@include container-fixed();
+	margin-top: 70px;
+
+	width: $containerWidth;
+	//@include testing();
+	text-shadow: 0 1px 1px white;
+}
+
+.left-container {
+	//@include testing();
+	float: left;
+	width: $leftcontainerWidth;
+}
+
+.right-container {
+	//@include testing();
+	float: right;
+	width: $rightcontainerWidth;
+	padding: 8px 8px 0;
+	background-color: $white;
+	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	position: fixed;
+	right: 0;
+	margin-right: 140px;
+}
+
+.video-container:hover {
+	background-color: #f7f7f7;
+}
+.video-container {
+	//@include testing();
+	@include clearfix();
+	width: 622px;
+	margin-bottom: 18px;
+	padding: 10px 0 0 0;
+	background-color: $white;
+	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+
+
+	.vote-container {
+		//@include testing();
+		float: left;
+		width: 60px;
+		font-size: 12px;
+		color: $grayLight;
+	}
+
+	.video-container-inner {
+		//@include testing();
+		float: right;
+		width: 556px;
+
+		img {
+			float: left;
+			width: 200px;
+			border: 1px solid $grayLighter;
+			padding: 3px;
+		}
+
+		img:hover {
+			border: 1px solid $grayLight;
+		}
+
+		.video-info-container {
+			float: right;
+			width: 326px;
+			padding-right: 10px;
+		
+
+			a {
+				line-height: 18px;
+				font-size: 14px;
+				font-weight: bold;
+				margin-bottom: 6px;
+			}
+
+			p {
+				line-height: 15px;
+				font-size: 12px;
+				color: $gray;
+				margin-top: 6px;
+			}
+			.video-user-container {
+				//background-color: $yellow;
+				a {
+					font-weight: bold;
+					font-size: 12px;
+
+				}
+			}
+		}
+	}
+
+	.youtube-container-toggle {
+			width: 100%;
+			margin-top: 8px;
+			font-size: 10px;
+			text-align: center;
+			float: right;
+			color: #AD9C9C;
+			//@include testing();
+			background-color: #F7F5F5;
+	}
+
+	.youtube-container {
+			width: 100%;
+			float: right;
+			padding: 24px 0 24px 0;
+			//@include testing();
+			background-color: $grayDarker;
+
+			iframe {
+				margin-left: 28px;
+			}
+	}
+}
+
+
+
+
+
+

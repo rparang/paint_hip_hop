@@ -1,0 +1,52 @@
+<div class="video-container">
+	<div class="vote-container">
+		<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
+	</div>
+	<div class="video-container-inner">
+		<a href="<%= feed_item %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/mqdefault.jpg"/></a>
+		<div class="video-info-container">
+			<%= link_to feed_item.title, feed_item %>
+			<p id="description-<%= feed_item.id %>"><%= feed_item.description %></p>
+
+			<script type="text/javascript">
+				var shortText = $("#description-<%= feed_item.id %>").text()    // get the text within the div
+    			.trim()    // remove leading and trailing spaces
+    			.substring(0, 180)    // get first 600 characters
+    			.split(" ") // separate characters into an array of words
+    			.slice(0, -1)    // remove the last full or partial word
+    			.join(" ") + "..."; // combine into a single string and append "..."
+    			$("#description-<%= feed_item.id %>").html(shortText);
+			</script>
+
+			<div class="video-user-container">
+				<%= link_to feed_item.user.first_name, feed_item.user %>
+			</div>
+		</div>
+	</div>
+
+	<!--
+	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>">Gooz</div>
+	<script>
+    $("#youtube-container-<%= feed_item.id %>").click(function () {
+    	var youtubeString = "<iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>' frameborder='0' allowfullscreen></iframe>";
+    	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
+    });
+	</script>
+-->
+	<!--<iframe title="YouTube video player" width="560" height="315" src="http://www.youtube.com/embed/<%= feed_item.youtube_id %>" frameborder="0" allowfullscreen></iframe> -->
+
+	<div class="youtube-container-toggle" id="button-<%= feed_item.id %>">Expand</div>
+	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>" style="display: none">Gooz</div>
+
+	<script>
+	$("#button-<%= feed_item.id %>").click(function () {
+	$("#youtube-container-<%= feed_item.id %>").toggle();
+	});
+
+    $("#button-<%= feed_item.id %>").click(function () {
+    	var youtubeString = "<iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
+    	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
+    });
+	</script>
+
+</div>

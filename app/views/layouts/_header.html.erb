@@ -1,21 +1,28 @@
-<div id="header-container">
-	<header>
+<nav>
+<div id="nav-wrapper">
+	<div class="nav-container">
+		<ul class="nav nav-left">
+			<li><%= link_to "Home", root_path %></li>
+			<li><%= link_to "Search", search_path %></li>
+			<li><%= link_to "Videos", videos_path %></li>
+			<li><%= link_to "Users", users_path %></li>
+		</ul>
+
 		<% if signed_in? %>
-			<% if current_user.admin? %>
-				<p>ADMIN</p>
+			<% if current_user.admin? %><span style="color: #fff">ADMIN</span>
 			<% end %>
-			<b><%= link_to current_user.first_name, current_user %></b><br />
-			<%= link_to "Home", root_path %>
-			<%= link_to "Search", search_path %>
-			<%= link_to "Videos", videos_path %>
-			<%= link_to "Users", users_path %>
-			<%= link_to "Sign Out", signout_path %>
-			<%= link_to "Edit your shit", edit_user_path(current_user) %>
+
+			<ul class="nav nav-right">
+				<li><%= link_to current_user.first_name, current_user %></li>
+				<li><%= link_to "Edit your shit", edit_user_path(current_user) %></li>
+				<li><%= link_to "Sign Out", signout_path %></li>
+			</ul>
 		<% else %>
-			<%= link_to "Home", root_path %>
-			<%= link_to "Search", search_path %>
-			<%= link_to "Sign Up", signup_path %>
-			<%= link_to "Sign in", signin_path %>
+			<ul class="nav nav-right">
+				<li><%= link_to "Sign Up", signup_path %></li>
+				<li><%= link_to "Sign in", signin_path %></li>
+			</ul>
 		<% end %>
-	</header>
+	</div>
 </div>
+</nav>

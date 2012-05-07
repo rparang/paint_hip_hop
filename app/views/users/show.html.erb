@@ -2,28 +2,9 @@
 <p><%= @user.last_name %></p>
 <p><%= @user.email %></p>
 
+<%= render 'users/follow_form' %>
+
 <%= render '/shared/stats' %>
-
-<% unless current_user?(@user) %>
-  <div id="follow_form">
-  <% if current_user.following?(@user) %>
-  
-      <%= form_for(current_user.relationships.find_by_followed_id(@user), html: { method: :delete }) do |f| %>
-      <%= f.submit "Unfollow", class: "btn btn-large" %>
-    <% end %>
-
-  <% else %>
-
-    <%= form_for(current_user.relationships.build(followed_id: @user.id)) do |f| %>
-      <div><%= f.hidden_field :followed_id %></div>
-      <%= f.submit "Follow", class: "btn btn-large btn-primary" %>
-    <% end %>
-  
-
-  <% end %>
-  </div>
-<% end %>
-
 
 <ul>
 	<% @videos.each do |v| %>

@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   validates :password_confirmation, :presence => true
 
   def feed
-    Video.where("user_id = ?", id)
+    Video.from_users_following(self)
   end
 
   def following?(other_user)

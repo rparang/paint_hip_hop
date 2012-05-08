@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430035226) do
+ActiveRecord::Schema.define(:version => 20120508034920) do
 
   create_table "relationships", :force => true do |t|
     t.integer  "follower_id"
@@ -46,6 +46,14 @@ ActiveRecord::Schema.define(:version => 20120430035226) do
     t.integer  "youtube_view_count"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "votes_count"
+  end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "video_id"
+    t.integer  "user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end

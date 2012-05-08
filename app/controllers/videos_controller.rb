@@ -13,6 +13,10 @@ class VideosController < ApplicationController
  
   def index
     @videos = Video.all
+
+    @vote = Vote.new(params[:vote])
+
+
   end
 
   def video
@@ -20,6 +24,8 @@ class VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
+
+    @vote = Vote.new(params[:vote])
   end
 
   def edit
@@ -31,7 +37,7 @@ class VideosController < ApplicationController
   def create
       @video = current_user.videos.build(params[:video])
       if @video.save
-        flash[:succes] = "Video created biaatch"
+        flash.now[:notice] = "Video created biaatch"
         redirect_to @video
       else
         render '/pages/home'

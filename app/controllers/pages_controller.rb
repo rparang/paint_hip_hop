@@ -5,6 +5,7 @@ class PagesController < ApplicationController
   		@feed_items = current_user.feed
   	end
   	@videos = Video.all
+    @vote = Vote.new
   end
 
   def user
@@ -12,5 +13,5 @@ class PagesController < ApplicationController
   
   def video
   end
-  
+
 end

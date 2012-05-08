@@ -1,6 +1,11 @@
 <div class="video-container">
 	<div class="vote-container">
+		<b id="vote-ajax-<%= feed_item.id %>"><%= feed_item.votes_count %></b>
+		<%= form_for(@vote, :remote => true) do |f| %>
+			<%= f.hidden_field "video_id", :value => feed_item.id %>
+		<%= f.submit "Vote", class: "btn btn-small btn-info" %>
 		<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
+<% end %>
 	</div>
 	<div class="video-container-inner">
 		<a href="<%= feed_item %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/mqdefault.jpg"/></a>

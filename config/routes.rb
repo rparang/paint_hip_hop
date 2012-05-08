@@ -18,6 +18,8 @@ Jams::Application.routes.draw do
   match '/signout', :to => 'sessions#destroy'
 
   resources :relationships, :only => [:create, :destroy]
+
+  resources :votes, :only => [:create, :destroy]
   
   #match '/meta' => 'videos#new'
   

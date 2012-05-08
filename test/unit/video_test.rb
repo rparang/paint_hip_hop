@@ -11,6 +11,7 @@
 #  youtube_view_count :integer
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
+#  votes_count        :integer
 #
 
 require 'test_helper'

@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
                                     :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed         #User that you follow
   has_many :followers, :through => :reverse_relationships, :source => :follower #Users that follow you
+  has_many :votes
 
   
   before_save { |user| user.email = email.downcase }

@@ -436,49 +436,6 @@
   }
 }
 
-// Navbar vertical align
-// -------------------------
-// Vertically center elements in the navbar.
-// Example: an element has a height of 30px, so write out `.navbarVerticalAlign(30px);` to calculate the appropriate top margin.
-@mixin navbarVerticalAlign($elementHeight) {
-  margin-top: ($navbarHeight - $elementHeight) / 2;
-}
-
-// POPOVER ARROWS
-// -------------------------
-// For tipsies and popovers
-@mixin popoverArrow-top($arrowWidth: 5px, $color: $black) {
-  bottom: 0;
-  left: 50%;
-  margin-left: -$arrowWidth;
-  border-left: $arrowWidth solid transparent;
-  border-right: $arrowWidth solid transparent;
-  border-top: $arrowWidth solid $color;
-}
-@mixin popoverArrow-left($arrowWidth: 5px, $color: $black) {
-  top: 50%;
-  right: 0;
-  margin-top: -$arrowWidth;
-  border-top: $arrowWidth solid transparent;
-  border-bottom: $arrowWidth solid transparent;
-  border-left: $arrowWidth solid $color;
-}
-@mixin popoverArrow-bottom($arrowWidth: 5px, $color: $black) {
-  top: 0;
-  left: 50%;
-  margin-left: -$arrowWidth;
-  border-left: $arrowWidth solid transparent;
-  border-right: $arrowWidth solid transparent;
-  border-bottom: $arrowWidth solid $color;
-}
-@mixin popoverArrow-right($arrowWidth: 5px, $color: $black) {
-  top: 50%;
-  left: 0;
-  margin-top: -$arrowWidth;
-  border-top: $arrowWidth solid transparent;
-  border-bottom: $arrowWidth solid transparent;
-  border-right: $arrowWidth solid $color;
-}
 
 
 // Grid System
@@ -491,85 +448,6 @@
   @include clearfix();
 }
 
-// Table columns
-@mixin tableColumns($columnSpan: 1) {
-  float: none; // undo default grid column styles
-  width: (($gridColumnWidth) * $columnSpan) + ($gridGutterWidth * ($columnSpan - 1)) - 16; // 16 is total padding on left and right of table cells
-  margin-left: 0; // undo default grid column styles
-}
-
-// Make a Grid
-// -------------------------
-// Use .makeRow and .makeColumn to assign semantic layouts grid system behavior
-@mixin makeRow() {
-  margin-left: $gridGutterWidth * -1;
-  @include clearfix();
-}
-@mixin makeColumn($columns: 1) {
-  float: left;
-  margin-left: $gridGutterWidth;
-  width: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns - 1));
-}
-
-// The Grid
-// --------
-@mixin grid-core-span($columns, $gridColumnWidth, $gridGutterWidth) {
-  width: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns - 1));
-}
-@mixin grid-core-offset($columns, $gridColumnWidth, $gridGutterWidth) {
-  margin-left: ($gridColumnWidth * $columns) + ($gridGutterWidth * ($columns - 1)) + ($gridGutterWidth * 2);
-}
-
-@mixin grid-core-generate($gridColumnWidth, $gridGutterWidth) {
-  .row {
-    margin-left: $gridGutterWidth * -1;
-    @include clearfix();
-  }
-
-  [class*="span"] {
-    float: left;
-    margin-left: $gridGutterWidth;
-  }
-
-  // Set the container width, and override it for fixed navbars in media queries
-  .container,
-  .navbar-fixed-top .container,
-  .navbar-fixed-bottom .container {
-    @include grid-core-span($gridColumns, $gridColumnWidth, $gridGutterWidth)
-  }
-
-  @for $i from 1 through $gridColumns {
-    .span#{$i} { @include grid-core-span($i, $gridColumnWidth, $gridGutterWidth) }
-  }
-
-  @for $i from 1 through $gridColumns - 1 {
-    .offset#{$i} { @include grid-core-offset($i, $gridColumnWidth, $gridGutterWidth) }
-  }
-}
-
-
-// Fluid grid system
-// -----------------
-@mixin grid-fluid-span($columns, $fluidGridColumnWidth, $fluidGridGutterWidth) {
-  width: ($fluidGridColumnWidth * $columns) + ($fluidGridGutterWidth * ($columns - 1));
-}
-@mixin grid-fluid-generate($fluidGridColumnWidth, $fluidGridGutterWidth) {
-  .row-fluid {
-    width: 100%;
-    @include clearfix();
-    > [class*="span"] {
-      float: left;
-      margin-left: $fluidGridGutterWidth;
-    }
-    > [class*="span"]:first-child {
-      margin-left: 0;
-    }
-
-    @for $i from 1 through $gridColumns {
-      > .span#{$i} { @include grid-fluid-span($i, $fluidGridColumnWidth, $fluidGridGutterWidth); }
-    }
-  }
-}
 
 
 // Input grid system

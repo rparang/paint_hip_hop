@@ -11,7 +11,7 @@
 #  youtube_view_count :integer
 #  created_at         :datetime        not null
 #  updated_at         :datetime        not null
-#  votes_count        :integer
+#  votes_count        :integerVi
 #
 
 class Video < ActiveRecord::Base
@@ -19,6 +19,7 @@ class Video < ActiveRecord::Base
   
   belongs_to :user
   has_many :votes
+  has_many :comments
 
   validates :user_id, :presence => true
 

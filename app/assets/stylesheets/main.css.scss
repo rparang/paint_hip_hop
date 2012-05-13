@@ -46,9 +46,9 @@ nav {
 	#nav-wrapper {
 		//background-image: url('/assets/nav-background.png');
 		width: 100%;
-		height: 48px;
+		height: 40px;
 		background-color: #F7F7F7;
-		box-shadow: 0 3px 3px #c4c4c4;
+		box-shadow: 0 2px 2px #c4c4c4;
 		border: 0 none;
 		position: fixed;
 		top: 0;
@@ -60,6 +60,13 @@ nav {
 			@include container-fixed();
 			//@include testing();
 
+			a img.logo { 
+				
+				//@include testing(); 
+				float: left;
+				margin-top: 2px;
+			}
+
 			ul.nav {
 				display: inline;
 				margin-left: 0;
@@ -67,11 +74,11 @@ nav {
   				list-style: none;
 			}
 
-			ul.nav-left {
-				float: left;
+			ul.nav-right {
+				float: right;
 
 				a {
-					padding: 9px 10px 11px;
+					padding: 12px 10px 9px;
 					display: block;
 					line-height: 19px;
 					text-decoration: none;
@@ -81,13 +88,11 @@ nav {
 					font-weight: bold;
 				}
 				a:hover {
-					color: $grayLighter;
+					background-color: $grayLighter;
 
 				}
-			}
 
-			ul.nav-right {
-				float: right;
+
 			}
 
 			ul.nav li {
@@ -114,20 +119,87 @@ nav {
 	//@include testing();
 	float: left;
 	width: $leftcontainerWidth;
+	background-color: $white;
+	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+
 }
 
 .right-container {
 	//@include testing();
 	float: right;
 	width: $rightcontainerWidth;
-	padding: 8px 8px 0;
+	//padding: 8px 8px 0;
+	position: relative;
+}
+
+.current-video-container {
+	//@include testing();
+	width: 100%;
 	background-color: $white;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
 	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
-	position: fixed;
-	right: 0;
-	margin-right: 140px;
+
+	.current-video-header {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 8px 0 8px 12px;
+		border-bottom: 1px solid #D9D4D4;
+	}
+}
+
+.stats-container {
+	//@include testing();
+	width: 100%;
+	margin-top: 20px;
+	background-color: $white;
+	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+
+	.stats-header {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 8px 0 8px 12px;
+		border-bottom: 1px solid #D9D4D4;
+	}
+
+	.list-stats{
+
+		padding: 12px 0 10px 12px;
+
+		li {
+			padding: 0 0 6px 22px;
+			font-size: 14px;
+		}
+
+		.list-points	{
+			background-image: url("star.png");
+			background-repeat: no-repeat;
+		}
+
+		.list-followers {
+			background-image: url("followers.png");
+			background-repeat: no-repeat;
+		}
+
+		.list-following {
+			background-image: url("following.png");
+			background-repeat: no-repeat;
+		}
+	}
+
+}
+
+
+.video-feed-header{
+	background-color: $white;
+	font-size: 14px;
+	font-weight: bold;
+	padding: 8px 0 8px 12px;
+	border-bottom: 1px solid #D9D4D4;
 }
 
 .video-container:hover {
@@ -136,48 +208,53 @@ nav {
 .video-container {
 	//@include testing();
 	@include clearfix();
-	width: 622px;
-	margin-bottom: 18px;
-	padding: 10px 0 0 0;
+	width: 660px;
+	padding: 11px 0 11px 0;
 	background-color: $white;
-	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
-	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
-	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
-
+	border-bottom: 1px solid #D9D4D4;
 
 	.vote-container {
 		//@include testing();
 		float: left;
-		width: 60px;
-		font-size: 12px;
-		color: $grayLight;
+		width: 75px;
+		margin-top: 13px;
+		//@include testing();
+
+		text-align: right;
+
+		p.vote-points {
+			color: $grayDarker;
+			font-size: 52px;
+			margin-bottom: 17px;
+		}
+
+		span.vote-points-label {
+			font-size: 20px;
+		}
 	}
 
 	.video-container-inner {
 		//@include testing();
 		float: right;
-		width: 556px;
+		width: 570px;
 
 		img {
 			float: left;
-			width: 200px;
-			border: 1px solid $grayLighter;
-			padding: 3px;
-		}
-
-		img:hover {
-			border: 1px solid $grayLight;
+			//border: 1px solid $grayLighter;
+			//padding: 3px;
 		}
 
 		.video-info-container {
 			float: right;
-			width: 326px;
+			width: 424px;
 			padding-right: 10px;
+			//@include testing();
 		
 
 			a {
+				color: $grayDarker;
 				line-height: 18px;
-				font-size: 14px;
+				font-size: 17px;
 				font-weight: bold;
 				margin-bottom: 6px;
 			}
@@ -189,11 +266,46 @@ nav {
 				margin-top: 6px;
 			}
 			.video-user-container {
-				//background-color: $yellow;
+				//@include testing();
+				@include clearfix();
+				margin-top: 5px;
 				a {
 					font-weight: bold;
-					font-size: 12px;
+					font-size: 14px;
 
+				}
+
+				span.video-user-points {
+					margin-left: 6px;
+				}
+
+				input {
+					float: left;
+				}
+
+				.btn {
+					margin-top: 8px;
+					width: 76px;
+					font-size: 14px;
+				}
+
+				a.watch-toggle {
+					font-weight: normal;
+					font-size: 13px;
+					padding: 0 0 2px 13px;
+				}
+
+				.video-comments-and-time {
+					float: right;
+					font-size: 14px;
+					color: $grayLight;
+
+					.comments-icon {
+						background-image: url("comment.png");
+						background-repeat:no-repeat;
+						padding: 0 10px 0 21px;
+
+					}
 				}
 			}
 		}
@@ -213,18 +325,149 @@ nav {
 	.youtube-container {
 			width: 100%;
 			float: right;
-			padding: 24px 0 24px 0;
+			padding: 30px 0 30px 0;
 			//@include testing();
 			background-color: $grayDarker;
+			margin: 20px 0 20px 0;
 
 			iframe {
-				margin-left: 28px;
+				margin-left: 47px;
 			}
 	}
 }
 
+//Video Show
 
+.video-main {
+	float: left;
+	width: 100%;
+	background-color: white;
+	padding-bottom: 12px;
+	box-shadow: 0 1px 2px rgba(34,25,25,0.4);
 
+	.video-header {
+		padding: 20px 10px 16px 30px;
+
+		p.name {
+			font-size: 23px;
+			margin-bottom: 2px;
+			line-height: 30px;
+
+			a {
+				color: #211922;
+			}
+
+		}
+
+		p.created-at {
+			color: #8C7E7E;
+		}
+	}
+
+	.video-player {
+		text-align: center;
+		border-top: 1px solid #D9D4D4;
+		border-bottom: 1px solid #D9D4D4;
+	
+
+		.video-player-background {
+			background-color: $grayDarker;
+			padding: 25px;
+			margin: 25px;
+		}
+
+		.video-points-and-comments-container {
+			text-align: left;
+			margin: 0 25px 14px 25px;
+			@include clearfix();
+			//@include testing();
+
+			.video-votes-container {
+				//@include testing();
+				float: left;
+				width: 250px;
+
+				.video-votes-value {
+					float: left;
+					color: #222;
+					font-size: 52px;
+
+					span {
+						font-size: 20px;
+					}
+				}
+
+				form {
+					float: right;
+					margin: 0;
+
+					.btn {
+						font-size: 14px;
+						width: 130px;
+					}
+				}
+			}
+
+			.video-comments-count-container {
+				//@include testing();
+				float: right;
+				background-image: url("comment.png");
+				background-repeat: no-repeat;
+				padding-left: 20px;
+				margin-top: 12px;
+				font-weight: bold;
+				font-size: 14px;
+			}
+		}
+	}
+
+	.video-description {
+		line-height: 1.5em;
+		padding: 16px 30px 20px;
+		font-size: 12px;
+	}
+
+	#comments-container {
+		padding: 16px 30px 20px;
+		border-top: 1px solid #D9D4D4;
+
+		.comment-item {
+			margin-bottom: 12px;
+
+			span {
+				float: right;
+				font-size: 10px;
+				color: $grayLight;
+			}
+		}
+		.comment-input{
+				width: 506px;
+		}
+	}
+}
+
+.more-from-user-container {
+	//@include testing();
+	width: 100%;
+	background-color: $white;
+	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+
+	.more-from-user-header {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 8px 0 8px 12px;
+		border-bottom: 1px solid #D9D4D4;
+	}
+	.more-from-user-pic-container {
+		margin: 3px 1px 3px 1px;
+		img {
+			padding-bottom: 3px;
+		}
+
+	}
+}
 
 
 

@@ -1,2 +1,65 @@
-<p><%= link_to @video.title, "http://www.youtube.com/watch?v=#{@video.youtube_id}", :target => '_blank' %></p>
-<p><%= @video.youtube_id %></p>
+<div class="left-container">
+	<div class="video-main">
+		<div class="video-header">
+			<p class="name"><%= link_to @video.title, "http://www.youtube.com/watch?v=#{@video.youtube_id}", :target => '_blank' %></p>
+			<p class="created-at"><%= time_ago_in_words(@video.created_at) %> ago by <%= link_to @video.user.first_name, @video.user %></p>
+		</div>
+		<div class="video-player">
+			<div class="video-player-background">
+				<iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
+			</div>
+		
+			<div class="video-points-and-comments-container">
+				<div class="video-votes-container">
+					<div class="video-votes-value"><%= @video.votes_count %><span> Points</span></div>
+					<%= form_for(@vote, :remote => true) do |f| %>
+						<%= f.hidden_field "video_id", :value => @video.id %>
+						<%= f.submit "+1", class: "btn btn-small" %>
+					<% end %>
+
+				</div>
+				<div class="video-comments-count-container"><%= @video.comments.count %> comments</div>
+
+			</div>
+		</div>
+
+		<p class="video-description"><%= @video.description %></p>
+
+		<div id="comments-container">
+			<%= render :partial => 'videos/comment_item', :collection => @comment_items %>
+			<div id="comment-form-container">
+				<%= form_for(@comment, :remote => true) do |f| %>
+    				<%= f.text_field :content, :class => "comment-input" %>
+					<%= f.hidden_field "video_id", :value => @video.id %>
+    				<%= f.submit "Comment", class: "btn btn-primary" %>
+				<% end %>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+
+
+
+<% video_array = @video.user.videos.collect { |v| v.youtube_id } %>
+
+<div class="right-container">
+	<div class="more-from-user-container">
+		<div class="more-from-user-header"><%= @video.user.first_name %></div>
+
+		<% if video_array.count < 10 %>
+			<div class="more-from-user-pic-container">
+			<% video_array.count.times do |n| %>
+				<img src="http://i.ytimg.com/vi/<%= video_array[n] %>/default.jpg" width="70px" height="70px"/>
+			<% end %>
+			</div>
+		<% else %>
+			<p>boobs</p>
+		<% end %>
+	</div>
+
+</div>
+
+

@@ -1,30 +1,36 @@
 <div class="video-container">
 	<div class="vote-container">
-		<b id="vote-ajax-<%= feed_item.id %>"><%= feed_item.votes_count %></b>
-		<%= form_for(@vote, :remote => true) do |f| %>
-			<%= f.hidden_field "video_id", :value => feed_item.id %>
-		<%= f.submit "Vote", class: "btn btn-small btn-info" %>
-		<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
-<% end %>
+		<p class="vote-points" id="vote-ajax-<%= feed_item.id %>"><%= feed_item.votes_count %></p>
+		<span class="vote-points-label">Points</span>
+		
 	</div>
 	<div class="video-container-inner">
-		<a href="<%= feed_item %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/mqdefault.jpg"/></a>
+		<a href="<%= feed_item %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
 		<div class="video-info-container">
-			<%= link_to feed_item.title, feed_item %>
-			<p id="description-<%= feed_item.id %>"><%= feed_item.description %></p>
+			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}" %>
 
 			<script type="text/javascript">
-				var shortText = $("#description-<%= feed_item.id %>").text()    // get the text within the div
+				var shortText = $("#video-title-<%= feed_item.id %>").text()    // get the text within the div
     			.trim()    // remove leading and trailing spaces
-    			.substring(0, 180)    // get first 600 characters
-    			.split(" ") // separate characters into an array of words
-    			.slice(0, -1)    // remove the last full or partial word
-    			.join(" ") + "..."; // combine into a single string and append "..."
-    			$("#description-<%= feed_item.id %>").html(shortText);
+    			.substring(0, 47)    // get first 600 characters
+    			//.split(" ") // separate characters into an array of words
+    			//.slice(0, -1)    // remove the last full or partial word
+    			//.join(" ") + "..."; // combine into a single string and append "..."
+    			$("#video-title-<%= feed_item.id %>").html(shortText);
 			</script>
 
 			<div class="video-user-container">
 				<%= link_to feed_item.user.first_name, feed_item.user %>
+				<span class="video-user-points"><%= feed_item.user.points %> total points</span>
+				<%= form_for(@vote, :remote => true) do |f| %>
+					<%= f.hidden_field "video_id", :value => feed_item.id %>
+					<%= f.submit "+1", class: "btn btn-small" %>
+				<% end %>
+				<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Watch</a>
+				<div class="video-comments-and-time">
+					<span class="comments-icon"><%= link_to feed_item.comments.count, feed_item %></span>
+					<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -40,7 +46,6 @@
 -->
 	<!--<iframe title="YouTube video player" width="560" height="315" src="http://www.youtube.com/embed/<%= feed_item.youtube_id %>" frameborder="0" allowfullscreen></iframe> -->
 
-	<div class="youtube-container-toggle" id="button-<%= feed_item.id %>">Expand</div>
 	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>" style="display: none">Gooz</div>
 
 	<script>

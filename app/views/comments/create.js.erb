@@ -1,0 +1,1 @@
+$("#comment-form-container").html("<div class='comment-item'><a href='<%= user_path(@comment.user) %>'><%= @comment.user.first_name %></a><span><%= time_ago_in_words(@comment.created_at) %> ago</span><p><%= @comment.content %></p></div>")

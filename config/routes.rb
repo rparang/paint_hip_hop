@@ -11,7 +11,7 @@ Jams::Application.routes.draw do
   match '/signup', :to => 'users#new'
    
   resources :videos
-  match '/search', :to => 'videos#search'
+  match '/post', :to => 'videos#search'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin',  :to => 'sessions#new'
@@ -20,6 +20,8 @@ Jams::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
 
   resources :votes, :only => [:create, :destroy]
+
+  resources :comments
   
   #match '/meta' => 'videos#new'
   

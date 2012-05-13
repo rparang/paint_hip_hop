@@ -8,9 +8,9 @@ class VotesController < ApplicationController
 	def create
 		@vote = current_user.votes.build(params[:vote])
 		
-		params.each do |key,value|
-  			Rails.logger.warn "Param #{key}: #{value}"
-		end
+		#params.each do |key,value|
+  		#	Rails.logger.warn "Param #{key}: #{value}"
+		#end
 
 		if @vote.save
 			@video = Video.find(params[:vote][:video_id])

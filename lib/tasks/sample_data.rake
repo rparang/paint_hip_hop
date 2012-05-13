@@ -30,17 +30,21 @@ def make_videos
 	yt_client = YouTubeIt::Client.new
 	5.times do |n|
 		#random_name = Faker::Name.name
-		rap_name = ["Lil Boosie", "Webbie", "Ludacris", "Travis Porter", "Drake"]
-		#include rand() function
-		vids = yt_client.videos_by(:query => rap_name[n])
-		vids_trim = vids.videos
-		title = vids_trim[0].title
-		youtube_id = vids_trim[0].video_id.split(":").last
-		description = vids_trim[0].description
-		duration = vids_trim[0].duration
-		youtube_view_count = vids_trim[0].view_count
 
-		users.each { |user| user.videos.create!(:title => title, :youtube_id => youtube_id, :youtube_id => youtube_id, :description => description, :duration => duration, :youtube_view_count => youtube_view_count)}
+		users.each do |user|
+			
+			rap_name = ["Lil Boosie", "Webbie", "Ludacris", "Travis Porter", "Drake", "Tupac", "Nate Dogg", "DJ Quik", "Beastie Boys", "Q-Tip"]
+			random_number = (10*rand()).to_i
+			vids = yt_client.videos_by(:query => rap_name[random_number], :page => 1, :per_page => 1)
+			vids_trim = vids.videos
+			title = vids_trim[0].title
+			youtube_id = vids_trim[0].video_id.split(":").last
+			description = vids_trim[0].description
+			duration = vids_trim[0].duration
+			youtube_view_count = vids_trim[0].view_count
+
+			user.videos.create!(:title => title, :youtube_id => youtube_id, :youtube_id => youtube_id, :description => description, :duration => duration, :youtube_view_count => youtube_view_count)
+		end
 	end
 end
 

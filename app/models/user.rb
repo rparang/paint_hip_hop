@@ -25,6 +25,7 @@ class User < ActiveRecord::Base
   has_many :following, :through => :relationships, :source => :followed         #User that you follow
   has_many :followers, :through => :reverse_relationships, :source => :follower #Users that follow you
   has_many :votes
+  has_many :comments, :dependent => :destroy
 
   
   before_save { |user| user.email = email.downcase }
@@ -61,7 +62,14 @@ class User < ActiveRecord::Base
     relationships.find_by_followed_id(other_user.id).destroy
   end
 
+  def points
+    points_array = self.videos.collect { |v| v.votes_count }
+    total_points = points_array.inject(:+)
+    return total_points
+  end
   
+
+
   private
   
     def create_remember_token

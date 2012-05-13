@@ -1,0 +1,5 @@
+<div class="comment-item">
+	<%= link_to comment_item.user.first_name, comment_item.user %>
+	<span><%= time_ago_in_words(comment_item.created_at) %> ago</span>
+	<p><%= comment_item.content %></p>
+</div>

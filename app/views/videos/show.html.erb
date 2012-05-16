@@ -56,7 +56,11 @@
 			<% end %>
 			</div>
 		<% else %>
-			<p>boobs</p>
+			<div class="more-from-user-pic-container">
+			<% 9.times do |n| %>
+				<img src="http://i.ytimg.com/vi/<%= video_array[n] %>/default.jpg" width="70px" height="70px"/>
+			<% end %>
+			</div>
 		<% end %>
 	</div>
 

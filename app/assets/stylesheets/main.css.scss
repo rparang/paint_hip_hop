@@ -135,7 +135,8 @@ nav {
 }
 
 .current-video-container {
-	//@include testing();
+	@include testing();
+	@include clearfix();
 	width: 100%;
 	background-color: $white;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
@@ -147,6 +148,40 @@ nav {
 		font-weight: bold;
 		padding: 8px 0 8px 12px;
 		border-bottom: 1px solid #D9D4D4;
+	}
+
+	.current-video-image {
+		float: left;
+
+		img {
+			width: 90px;
+		}
+	}
+
+	.current-video-title-and-time {
+		margin-left: 98px;
+		h3 {
+			font-size: 12px;
+			line-height: 15px;
+		}
+	}
+
+	.current-video-points-comments {
+		li {
+			float: left;
+			padding-left: 20px;
+			font-weight: bold;
+		}
+		.current-video-points {
+			background-image: url("star.png");
+			background-repeat: no-repeat;
+		}
+
+		.current-video-comments {
+			background-image: url("comment.png");
+			background-repeat: no-repeat;
+			margin-left: 15px;
+		}
 	}
 }
 
@@ -266,9 +301,14 @@ nav {
 				margin-top: 6px;
 			}
 			.video-user-container {
-				//@include testing();
+				@include testing();
 				@include clearfix();
 				margin-top: 5px;
+
+				#vote-button {
+					float: left;
+				}
+
 				a {
 					font-weight: bold;
 					font-size: 14px;
@@ -289,16 +329,17 @@ nav {
 					font-size: 14px;
 				}
 
-				a.watch-toggle {
-					font-weight: normal;
-					font-size: 13px;
-					padding: 0 0 2px 13px;
-				}
-
 				.video-comments-and-time {
+					@include testing();
 					float: right;
 					font-size: 14px;
 					color: $grayLight;
+
+					a.watch-toggle {
+						font-weight: normal;
+						font-size: 13px;
+						padding: 0 0 2px 13px;
+					}
 
 					.comments-icon {
 						background-image: url("comment.png");

@@ -67,6 +67,14 @@ class User < ActiveRecord::Base
     total_points = points_array.inject(:+)
     return total_points
   end
+
+  def vote?(video_id)
+    self.votes.find_by_video_id(video_id)
+  end
+
+  def current_video
+    self.videos.first
+  end
   
 
 

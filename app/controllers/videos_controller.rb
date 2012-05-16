@@ -40,12 +40,25 @@ class VideosController < ApplicationController
 
   def create
       @video = current_user.videos.build(params[:video])
-      if @video.save
-        flash.now[:notice] = "Video created biaatch"
-        redirect_to @video
+
+      time_now = Time.now.localtime
+      @last_video_created_time = current_user.videos.first.created_at
+
+      if (time_now - @last_video_created_time) >= 84600
+
+        if @video.save
+          flash.now[:notice] = "Video created biaatch"
+          redirect_to @video
+        else
+          render '/pages/home'
+        end
+
       else
-        render '/pages/home'
+
+        render :js =>  "alert('You may vote once every 24 hours for any one item.');"
+
       end
+
   end
   
   def update

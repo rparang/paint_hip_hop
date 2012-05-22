@@ -47,7 +47,7 @@
 
 <div class="right-container">
 	<div class="more-from-user-container">
-		<div class="more-from-user-header"><%= @video.user.first_name %></div>
+		<div class="more-from-user-header"><%= @video.user.first_name %> <span><%= @video.user.points %> Points</span></div>
 
 		<% if video_array.count < 10 %>
 			<div class="more-from-user-pic-container">

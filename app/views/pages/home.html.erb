@@ -2,7 +2,7 @@
 
 <div class="left-container">
 
-<div class="video-feed-header">Video from your followers</div>
+<div class="video-feed-header">Videos from your followers</div>
 <%= render 'shared/feed' %>
 
 </div>
@@ -22,7 +22,7 @@
 			<li class="current-video-points"><%= current_user.current_video.votes_count %> points</li>
 			<li class="current-video-comments"><%= current_user.current_video.comments.count %> comments</li>
 		</ul>
-		<%= link_to "Update video", edit_video_path(current_user.current_video) %>
+		<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
 
 	</div>
 

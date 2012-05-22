@@ -7,6 +7,8 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @videos = @user.videos
+    @feed_items = @user.videos
+    @vote = Vote.new
   end
   
   def new

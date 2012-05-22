@@ -1,3 +1,5 @@
+//see: http://stackoverflow.com/questions/7046495/rails-3-1-asset-pipeline-doesnt-pick-up-changes-to-importd-sheets
+
 @import "reset";
 
 @import "variables"; // Modify this for custom colors, font-sizes, etc
@@ -109,6 +111,7 @@ nav {
 .container {
 	@include container-fixed();
 	margin-top: 70px;
+	padding-bottom: 50px;
 
 	width: $containerWidth;
 	//@include testing();
@@ -135,7 +138,7 @@ nav {
 }
 
 .current-video-container {
-	@include testing();
+	//@include testing();
 	@include clearfix();
 	width: 100%;
 	background-color: $white;
@@ -152,6 +155,7 @@ nav {
 
 	.current-video-image {
 		float: left;
+		margin: 12px 0 0 5px;
 
 		img {
 			width: 90px;
@@ -160,13 +164,21 @@ nav {
 
 	.current-video-title-and-time {
 		margin-left: 98px;
+		margin-top:	10px;
+		height: 74px;
+		padding: 3px;
 		h3 {
 			font-size: 12px;
 			line-height: 15px;
 		}
+		p { 
+			margin-top: 4px;
+			color: $grayLight;
+		}
 	}
 
 	.current-video-points-comments {
+		margin: 0 0 20px 5px;
 		li {
 			float: left;
 			padding-left: 20px;
@@ -183,7 +195,45 @@ nav {
 			margin-left: 15px;
 		}
 	}
+
+	.current-video-update {
+		margin: 4px 0 8px 7px;
+		font-size: 11px;
+	}
 }
+
+.user-video-container {
+	@include clearfix();
+	width: 100%;
+	background-color: $white;
+	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
+	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
+
+	.user-video-header {
+		font-size: 14px;
+		font-weight: bold;
+		padding: 8px 0 8px 12px;
+		border-bottom: 1px solid #D9D4D4;
+
+		span {
+			font-size: 12px;
+			font-weight: normal;
+			margin-left: 10px;
+		}
+
+	}
+
+	p {
+		margin: 10px;
+	}
+
+	.user-follow {
+		margin-left: 10px;
+	}
+
+}
+
 
 .stats-container {
 	//@include testing();
@@ -301,12 +351,31 @@ nav {
 				margin-top: 6px;
 			}
 			.video-user-container {
-				@include testing();
+				//@include testing();
 				@include clearfix();
 				margin-top: 5px;
 
 				#vote-button {
+				}
+
+				.vote-button {
 					float: left;
+					form {
+						margin: 0;
+					}
+				}
+
+				.vote-button-check{
+					float: left;
+					background-image: url("check.png");
+					background-repeat: no-repeat;
+					height: 24px;
+					padding-left: 30px;
+					margin-top: 12px;
+
+					span {
+						font-size: 18px;
+					}
 				}
 
 				a {
@@ -330,10 +399,11 @@ nav {
 				}
 
 				.video-comments-and-time {
-					@include testing();
+					//@include testing();
 					float: right;
 					font-size: 14px;
 					color: $grayLight;
+					margin-top: 15px;
 
 					a.watch-toggle {
 						font-weight: normal;
@@ -345,6 +415,7 @@ nav {
 						background-image: url("comment.png");
 						background-repeat:no-repeat;
 						padding: 0 10px 0 21px;
+						margin-left: 15px;
 
 					}
 				}
@@ -500,6 +571,12 @@ nav {
 		font-weight: bold;
 		padding: 8px 0 8px 12px;
 		border-bottom: 1px solid #D9D4D4;
+
+		span {
+			font-size: 12px;
+			font-weight: normal;
+			margin-left: 10px;
+		}
 	}
 	.more-from-user-pic-container {
 		margin: 3px 1px 3px 1px;
@@ -510,5 +587,9 @@ nav {
 	}
 }
 
+.follow {
+	font-size: 12px;
+	height: 12px;
+}
 
 

@@ -1,7 +1,15 @@
 <div class="video-container">
 	<div class="vote-container">
 		<p class="vote-points" id="vote-ajax-<%= feed_item.id %>"><%= feed_item.votes_count %></p>
-		<span class="vote-points-label">Points</span>
+		<span class="vote-points-label">
+
+			<% if feed_item.votes_count == 1 %>
+				Point
+			<% else %>
+				Points
+			<% end %>
+
+		</span>
 		
 	</div>
 	<div class="video-container-inner">
@@ -26,9 +34,11 @@
 			</div>
 
 				<% if current_user.vote?(feed_item.id) %>
-					<p>Gooz</p>
+					<div class="vote-button-check">
+						<span>+1</span>
+					</div>
 				<% else %>
-					<div id="vote-button-<%= feed_item.id %>">
+					<div class="vote-button" id="vote-button-<%= feed_item.id %>">
 					<%= form_for(@vote, :remote => true) do |f| %>
 						<%= f.hidden_field "video_id", :value => feed_item.id %>
 						<%= f.submit "+1", :class => "btn btn-small", :id => "vote-button-#{ feed_item.id }" %>
@@ -37,9 +47,9 @@
 				<% end %>
 
 				<div class="video-comments-and-time">
-					<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Watch</a>
-					<span class="comments-icon"><%= link_to feed_item.comments.count, feed_item %></span>
 					<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
+					<span class="comments-icon"><%= link_to feed_item.comments.count, feed_item %></span>
+					<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Watch</a>
 				</div>
 			</div>
 		</div>

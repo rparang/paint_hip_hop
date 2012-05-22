@@ -1,16 +1,26 @@
-<p><%= @user.first_name %></p>
-<p><%= @user.last_name %></p>
-<p><%= @user.email %></p>
+<div class="left-container">
 
-<%= render 'users/follow_form' %>
+<div class="video-feed-header">Videos from <%= @user.first_name %></div>
+<%= render 'shared/feed' %>
 
-<%= render '/shared/stats' %>
+</div>
 
-<ul>
-	<% @videos.each do |v| %>
-	<li>
-		<%= link_to v.title, "http://www.youtube.com/watch?v=#{v.youtube_id}", :target => '_blank' %>
-		<%= v.description %>
-	</li>
-	<% end %>
-</ul>
+
+<div class="right-container">
+
+	<div class="user-video-container">
+		<div class="user-video-header"><%= @user.first_name %> <span><%= @user.points %> Points</span></div>
+		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+		<div class="user-follow"><%= render 'users/follow_form' %></div>
+	
+	</div>
+
+	<div class="stats-container">
+		<div class="stats-header">Your Stats</div>
+		<ul class="list-stats unstyled">
+			<li class="list-points"><a href="<%= user_path(current_user) %>"><%= @user.points %> total points</a></li>
+			<li class="list-followers"><a href="<%= followers_user_path(current_user) %>"><%= @user.followers.count %> followers</a></li>
+			<li class="list-following"><a href="<%= following_user_path(current_user) %>"><%= @user.following.count %> following</a></li>
+	</div>
+	
+</div>

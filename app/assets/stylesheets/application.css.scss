@@ -10,4 +10,8 @@
  *
  *= require_self
  *= require main.css.scss
+ *= depend_on _reset.css.scss
 */
+
+@import _reset.css.scss
+

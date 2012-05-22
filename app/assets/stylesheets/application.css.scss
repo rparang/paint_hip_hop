@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require main.css.scss
- *= depend_on _reset.css.scss
+ *= require_tree . 
+ *= 
 */

@@ -1,5 +1,16 @@
-<p>Name: <%= @user.first_name %></p>
-<%= provide(:title, @title) %>
+<div class="left-container">
+	<div class="follow-header"><%= @user.first_name %>'s <%= @user.followers.count %> <%= @title %></div>
+
 <% @users.each do |u| %>
-	<p><%= u.first_name %> <%= u.last_name %></p>
+	<ul class="unstyled user-listing">
+		<li class="user-name"><%= link_to u.first_name, u %><span><%= u.points %></span></li>
+		<li class="user-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		<% if current_user.admin? && !current_user?(u) %>
+		  | <%= link_to "delete", u, method: :delete, confirm: "You sure?" %>
+		<% end %>
+		<li class="user-video">Current video: <%= link_to u.videos.first.title, u.videos.first %></li>
+
+	</ul>
 <% end %>
+
+</div>

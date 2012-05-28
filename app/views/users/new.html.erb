@@ -1,8 +1,11 @@
-<%= provide(:title, 'Sign up') %>
-<h1>Sign up</h1>
+<% logo = image_tag("logo-big.png", :alt => "Paint the Town", :class => "logo") %>
 
-<div class="row">
-  <div class="span6 offset3">
+<div class="sign-in-container">
+
+<%= logo %>
+
+<div>
+  <div>
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
 
@@ -20,8 +23,13 @@
 
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation %>
-
-      <%= f.submit "Create my account", class: "btn btn-large btn-primary" %>
+      <br />
+      <%= f.submit "Create my account", class: "sign-in-btn btn btn-large" %>
     <% end %>
+
+    <p>Already a user? <%= link_to "Sign in now!", signin_path %></p>
+
   </div>
+</div>
+
 </div>

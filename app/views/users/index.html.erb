@@ -1,10 +1,16 @@
+<div class="left-container">
+	<div class="user-list-header">Suggested People</div>
+
 <% @users.each do |u| %>
-	<ul>
-		<li><%= link_to u.first_name, u %></li>
-		<li><%= u.last_name %></li>
-		<li><%= u.email %></li>
+	<ul class="unstyled user-listing">
+		<li class="user-name"><%= link_to u.first_name, u %><span><%= u.points %></span></li>
+		<li class="user-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
 		<% if current_user.admin? && !current_user?(u) %>
 		  | <%= link_to "delete", u, method: :delete, confirm: "You sure?" %>
 		<% end %>
+		<li class="user-video">Current video: <%= link_to u.videos.first.title, u.videos.first %></li>
+
 	</ul>
 <% end %>
+
+</div>

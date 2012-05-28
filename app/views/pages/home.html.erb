@@ -2,13 +2,24 @@
 
 <div class="left-container">
 
+<% unless current_user.following.nil? %>
+
 <div class="video-feed-header">Videos from your followers</div>
 <%= render 'shared/feed' %>
+
+<% else %>
+
+<div>NOT FOLLOWING ANYONE</div>
+
+<% end %>
 
 </div>
 
 
 <div class="right-container">
+
+<% unless current_user.videos.first.nil? %>
+
 	<div class="current-video-container">
 		<div class="current-video-header">Your Current Video</div>
 		<div class="current-video-image">
@@ -23,8 +34,13 @@
 			<li class="current-video-comments"><%= current_user.current_video.comments.count %> comments</li>
 		</ul>
 		<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
-
 	</div>
+
+<% else %>
+
+No current video
+
+<% end %>
 
 
 	<div class="stats-container">

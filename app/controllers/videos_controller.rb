@@ -39,7 +39,7 @@ class VideosController < ApplicationController
       time_now = Time.now.localtime
       @last_video_created_time = current_user.videos.first.created_at
 
-      if (time_now - @last_video_created_time) >= 84600
+      #if (time_now - @last_video_created_time) >= 84600
 
         if @video.save
           flash.now[:notice] = "Video created biaatch"
@@ -48,11 +48,11 @@ class VideosController < ApplicationController
           render '/pages/home'
         end
 
-      else
+      #else
 
-        render :js =>  "alert('You may vote once every 24 hours for any one item.');"
+     #   render :js =>  "alert('You may vote once every 24 hours for any one item.');"
 
-      end
+      #end
 
   end
   

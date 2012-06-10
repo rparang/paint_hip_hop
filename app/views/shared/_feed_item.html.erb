@@ -33,17 +33,25 @@
 				<span class="video-user-points"><%= feed_item.user.points %> total points</span>
 			</div>
 
-				<% if current_user.vote?(feed_item.id) %>
-					<div class="vote-button-check">
-						<span>+1</span>
-					</div>
-				<% else %>
-					<div class="vote-button" id="vote-button-<%= feed_item.id %>">
-					<%= form_for(@vote, :remote => true) do |f| %>
-						<%= f.hidden_field "video_id", :value => feed_item.id %>
-						<%= f.submit "+1", :class => "btn btn-small", :id => "vote-button-#{ feed_item.id }" %>
+				<% unless current_user.nil? %>
+
+					<% if current_user.vote?(feed_item.id) %>
+						<div class="vote-button-check">
+							<span>+1</span>
+						</div>
+					<% else %>
+						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
+						<%= form_for(@vote, :remote => true) do |f| %>
+							<%= f.hidden_field "video_id", :value => feed_item.id %>
+							<%= f.submit "+1", :class => "btn btn-small", :id => "vote-button-#{ feed_item.id }" %>
+						<% end %>
+						</div>
 					<% end %>
-					</div>
+
+				<% else %>
+
+					beeboop
+
 				<% end %>
 
 				<div class="video-comments-and-time">

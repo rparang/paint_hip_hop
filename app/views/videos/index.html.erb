@@ -1,12 +1,2 @@
-<p>VIDEO INDEX</p>
 
-<ul>
-	<% @videos.each do |v| %>
-	<li>
-		<%= link_to v.title, v %>
-		<%= v.description %>
-		- <%= link_to v.user.first_name, v.user %>
-	</li>
-
-	<% end %>
-</ul>
+<%= render 'shared/feed' %>

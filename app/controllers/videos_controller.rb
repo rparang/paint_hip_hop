@@ -13,10 +13,8 @@ class VideosController < ApplicationController
  
   def index
     @videos = Video.all(:limit => 20)
-
     @vote = Vote.new(params[:vote])
-
-
+    @feed_items = Video.all(:limit => 20)
   end
 
   def video
@@ -26,10 +24,7 @@ class VideosController < ApplicationController
     @video = Video.find(params[:id])
     @vote = Vote.new(params[:vote])
     @comment = Comment.new(params[:vote])
-
     @comment_items = @video.comments
-
-
   end
 
   def edit

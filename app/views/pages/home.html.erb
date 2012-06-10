@@ -1,19 +1,19 @@
 <% if signed_in? %>
 
-<div class="left-container">
+	<div class="left-container">
 
-<% unless current_user.following.nil? %>
+		<% unless current_user.following.nil? %>
 
-<div class="video-feed-header">Videos from your followers</div>
-<%= render 'shared/feed' %>
+			<div class="video-feed-header">Videos from your followers</div>
+			<%= render 'shared/feed' %>
 
-<% else %>
+		<% else %>
 
-<div>NOT FOLLOWING ANYONE</div>
+			<div>NOT FOLLOWING ANYONE</div>
 
-<% end %>
+		<% end %>
 
-</div>
+	</div>
 
 
 <div class="right-container">
@@ -56,20 +56,9 @@ No current video
 
 <% else %>
 
-Gooz! You have no videos! Figure out what to do for the home page if the user isn't signed in or isn't following anyone. Refactor so that each video is using :collection
-
-<p>VIDEO INDEX</p>
-
-<ul>
-	<% @videos.each do |v| %>
-	<li>
-		<%= link_to v.title, v %>
-		<%= v.description %>
-		- <%= link_to v.user.first_name, v.user %>
-	</li>
-
-	<% end %>
-</ul>
-
+<div class="left-container">
+	<div class="video-feed-header">Top Videos</div>
+	<%= render 'shared/feed' %>
+</div>
 
 <% end %>

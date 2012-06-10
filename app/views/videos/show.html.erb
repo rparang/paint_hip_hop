@@ -12,9 +12,25 @@
 			<div class="video-points-and-comments-container">
 				<div class="video-votes-container">
 					<div class="video-votes-value"><%= @video.votes_count %><span> Points</span></div>
-					<%= form_for(@vote, :remote => true) do |f| %>
-						<%= f.hidden_field "video_id", :value => @video.id %>
-						<%= f.submit "+1", class: "btn btn-small" %>
+
+					<% if signed_in? %>
+
+
+						<% if current_user.vote?(@video.id) %>
+							<div class="vote-button-check">
+								<span>+1</span>
+							</div>
+						<% else %>
+
+							<%= form_for(@vote, :remote => true) do |f| %>
+								<%= f.hidden_field "video_id", :value => @video.id %>
+								<%= f.submit "+1", class: "btn btn-small" %>
+							<% end %>
+						<% end %>
+					<% else %>
+						<form>
+							<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'"> 
+						</form>
 					<% end %>
 
 				</div>
@@ -27,13 +43,22 @@
 
 		<div id="comments-container">
 			<%= render :partial => 'videos/comment_item', :collection => @comment_items %>
-			<div id="comment-form-container">
-				<%= form_for(@comment, :remote => true) do |f| %>
-    				<%= f.text_field :content, :class => "comment-input" %>
-					<%= f.hidden_field "video_id", :value => @video.id %>
-    				<%= f.submit "Comment", class: "btn btn-primary" %>
-				<% end %>
-			</div>
+
+			<% if signed_in? %>
+
+				<div id="comment-form-container">
+					<%= form_for(@comment, :remote => true) do |f| %>
+	    				<%= f.text_field :content, :class => "comment-input" %>
+						<%= f.hidden_field "video_id", :value => @video.id %>
+	    				<%= f.submit "Comment", class: "btn btn-primary" %>
+					<% end %>
+				</div>
+
+			<% else %>
+
+				<p>Sign in to comment</p>
+
+			<% end %>
 
 		</div>
 

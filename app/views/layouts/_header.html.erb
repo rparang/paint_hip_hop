@@ -10,10 +10,14 @@
 			<% end %>
 
 			<ul class="nav nav-right">
-				<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 %> 
-				<li><%= link_to "Post", post_path %></li>
+				<% unless current_user.videos.first.nil? %>
+					<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 %> 
+						<li><%= link_to "Post", post_path %></li>
+					<% else %>
+						<li>about <%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left until you can post</li>
+					<% end %>
 				<% else %>
-				<li>about <%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left until you can post</li>
+					<li><%= link_to "Post", post_path %></li>
 				<% end %>
 				<li><%= link_to "Videos", videos_path %></li>
 				<li><%= link_to "Users", users_path %></li>

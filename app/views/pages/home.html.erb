@@ -2,7 +2,7 @@
 
 	<div class="left-container">
 
-		<% unless current_user.following.nil? %>
+		<% unless current_user.following.empty? %>
 
 			<div class="video-feed-header">Videos from your followers</div>
 			<%= render 'shared/feed' %>
@@ -38,7 +38,7 @@
 
 <% else %>
 
-No current video
+	No current video
 
 <% end %>
 

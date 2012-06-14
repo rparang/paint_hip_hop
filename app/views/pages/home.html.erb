@@ -46,7 +46,13 @@
 	<div class="stats-container">
 		<div class="stats-header">Your Stats</div>
 		<ul class="list-stats unstyled">
-			<li class="list-points"><a href="<%= user_path(current_user) %>"><%= current_user.points %> total points</a></li>
+			<li class="list-points"><a href="<%= user_path(current_user) %>">
+				<% if current_user.points == 0 %>
+					0 total points
+				<% else %>
+					<%= current_user.points %> total points
+				<% end %>
+				</a></li>
 			<li class="list-followers"><a href="<%= followers_user_path(current_user) %>"><%= current_user.followers.count %> followers</a></li>
 			<li class="list-following"><a href="<%= following_user_path(current_user) %>"><%= current_user.following.count %> following</a></li>
 	</div>

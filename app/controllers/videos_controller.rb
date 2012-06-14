@@ -12,9 +12,9 @@ class VideosController < ApplicationController
   end
  
   def index
-    @videos = Video.all(:limit => 20)
+    #@videos = Video.paginate(:page => params[:page], :per_page => 2)
     @vote = Vote.new(params[:vote])
-    @feed_items = Video.all(:limit => 20)
+    @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
   end
 
   def video

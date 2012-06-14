@@ -6,6 +6,7 @@
 
 			<div class="video-feed-header">Videos from your followers</div>
 			<%= render 'shared/feed' %>
+			<%= will_paginate @feed_items %>
 
 		<% else %>
 
@@ -65,6 +66,7 @@
 <div class="left-container">
 	<div class="video-feed-header">Top Videos</div>
 	<%= render 'shared/feed' %>
+	<%= will_paginate @feed_items %>
 </div>
 
 <% end %>

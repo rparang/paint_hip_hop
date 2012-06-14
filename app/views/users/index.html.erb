@@ -8,8 +8,9 @@
 		<% if current_user.admin? && !current_user?(u) %>
 		  | <%= link_to "delete", u, method: :delete, confirm: "You sure?" %>
 		<% end %>
+		<% unless u.videos.first.nil? %>
 		<li class="user-video">Current video: <%= link_to u.videos.first.title, u.videos.first %></li>
-
+		<% end %>
 	</ul>
 <% end %>
 

@@ -13,18 +13,29 @@
 		
 	</div>
 	<div class="video-container-inner">
-		<a href="<%= feed_item %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
+		<a href="<%= video_path(feed_item.id) %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
 		<div class="video-info-container">
 			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}" %>
 
 			<script type="text/javascript">
-				var shortText = $("#video-title-<%= feed_item.id %>").text()    // get the text within the div
-    			.trim()    // remove leading and trailing spaces
-    			.substring(0, 47)    // get first 600 characters
+				var shortText = $("#video-title-<%= feed_item.id %>").text()
+				if (shortText.length > 45) {
+					var shortText = $("#video-title-<%= feed_item.id %>").text().trim().substring(0,45)+"..."
+				}
+				else {
+					var shortText = $("#video-title-<%= feed_item.id %>").text()
+				}
+				$("#video-title-<%= feed_item.id %>").html(shortText);
+
+
+				//var shortText = $("#video-title-<%= feed_item.id %>").text()    // get the text within the div
+    			//.trim()    // remove leading and trailing spaces
+    			//.substring(0, 45) // get first 45 characters
+    			//if shortText.length >   // get first 600 characters
     			//.split(" ") // separate characters into an array of words
     			//.slice(0, -1)    // remove the last full or partial word
     			//.join(" ") + "..."; // combine into a single string and append "..."
-    			$("#video-title-<%= feed_item.id %>").html(shortText);
+    			//$("#video-title-<%= feed_item.id %>").html(shortText);
 			</script>
 
 			<div class="video-user-container">
@@ -59,7 +70,7 @@
 				<div class="video-comments-and-time">
 					<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
 					<span class="comments-icon"><%= link_to feed_item.comments.count, feed_item %></span>
-					<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Watch</a>
+					<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Expand</a>
 				</div>
 			</div>
 		</div>
@@ -76,11 +87,13 @@
 -->
 	<!--<iframe title="YouTube video player" width="560" height="315" src="http://www.youtube.com/embed/<%= feed_item.youtube_id %>" frameborder="0" allowfullscreen></iframe> -->
 
-	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>" style="display: none">Gooz</div>
+	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>" style="display: none">Video Placeholder</div>
 
 	<script>
 	$("#button-<%= feed_item.id %>").click(function () {
-	$("#youtube-container-<%= feed_item.id %>").toggle();
+		$("#youtube-container-<%= feed_item.id %>").toggle();
+		var text = $(this).text() == 'Expand' ? 'Collapse' : 'Expand';
+	    	$(this).text(text)
 	});
 
     $("#button-<%= feed_item.id %>").click(function () {

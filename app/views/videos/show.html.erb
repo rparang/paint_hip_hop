@@ -77,13 +77,13 @@
 		<% if video_array.count < 10 %>
 			<div class="more-from-user-pic-container">
 			<% video_array.count.times do |n| %>
-				<img src="http://i.ytimg.com/vi/<%= video_array[n] %>/default.jpg" width="70px" height="70px"/>
+				<a href="<%= user_path(@video.user.id) %>"><img src="http://i.ytimg.com/vi/<%= video_array[n] %>/default.jpg" width="70px" height="70px"/></a>
 			<% end %>
 			</div>
 		<% else %>
 			<div class="more-from-user-pic-container">
 			<% 9.times do |n| %>
-				<img src="http://i.ytimg.com/vi/<%= video_array[n] %>/default.jpg" width="70px" height="70px"/>
+				<a href="<%= user_path(@video.user.id) %>"><img src="http://i.ytimg.com/vi/<%= video_array[n] %>/default.jpg" width="70px" height="70px"/></a>
 			<% end %>
 			</div>
 		<% end %>

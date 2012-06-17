@@ -24,10 +24,10 @@
 	<div class="current-video-container">
 		<div class="current-video-header">Your Current Video</div>
 		<div class="current-video-image">
-			<img src="http://i.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/default.jpg" />
+			<a href="<%= video_path(current_user.current_video.id) %>"><img src="http://i.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/default.jpg" /></a>
 		</div>
 		<div class="current-video-title-and-time">
-			<h3><%= current_user.current_video.title %></h3>
+			<h3><a href="<%= video_path(current_user.current_video.id) %>"><%= current_user.current_video.title %></a></h3>
 			<p><%= time_ago_in_words(current_user.current_video.created_at) %></p>
 		</div>
 		<ul class="current-video-points-comments unstyled">

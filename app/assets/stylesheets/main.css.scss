@@ -1994,7 +1994,9 @@ nav {
 	float: right;
 	width: $rightcontainerWidth;
 	//padding: 8px 8px 0;
-	position: relative;
+	//position: relative;
+  position: fixed;
+  margin-left: 682px;
 }
 
 .current-video-container {

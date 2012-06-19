@@ -15,7 +15,7 @@
 	<div class="video-container-inner">
 		<a href="<%= video_path(feed_item.id) %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
 		<div class="video-info-container">
-			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}" %>
+			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}", :title => "#{feed_item.title}" %>
 
 			<script type="text/javascript">
 				var shortText = $("#video-title-<%= feed_item.id %>").text()
@@ -40,7 +40,7 @@
 
 			<div class="video-user-container">
 				<div>
-				<%= link_to feed_item.user.first_name, feed_item.user %>
+				<%= link_to feed_item.user.username, feed_item.user %>
 				<span class="video-user-points"><%= feed_item.user.points %> total points</span>
 			</div>
 

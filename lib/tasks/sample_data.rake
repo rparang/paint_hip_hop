@@ -8,18 +8,20 @@ namespace :db do
 end
 
 def make_users
-	admin = User.create!(:first_name => "Reza", :last_name => "Parang",
+	admin = User.create!(:username => "shotcalla23",
 						 :email => "reza@parang.com", :password => "password",
 						 :password_confirmation => "password")
 	admin.toggle!(:admin)
 	20.times do |n|
 		n += 1
-		first_name = Faker::Name.first_name
-		last_name = Faker::Name.last_name
+		username_raw = Faker::Name.name + (10*rand()).to_i.to_s
+		username = username_raw.gsub(/\s+/, "")
+		#first_name = Faker::Name.first_name
+		#last_name = Faker::Name.last_name
 		email = "myemail-#{n}@jams.com"
 		password = "password"
 		password_confirmation = "password"
-		User.create!(:first_name => first_name, :last_name => last_name, :email => email,
+		User.create!(:username => username, :email => email,
 					 :password => password, :password_confirmation => password_confirmation)
 	end
 end

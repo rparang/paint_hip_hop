@@ -2,7 +2,7 @@
 	<div class="video-main">
 		<div class="video-header">
 			<p class="name"><%= link_to @video.title, "http://www.youtube.com/watch?v=#{@video.youtube_id}", :target => '_blank' %></p>
-			<p class="created-at"><%= time_ago_in_words(@video.created_at) %> ago by <%= link_to @video.user.first_name, @video.user %></p>
+			<p class="created-at"><%= time_ago_in_words(@video.created_at) %> ago by <%= link_to @video.user.username, @video.user %></p>
 		</div>
 		<div class="video-player">
 			<div class="video-player-background">
@@ -11,7 +11,7 @@
 		
 			<div class="video-points-and-comments-container">
 				<div class="video-votes-container">
-					<div class="video-votes-value"><%= @video.votes_count %><span> Points</span></div>
+					<div class="video-votes-value" id="vote-ajax-<%= @video.id %>"><%= @video.votes_count %><span> Points</span></div>
 
 					<% if signed_in? %>
 
@@ -21,11 +21,12 @@
 								<span>+1</span>
 							</div>
 						<% else %>
-
-							<%= form_for(@vote, :remote => true) do |f| %>
-								<%= f.hidden_field "video_id", :value => @video.id %>
-								<%= f.submit "+1", class: "btn btn-small" %>
-							<% end %>
+							<div id="vote-button-<%= @video.id %>">
+								<%= form_for(@vote, :remote => true) do |f| %>
+									<%= f.hidden_field "video_id", :value => @video.id %>
+									<%= f.submit "+1", class: "btn btn-small" %>
+								<% end %>
+							</div>
 						<% end %>
 					<% else %>
 						<form>
@@ -72,7 +73,7 @@
 
 <div class="right-container">
 	<div class="more-from-user-container">
-		<div class="more-from-user-header"><%= @video.user.first_name %> <span><%= @video.user.points %> Points</span></div>
+		<div class="more-from-user-header"><%= @video.user.username %> <span><%= @video.user.points %> Total Points</span></div>
 
 		<% if video_array.count < 10 %>
 			<div class="more-from-user-pic-container">

@@ -1,6 +1,6 @@
 <div class="left-container">
 
-<div class="video-feed-header">Videos from <%= @user.first_name %></div>
+<div class="video-feed-header">Videos from <%= @user.username %></div>
 <%= render 'shared/feed' %>
 
 </div>
@@ -9,8 +9,8 @@
 <div class="right-container">
 
 	<div class="user-video-container">
-		<div class="user-video-header"><%= @user.first_name %> <span><%= @user.points %> Points</span></div>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+		<div class="user-video-header"><%= @user.username %> <span><%= @user.points %> Points</span></div>
+		<p><%= @user.bio %></p>
 		<% if signed_in? %>
 			<div class="user-follow"><%= render 'users/follow_form' %></div>
 		<% end %>
@@ -18,7 +18,7 @@
 	</div>
 
 	<div class="stats-container">
-		<div class="stats-header"><%= @user.first_name %>'s Stats</div>
+		<div class="stats-header"><%= @user.username %>'s Stats</div>
 		<ul class="list-stats unstyled">
 			<li class="list-points"><a href="<%= user_path(@user) %>"><%= @user.points %> total points</a></li>
 			<li class="list-followers"><a href="<%= followers_user_path(@user) %>"><%= @user.followers.count %> followers</a></li>

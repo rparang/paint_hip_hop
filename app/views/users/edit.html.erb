@@ -6,11 +6,11 @@
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
 
-      <%= f.label :first_name %>
-      <%= f.text_field :first_name %>
+      <%= f.label :username %>
+      <%= f.text_field :username %>
 
-      <%= f.label :last_name %>
-      <%= f.text_field :last_name %>
+      <%= f.label :bio %>
+      <%= f.text_area :bio, :cols => "30", :rows => "10" %>
 
       <%= f.label :email %>
       <%= f.text_field :email %>

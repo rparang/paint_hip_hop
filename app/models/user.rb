@@ -14,7 +14,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :email, :password, :password_confirmation
+  attr_accessible :first_name, :last_name, :email, :username, :bio, :password, :password_confirmation
   has_secure_password
 
   has_many :videos, :dependent => :destroy
@@ -30,14 +30,15 @@ class User < ActiveRecord::Base
   
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
+  before_save :create_bio
   
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
-  validates :first_name, :presence => true, 
-                       :length => { maximum: 50 }
+  #validates :first_name, :presence => true, :length => { maximum: 50 }
                          
-  validates :last_name, :presence => true, 
-                       :length => { maximum: 50 }
+  #validates :last_name, :presence => true, :length => { maximum: 50 }
+
+  validates :username, :presence => true, :length => { maximum: 50 }
   
   validates :email, :presence => true, 
                    :format => { with: VALID_EMAIL_REGEX }, 
@@ -82,6 +83,12 @@ class User < ActiveRecord::Base
   
     def create_remember_token
       self.remember_token = SecureRandom.urlsafe_base64
+    end
+
+    def create_bio
+      if self.bio.nil?
+        self.bio = "Just a young buck on the town..."
+      end
     end
   
   

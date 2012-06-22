@@ -4,9 +4,10 @@
 <% @users.each do |u| %>
 	<ul class="unstyled user-listing">
 		<li class="user-name"><%= link_to u.username, u %><span><%= u.points %></span></li>
-		<li class="user-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li>
+		<li class="user-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</li
+		<% unless u.videos.first.nil? %>
 		<li class="user-video">Current video: <%= link_to u.videos.first.title, u.videos.first %></li>
-
+		<% end %>
 	</ul>
 <% end %>
 

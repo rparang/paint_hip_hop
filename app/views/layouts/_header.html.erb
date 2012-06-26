@@ -24,7 +24,7 @@
 					<li class="nav-menu" id="menu-toggle">
 						<a href="<%= user_path(current_user.id) %>"><%= current_user.username %><b class="caret"></b></a>
 						<ul class="unstyled nav-menu-container" id="sub-menu">
-							<li><%= link_to "Edit your profile", edit_user_path(current_user) %></li>
+							<li><%= link_to "Edit account", edit_user_path(current_user) %></li>
 							<li><%= link_to "Sign Out", signout_path %></li>
 						</ul>
 					</li>

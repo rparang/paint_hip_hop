@@ -1,38 +1,52 @@
 <% logo = image_tag("logo-2.png", :alt => "Paint the Town", :class => "logo") %>
 
 <nav>
-<div id="nav-wrapper">
-	<div class="nav-container">
-		<%= link_to logo, root_path %>
-		
-		<% if signed_in? %>
-			<% if current_user.admin? %><span style="color: #fff">ADMIN</span>
-			<% end %>
-
-			<ul class="nav nav-right">
-				<% unless current_user.videos.first.nil? %>
-					<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 %> 
-						<li><%= link_to "Post", post_path %></li>
-					<% else %>
-						<li>about <%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left until you can post</li>
-					<% end %>
-				<% else %>
-					<li><%= link_to "Post", post_path %></li>
+	<div id="nav-wrapper">
+		<div class="nav-container">
+			<%= link_to logo, root_path %>
+			
+			<% if signed_in? %>
+				<% if current_user.admin? %><span style="color: #fff">ADMIN</span>
 				<% end %>
-				<li><%= link_to "Videos", videos_path %></li>
-				<li><%= link_to "Users", users_path %></li>
-				<li><%= link_to current_user.username, current_user %></li>
-				<li><%= link_to "Edit your profile", edit_user_path(current_user) %></li>
-				<li><%= link_to "Sign Out", signout_path %></li>
-			</ul>
 
-		<% else %>
-			<ul class="nav nav-right">
-				<li><%= link_to "Sign Up", signup_path %></li>
-				<li><%= link_to "Sign In", signin_path %></li>
-			</ul>
+				<ul class="nav nav-right">
+					<% unless current_user.videos.first.nil? %>
+						<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 %> 
+							<li><%= link_to "Post", post_path %></li>
+						<% else %>
+							<li>about <%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left until you can post</li>
+						<% end %>
+					<% else %>
+						<li><%= link_to "Post", post_path %></li>
+					<% end %>
+					<li><%= link_to "Videos", videos_path %></li>
+					<li><%= link_to "Users", users_path %></li>
+					<li class="nav-menu" id="menu-toggle">
+						<a href="<%= user_path(current_user.id) %>"><%= current_user.username %><b class="caret"></b></a>
+						<ul class="unstyled nav-menu-container" id="sub-menu">
+							<li><%= link_to "Edit your profile", edit_user_path(current_user) %></li>
+							<li><%= link_to "Sign Out", signout_path %></li>
+						</ul>
+					</li>
+				</ul>
 
-		<% end %>
+				<script type="text/javascript">
+
+					$("#menu-toggle").hover(
+					  function () {
+					    $("#sub-menu").toggle();
+					  }
+					);
+
+				</script>
+
+			<% else %>
+				<ul class="nav nav-right">
+					<li><%= link_to "Sign Up", signup_path %></li>
+					<li><%= link_to "Sign In", signin_path %></li>
+				</ul>
+
+			<% end %>
+		</div>
 	</div>
-</div>
 </nav>

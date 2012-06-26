@@ -14,14 +14,13 @@ class VotesController < ApplicationController
 
 		if @vote.save
 			@video = Video.find(params[:vote][:video_id])
-			flash[:success] = "Your vote went through mofugga"
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.js
 			end
 
 		else
-			flash[:error] = "Some shit is wrong with your vote"
+			flash[:error] = "Something is wrong with your vote"
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.js

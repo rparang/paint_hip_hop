@@ -18,7 +18,7 @@ def make_users
 		username = username_raw.gsub(/\s+/, "")
 		#first_name = Faker::Name.first_name
 		#last_name = Faker::Name.last_name
-		email = "myemail-#{n}@jams.com"
+		email = "myemail-#{n}@paintthetownapp.com"
 		password = "password"
 		password_confirmation = "password"
 		User.create!(:username => username, :email => email,

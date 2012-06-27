@@ -1959,12 +1959,12 @@ nav {
             position: absolute;
             width: 120px;
             top: 100%;
-            right: 0;
+            //right: 0;
             z-index: 1000;
             display: none;
             float: left;
             padding: 4px 0;
-            margin: 0px 114px 0 0;
+            margin: 0 0 0 5px;
             list-style: none;
             background-color: 
             white;
@@ -2529,6 +2529,136 @@ nav {
 .follow {
 	font-size: 12px;
 	height: 12px;
+}
+
+//SEARCH AND POST
+
+.search-container {
+  border-bottom: 1px solid #D9D4D4;
+
+  .search-header {
+    font-size: 18px;
+    font-weight: bold;
+    padding: 8px 0 8px 12px;
+    margin: 8px 0 0 8px;
+  }
+
+  input.search-input {
+    width: 500px;
+    margin: 9px 0 0 20px;
+    height: 27px;
+    font-size: 20px;
+  }
+
+  input.search-button {
+    width: 104px;
+    height: 36px;
+    margin-bottom: 11px;
+  }
+
+}
+
+.search-results {
+
+  .search-item {
+    @include clearfix();
+    padding: 12px 0 12px 20px;
+    border-bottom: 1px solid #D9D4D4;
+
+    .search-left {
+      float: left;
+    }
+
+    .search-right {
+      float: left;
+      width: 500px;
+      margin: 4px 0 0 16px;
+
+      h1 {
+        font-size: 18px;
+        line-height: 22px;
+        margin-bottom: 6px;
+      }
+
+      p {
+        font-size: 14px;
+        font-style: italic;
+      }
+
+    }
+
+  }
+
+  .search-item:hover {
+    background-color: #f7f7f7;
+    cursor: pointer;
+  }
+
+}
+
+
+//NEW / EDIT 
+
+.new-video-header {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 0 8px 12px;
+  border-bottom: 1px solid #D9D4D4; 
+}
+
+.new-video-preview {
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #D9D4D4;
+}
+
+.new-video-title {
+  padding: 12px 0 0 48px;
+
+  label {
+    font-size: 16px;
+    margin-top: 9px;
+  }
+
+  input {
+    height: 27px;
+    font-size: 18px;
+    width: 552px;
+  }
+}
+
+.new-video-description {
+  padding: 12px 0 0 48px;
+
+  label {
+    font-size: 16px;
+    margin-top: 9px;
+  }
+
+  textarea {
+    height: 90px;
+    font-size: 14px;
+    width: 552px;
+
+  }
+}
+
+.new-video-buttons {
+  text-align: right;
+  padding: 12px 48px 0 48px;
+
+  input.new-video-back {
+    height: 36px;
+    width: 60px;
+    margin-bottom: 3px;
+  }
+
+  input.new-video-submit {
+    width: 136px;
+    height: 36px;
+    margin-left: 6px;
+  }
+
 }
 
 //USER LIST

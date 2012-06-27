@@ -1,13 +1,32 @@
-<%= form_tag(post_path, :method => "get") do %>
-  <%= label_tag(:s, "Search for:") %>
-  <%= text_field_tag(:s) %>
-  <%= submit_tag("Search", :class => "btn") %>
-<% end %>
+<div class="left-container">
+	<div class="search-container">
+		<div class="search-header">Post a Video</div>
+		<%= form_tag(post_path, :method => "get") do %>
+		  <%= text_field_tag('s', nil, :class => "search-input") %>
+		  <%= submit_tag("Search", :class => "btn search-button") %>
+		<% end %>
+	</div>
+	<div class="search-results">
 
-<% @vids.videos.size.times do |i| %>
+		<% @vids.videos.size.times do |i| %>
 
-<a href="/videos/new?v=<%= @video_id[i].split(":").last %>"><h3><%= @video_titles[i] %></h3></a>
-<a href="<%= @video_url[i] %>" target="_blank"><h3><img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" /></h3></a>
-<h3><%= @video_id[i].split(":").last %></h3>
+		<!-- <a href="/videos/new?v=<%= @video_id[i].split(":").last %>"> -->
+			<div class="search-item" onclick="window.location = '/videos/new?v=<%= @video_id[i].split(":").last %>';" data-url="#">
+				<div class="search-left">
+					<img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" />
+				</div>
+				<div class="search-right">
+					<h1><%= @video_titles[i] %></h1>
+					<p><%= Time.at(@video_duration[i]).utc.strftime("%M:%S") %></p>
+				</div>
+	<!--
+				<a href="/videos/new?v=<%= @video_id[i].split(":").last %>"><h3><%= @video_titles[i] %></h3></a>
+				<a href="<%= @video_url[i] %>" target="_blank"><h3><img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" /></h3></a>
+	-->
+			</div>
+		<!-- </a> -->
 
-<% end %>
+		<% end %>
+
+	</div>
+</div>

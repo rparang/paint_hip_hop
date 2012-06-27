@@ -9,6 +9,7 @@ class VideosController < ApplicationController
     @video_image_url = @vids.videos.collect {|v| v.thumbnails}
     @video_url = @vids.videos.collect {|v| v.player_url}
     @video_id = @vids.videos.collect {|v| v.video_id }
+    @video_duration = @vids.videos.collect {|v| v.duration }
   end
  
   def index

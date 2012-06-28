@@ -1850,7 +1850,24 @@ input[type="submit"].btn {
 }
 
 
+.alert {
+  padding: 5px 35px 3px 14px;
+  margin-bottom: 13px;
+  color: #C09855;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #FCF8E3;
+  border: 1px solid #E0C69A;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  text-align: center;
+}
 
+.alert-success {
+  color: #468847;
+  background-color: #DFF0D8;
+  border-color: #D6E9C6;
+}
 
 
 

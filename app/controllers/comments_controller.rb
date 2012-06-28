@@ -10,13 +10,12 @@ class CommentsController < ApplicationController
 		@comment = current_user.comments.build(params[:comment])
 
 		if @comment.save
-			flash[:success] = "Comment saved!"
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.js
 			end
 		else
-			flash[:error] = "Some shit is wrong with your comment"
+			flash[:error] = "Something went wrong with your comment. We're looking into it."
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.js

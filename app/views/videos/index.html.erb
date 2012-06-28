@@ -1,5 +1,8 @@
 <div class="left-container">
 	<div class="video-feed-header">Top Videos</div>
-		<%= render 'shared/feed' %>
-		<%= will_paginate @feed_items %>
+		<div id="results">
+			<%= render 'shared/feed' %>
+			<%= will_paginate @feed_items %>
+			<%= pageless(@feed_items.total_pages, videos_path, "#results") %>
+		</div>
 </div>

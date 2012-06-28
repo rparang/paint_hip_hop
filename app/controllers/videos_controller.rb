@@ -16,6 +16,10 @@ class VideosController < ApplicationController
     #@videos = Video.paginate(:page => params[:page], :per_page => 2)
     @vote = Vote.new(params[:vote])
     @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+    if request.xhr?
+      #sleep(3) # make request a little bit slower to see loader :-)
+      render :partial => 'shared/feed'
+    end
   end
 
   def video
@@ -43,7 +47,7 @@ class VideosController < ApplicationController
       #if (time_now - @last_video_created_time) >= 84600
 
         if @video.save
-          flash.now[:notice] = "Video created biaatch"
+          #flash.now[:notice] = "Video created biaatch"
           redirect_to @video
         else
           render '/pages/home'

@@ -1,8 +1,9 @@
 <div class="left-container">
 	<div class="search-container">
 		<div class="search-header">Post a Video</div>
+		<% query = params[:s] %>
 		<%= form_tag(post_path, :method => "get") do %>
-		  <%= text_field_tag('s', nil, :class => "search-input") %>
+		  <%= text_field_tag('s', "#{query}", :class => "search-input") %>
 		  <%= submit_tag("Search", :class => "btn search-button") %>
 		<% end %>
 	</div>
@@ -11,7 +12,7 @@
 		<% @vids.videos.size.times do |i| %>
 
 		<!-- <a href="/videos/new?v=<%= @video_id[i].split(":").last %>"> -->
-			<div class="search-item" onclick="window.location = '/videos/new?v=<%= @video_id[i].split(":").last %>';" data-url="#">
+			<div class="search-item" onclick="window.location = '/videos/new?v=<%= @video_id[i].split(":").last %>&amp;s=<%= params[:s] %>';" data-url="#">
 				<div class="search-left">
 					<img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" />
 				</div>

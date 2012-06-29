@@ -63,6 +63,13 @@
 
 		</div>
 
+		<div>
+			<% @video.votes.count.times do |n| %>
+				<p><%= @video.votes[n].user.username %> gave a point</p>
+			<% end %>
+
+		</div>
+
 	</div>
 </div>
 

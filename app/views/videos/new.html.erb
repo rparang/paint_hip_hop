@@ -16,7 +16,7 @@
       <%= f.hidden_field :youtube_id, :value => @vids.video_id.split(":").last %>
     </div>
     <div class="new-video-buttons">
-      <input class="btn new-video-back" type="button" value="Back" onclick="window.location.href='/post'"> 
+      <input class="btn new-video-back" type="button" value="Back" onclick="window.location.href='/post?s=<%= params[:s] %>'"> 
       <%= f.submit "Post", :class => "btn-primary new-video-submit" %>
     </div>
   <% end %>

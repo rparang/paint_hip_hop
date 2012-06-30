@@ -12,7 +12,7 @@
 		<% @vids.videos.size.times do |i| %>
 
 		<!-- <a href="/videos/new?v=<%= @video_id[i].split(":").last %>"> -->
-			<div class="search-item" onclick="window.location = '/videos/new?v=<%= @video_id[i].split(":").last %>&amp;s=<%= params[:s] %>';" data-url="#">
+			<div class="search-item" onclick="window.location = '/videos/new?v=<%= @video_id[i].split(":").last %>&amp;s=<%=escape_javascript(params[:s]) %>';" data-url="#">
 				<div class="search-left">
 					<img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" />
 				</div>

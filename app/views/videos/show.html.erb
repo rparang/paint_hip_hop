@@ -40,7 +40,7 @@
 			</div>
 		</div>
 
-		<p class="video-description"><%= @video.description %></p>
+		<p class="video-description"><%=raw @video.description.gsub(/\n/, '<br/>') %></p>
 
 		<div id="comments-container">
 			<%= render :partial => 'videos/comment_item', :collection => @comment_items %>

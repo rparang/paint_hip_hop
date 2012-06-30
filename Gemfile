@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
-gem 'bcrypt-ruby', '3.0.1'
+#gem 'bcrypt-ruby', '3.0.1'
 gem 'youtube_it'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.0'
@@ -20,6 +20,6 @@ end
 
 group :production do
   # gems specifically for Heroku go here
-  gem "pg"
-  #gem 'therubyracer'
+  #gem "pg"
+  gem 'therubyracer'
 end

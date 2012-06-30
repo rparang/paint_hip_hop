@@ -18,8 +18,8 @@ class Video < ActiveRecord::Base
   attr_accessible :title, :user_id, :youtube_id, :description, :duration, :youtube_view_count
   
   belongs_to :user
-  has_many :votes
-  has_many :comments
+  has_many :votes, :dependent => :destroy
+  has_many :comments, :dependent => :destroy
 
   validates :user_id, :presence => true
 

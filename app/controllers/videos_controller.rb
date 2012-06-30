@@ -36,6 +36,9 @@ class VideosController < ApplicationController
   end
 
   def destroy
+    Video.find(params[:id]).destroy
+    flash[:success] = "Your video was deleted. Good riddance."
+    redirect_to root_path
   end
 
   def create

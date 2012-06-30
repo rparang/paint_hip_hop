@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   validates :password, :length => { minimum: 6 }
   validates :password_confirmation, :presence => true
 
-  #default_scope order: 'users.created_at ASC'
+  default_scope order: 'users.created_at ASC'
 
   def feed
     Video.from_users_following(self)

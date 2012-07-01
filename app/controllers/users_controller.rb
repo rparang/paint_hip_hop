@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.all
+    @users = User.users_created_at_ascending
   end
   
   def update

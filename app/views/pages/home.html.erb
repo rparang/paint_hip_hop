@@ -1,0 +1,77 @@
+<% if signed_in? %>
+
+	<div class="left-container">
+
+		<% unless current_user.feed.empty? %>
+
+			<div class="video-feed-header">Videos from your followers</div>
+				<div id="results">
+					<%= render 'shared/feed' %>
+					<%= will_paginate @feed_items %>
+					<%= pageless(@feed_items.total_pages, root_path, "#results") %>
+				</div>
+		<% else %>
+
+			<div>NOT FOLLOWING ANYONE</div>
+
+		<% end %>
+
+	</div>
+
+
+<div class="right-container">
+
+	<% unless current_user.videos.first.nil? %>
+
+		<div class="current-video-container">
+			<div class="current-video-header">Your Current Video</div>
+			<div class="current-video-image">
+				<a href="<%= video_path(current_user.current_video.id) %>"><img src="http://i.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/default.jpg" /></a>
+			</div>
+			<div class="current-video-title-and-time">
+				<h3><a href="<%= video_path(current_user.current_video.id) %>"><%= current_user.current_video.title %></a></h3>
+				<p><%= time_ago_in_words(current_user.current_video.created_at) %></p>
+			</div>
+			<ul class="current-video-points-comments unstyled">
+				<li class="current-video-points"><%= current_user.current_video.votes_count %> points</li>
+				<li class="current-video-comments"><%= current_user.current_video.comments.count %> comments</li>
+			</ul>
+			<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
+		</div>
+
+	<% else %>
+
+		No current video
+
+	<% end %>
+
+
+	<div class="stats-container">
+		<div class="stats-header">Your Stats</div>
+		<ul class="list-stats unstyled">
+			<li class="list-points"><a href="<%= user_path(current_user) %>">
+				<% if current_user.points == 0 %>
+					0 total points
+				<% else %>
+					<%= current_user.points %> total points
+				<% end %>
+				</a></li>
+			<li class="list-followers"><a href="<%= followers_user_path(current_user) %>"><%= current_user.followers.count %> followers</a></li>
+			<li class="list-following"><a href="<%= following_user_path(current_user) %>"><%= current_user.following.count %> following</a></li>
+	</div>
+
+</div>
+
+
+<% else %>
+
+<div class="left-container">
+	<div class="video-feed-header">Top Videos</div>
+	<div id="results">
+		<%= render 'shared/feed' %>
+		<%= will_paginate @feed_items %>
+		<%= pageless(@feed_items.total_pages, videos_path, "#results") %>
+	</div>
+</div>
+
+<% end %>

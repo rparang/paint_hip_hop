@@ -15,7 +15,7 @@ class VideosController < ApplicationController
   def index
     #@videos = Video.paginate(:page => params[:page], :per_page => 2)
     @vote = Vote.new(params[:vote])
-    @feed_items = Video.videos_votes_count_descending.paginate(:page => params[:page], :per_page => 10)
+    @feed_items = Video.unscoped.videos_votes_count_descending.paginate(:page => params[:page], :per_page => 10)
     if request.xhr?
       render :partial => 'shared/feed'
     end

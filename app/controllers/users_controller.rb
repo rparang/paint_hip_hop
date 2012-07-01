@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @videos = @user.videos
-    @feed_items = @user.videos.videos_created_at_descending
+    @feed_items = @user.videos
     @vote = Vote.new
   end
   
@@ -31,7 +31,7 @@ class UsersController < ApplicationController
   end
   
   def index
-    @users = User.users_created_at_ascending
+    @users = User.unscoped.users_created_at_ascending
   end
   
   def update

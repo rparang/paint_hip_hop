@@ -30,7 +30,7 @@ class Video < ActiveRecord::Base
 
   def self.from_users_following(user) #Note: tutorial takes this further for scale
   	following_ids = (user.following_ids << user.id).join(', ')
-  	where("user_id IN (#{following_ids})")
+  	where("user_id IN (#{following_ids})").order("videos.created_at ASC")
   end
 
 

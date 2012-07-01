@@ -1,24 +1,7 @@
 <% if signed_in? %>
 
-	<div class="left-container">
 
-		<% unless current_user.feed.empty? %>
 
-			<div class="video-feed-header">Videos from your followers</div>
-				<div id="results">
-					<%= render 'shared/feed' %>
-					<%= will_paginate @feed_items %>
-					<%= pageless(@feed_items.total_pages, root_path, "#results") %>
-				</div>
-		<% else %>
-
-			<div>NOT FOLLOWING ANYONE</div>
-
-		<% end %>
-
-	</div>
-
-<!--
 <div class="right-container">
 
 	<% unless current_user.videos.first.nil? %>
@@ -61,7 +44,7 @@
 	</div>
 
 </div>
--->
+
 
 <% else %>
 

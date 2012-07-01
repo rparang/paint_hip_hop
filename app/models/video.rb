@@ -24,10 +24,10 @@ class Video < ActiveRecord::Base
   validates :user_id, :presence => true
 
   default_scope order: 'videos.created_at DESC'
-  scope :videos_created_at_descending, order: 'videos.created_at DESC'
-  scope :videos_votes_count_descending, order: 'videos.votes_count DESC'
+  #scope :videos_created_at_descending, order: 'videos.created_at DESC'
+  #scope :videos_votes_count_descending, order: 'videos.votes_count DESC'
   
-  
+
   def self.from_users_following(user) #Note: tutorial takes this further for scale
   	following_ids = (user.following_ids << user.id).join(', ')
   	where("user_id IN (#{following_ids})")

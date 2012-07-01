@@ -70,8 +70,8 @@
 
 		</div>
 		<% if current_user?(@video.user) %>
-			<%= link_to "Delete video?", @video, :method => :delete, :confirm => "Are you sure? The video and its votes and comments won't be coming back.",
-										:title => "Delete #{@video.title}", :class => "delete-video" %>
+			<%= link_to "Delete video?", @video, :method => :delete, :confirm => "Are you sure? The video and its votes and comments won't be coming back.", :title => "Delete #{@video.title}", :class => "delete-video" %>
+			<%= link_to "Update video?", edit_video_path(@video.id), :title => "Delete #{@video.title}", :class => "delete-video" %>
 		<% end %>
 	</div>
 </div>

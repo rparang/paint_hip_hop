@@ -15,14 +15,10 @@ class VideosController < ApplicationController
   def index
     #@videos = Video.paginate(:page => params[:page], :per_page => 2)
     @vote = Vote.new(params[:vote])
-    @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+    @feed_items = Video.videos_votes_count_descending.paginate(:page => params[:page], :per_page => 10)
     if request.xhr?
-      #sleep(3) # make request a little bit slower to see loader :-)
       render :partial => 'shared/feed'
     end
-  end
-
-  def video
   end
 
   def show
@@ -32,7 +28,44 @@ class VideosController < ApplicationController
     @comment_items = @video.comments
   end
 
+
+  def new
+    @yt_client = YouTubeIt::Client.new
+    query = params[:v]
+    @vids =  @yt_client.video_by("#{query}")
+    @video_image_url = @vids.thumbnails
+    @video = Video.new
+    @comment = Comment.new
+  end
+
+  def create
+    @video = current_user.videos.build(params[:video])
+    time_now = Time.now.localtime
+    @last_video_created_time = current_user.videos.first.created_at
+    #if (time_now - @last_video_created_time) >= 84600
+        if @video.save
+          #flash.now[:notice] = "Video created biaatch"
+          redirect_to @video
+        else
+          render '/pages/home'
+        end
+      #else
+        #render :js =>  "alert('You may vote once every 24 hours for any one item.');"
+      #end
+  end
+
   def edit
+    @video = Video.find(params[:id])
+  end
+
+  def update
+    @video = Video.find(params[:id])
+    if @video.update_attributes(params[:video])
+      flash[:success] = "Your video was updated successfully!"
+      redirect_to @video
+    else
+      render 'edit'
+    end
   end
 
   def destroy
@@ -41,42 +74,4 @@ class VideosController < ApplicationController
     redirect_to root_path
   end
 
-  def create
-      @video = current_user.videos.build(params[:video])
-
-      time_now = Time.now.localtime
-      @last_video_created_time = current_user.videos.first.created_at
-
-      #if (time_now - @last_video_created_time) >= 84600
-
-        if @video.save
-          #flash.now[:notice] = "Video created biaatch"
-          redirect_to @video
-        else
-          render '/pages/home'
-        end
-
-      #else
-
-     #   render :js =>  "alert('You may vote once every 24 hours for any one item.');"
-
-      #end
-
-  end
-  
-  def update
-  end
-
-  def new
-    @yt_client = YouTubeIt::Client.new
-    query = params[:v]
-    @vids =  @yt_client.video_by("#{query}")
-    @video_image_url = @vids.thumbnails
-    
-    @video = Video.new
-
-    @comment = Comment.new
-  
-    
-  end
 end

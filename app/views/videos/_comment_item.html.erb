@@ -2,4 +2,7 @@
 	<%= link_to comment_item.user.username, comment_item.user %>
 	<span><%= time_ago_in_words(comment_item.created_at) %> ago</span>
 	<p><%= comment_item.content %></p>
+	<% if current_user?(comment_item.user) %>
+		<%= link_to "Delete", comment_item, :method => :delete %>
+	<% end %>
 </div>

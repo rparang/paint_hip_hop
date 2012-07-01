@@ -31,6 +31,10 @@ class Video < ActiveRecord::Base
   def self.from_users_following(user) #Note: tutorial takes this further for scale
   	#following_ids = (user.following_ids << user.id).join(', ')
   	#where("user_id IN (#{following_ids})")
+    followed_user_ids = "SELECT followed_id FROM relationships
+                         WHERE follower_id = :user_id"
+    where("user_id IN (#{followed_user_ids}) OR user_id = :user_id", 
+          user_id: user.id)
   end
 
 

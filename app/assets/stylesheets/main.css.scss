@@ -1923,7 +1923,7 @@ a:hover {
   height: 0;
   vertical-align: top;
   border-top: 4px solid 
-  black;
+  #ffffff;
   border-right: 4px solid 
   transparent;
   border-left: 4px solid 
@@ -1942,10 +1942,9 @@ nav {
 	#nav-wrapper {
 		//background-image: url('/assets/nav-background.png');
 		width: 100%;
-		height: 40px;
-		background-color: #F7F7F7;
-		box-shadow: 0 2px 2px #c4c4c4;
-		border: 0 none;
+		height: 44px;
+		background-image: url('/assets/black-texture.png');
+    box-shadow: 0 1px 1px #666666;
 		position: fixed;
 		top: 0;
 		z-index: 10;
@@ -1973,25 +1972,17 @@ nav {
           //width: 95px;
 
           .nav-menu-container {
-            position: absolute;
-            width: 120px;
-            top: 100%;
-            //right: 0;
-            z-index: 1000;
             display: none;
-            float: left;
-            padding: 4px 0;
-            margin: 0 0 0 5px;
+            width: 103px;
+            z-index: 1000;
+            float: right;
+            padding: 4px 0 4px 0;
+            margin: -4px 0 0 0px;
             list-style: none;
-            background-color: 
-            white;
-            border: 1px solid 
-            #CCC;
-            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-color: #4D5A60;
             -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
             -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            box-shadow: 0 5px 10px 
-            rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
             -webkit-background-clip: padding-box;
             -moz-background-clip: padding;
             background-clip: padding-box;
@@ -2003,13 +1994,18 @@ nav {
 
             li a {
               display: block;
+              font-size: 12px;
               padding: 3px 15px;
               clear: both;
               font-weight: normal;
               line-height: 18px;
-              color: 
-              #333;
+              color: #9C9C9C;
               white-space: nowrap;
+              margin: 0px 0 0px 0;
+            }
+
+            li a:hover {
+              color: #ffffff;
             }
           }
 
@@ -2026,18 +2022,20 @@ nav {
 				float: right;
 
 				a {
-					padding: 12px 10px 9px;
-					display: block;
-					line-height: 19px;
-					text-decoration: none;
-					color: #444;
-					font-size: 13px;
-					text-shadow: 0 1px white;
-					font-weight: bold;
+          margin: 11px 0px 0px 2px;
+          display: block;
+          line-height: 19px;
+          text-decoration: none;
+          color: #9C9C9C;
+          font-size: 13px;
+          text-shadow: 0 1px #353535;
+          padding: 3px 11px 3px 11px;
 				}
-				a:hover {
-					background-color: $grayLighter;
-
+				a:hover, a.selected {
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          background-color: #4d5a60;
+          color: #f3f3f3;
 				}
 
 			}
@@ -2051,9 +2049,9 @@ nav {
         rgba(0, 0, 0, 0.1);
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
-        background-color: #E8E8E8;
+        background-color: #9c9c9c;
         padding: 2px 8px 2px 8px;
-        margin: 9px 7px 0 0;
+        margin: 11px 7px 0 0;
         font-style: italic;
       }
 

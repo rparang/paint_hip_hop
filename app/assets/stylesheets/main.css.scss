@@ -46,7 +46,7 @@ $textColor:             $grayDark !default;
 
 // Links
 // -------------------------
-$linkColor:             #08c !default;
+$linkColor:             #467590 !default;
 $linkColorHover:        darken($linkColor, 15) !default;
 
 
@@ -2248,7 +2248,7 @@ nav {
 	//@include testing();
 	@include clearfix();
 	width: 660px;
-	padding: 11px 0 11px 0;
+	padding: 9px 0 9px 0;
 	background-color: $white;
 	border-bottom: 1px solid #D9D4D4;
 
@@ -2257,18 +2257,17 @@ nav {
 		float: left;
 		width: 75px;
 		margin-top: 13px;
-		//@include testing();
+    color: #353E42;
 
 		text-align: right;
 
 		p.vote-points {
-			color: $grayDarker;
 			font-size: 52px;
 			margin-bottom: 17px;
 		}
 
 		span.vote-points-label {
-			font-size: 20px;
+			font-size: 16px;
 		}
 	}
 
@@ -2291,7 +2290,6 @@ nav {
 		
 
 			a {
-				color: $grayDarker;
 				line-height: 18px;
 				font-size: 17px;
 				font-weight: bold;
@@ -2308,6 +2306,22 @@ nav {
 				//@include testing();
 				@include clearfix();
 				margin-top: 5px;
+
+        div a {
+          color: #444;
+          font-weight: normal;
+        }
+
+        span.video-user-points {
+          font-size: 12px;
+          font-style: italic;
+          color: #444;
+          border: 1px solid rgba(243, 235, 172, 0.1);
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          background-color: #f3f0d5;
+          padding: 2px 8px 2px 8px;
+        }
 
 				#vote-button {
 				}
@@ -2338,16 +2352,13 @@ nav {
 
 				}
 
-				span.video-user-points {
-					margin-left: 6px;
-				}
-
 				input {
 					float: left;
+          padding: 3px;
 				}
 
 				.btn {
-					margin-top: 8px;
+					margin-top: 13px;
 					width: 76px;
 					font-size: 14px;
 				}
@@ -2359,10 +2370,14 @@ nav {
 					color: $grayLight;
 					margin-top: 15px;
 
+          span {
+            font-size: 12px;
+          }
+
 					a.watch-toggle {
 						font-weight: normal;
 						font-size: 13px;
-						padding: 0 0 2px 13px;
+						padding: 0 0 2px 4px;
 					}
 
 					.comments-icon {
@@ -2389,16 +2404,11 @@ nav {
 	}
 
 	.youtube-container {
+      text-align: center;
 			width: 100%;
 			float: right;
-			padding: 30px 0 30px 0;
 			//@include testing();
-			background-color: $grayDarker;
 			margin: 20px 0 20px 0;
-
-			iframe {
-				margin-left: 47px;
-			}
 	}
 }
 

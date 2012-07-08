@@ -41,7 +41,7 @@
 			<div class="video-user-container">
 				<div>
 				<%= link_to feed_item.user.username, feed_item.user %>
-				<span class="video-user-points"><%= feed_item.user.points %> total points</span>
+				<span class="video-user-points"><%= feed_item.user.points %></span>
 			</div>
 
 				<% unless current_user.nil? %>
@@ -69,7 +69,7 @@
 
 				<div class="video-comments-and-time">
 					<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
-					<span class="comments-icon"><%= link_to feed_item.comments.count, feed_item %></span>
+					<span class="comments-icon"><%= feed_item.comments.count %> comments</span>
 					<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Expand</a>
 				</div>
 			</div>
@@ -97,7 +97,7 @@
 	});
 
     $("#button-<%= feed_item.id %>").click(function () {
-    	var youtubeString = "<iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
+    	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
     	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
     });
 	</script>

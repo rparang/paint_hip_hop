@@ -9,7 +9,7 @@
 <div class="right-container">
 
 	<div class="user-video-container">
-		<div class="user-video-header"><%= @user.username %> <span><%= @user.points %> Points</span></div>
+		<div class="user-video-header"><%= @user.username %> <span><%= @user.points %></span></div>
 		<p><%= @user.bio %></p>
 		<% if signed_in? %>
 			<div class="user-follow"><%= render 'users/follow_form' %></div>

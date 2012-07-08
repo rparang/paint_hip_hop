@@ -2171,9 +2171,16 @@ nav {
 		border-bottom: 1px solid #D9D4D4;
 
 		span {
-			font-size: 12px;
-			font-weight: normal;
-			margin-left: 10px;
+      font-size: 12px;
+      font-weight: normal;
+      font-style: italic;
+      color: #444;
+      border: 1px solid rgba(243, 235, 172, 0.1);
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      background-color: #F3F0D5;
+      padding: 2px 8px 2px 8px;
+      margin-left: 10px;
 		}
 
 	}
@@ -2436,7 +2443,7 @@ nav {
 		}
 
 		p.created-at {
-			color: #8C7E7E;
+			color: #9c9c9c;
 		}
 	}
 
@@ -2499,9 +2506,21 @@ nav {
 
 	.video-description {
 		line-height: 1.5em;
+    color: #9c9c9c;
 		padding: 16px 30px 20px;
 		font-size: 12px;
 	}
+
+  .points-container {
+    padding: 16px 30px 20px;
+    border-top: 1px solid #D9D4D4;
+    color: #9C9C9C;
+    font-weight: bold;
+
+    p {
+      margin: 0 0 3px 0;
+    }
+  }
 
 	#comments-container {
 		padding: 16px 30px 20px;
@@ -2509,12 +2528,27 @@ nav {
 
 		.comment-item {
 			margin-bottom: 12px;
+      @include clearfix();
 
-			span {
-				float: right;
-				font-size: 10px;
-				color: $grayLight;
-			}
+      .comment-username {
+        float: left;
+
+        a {
+          font-weight: bold;
+        }
+
+      }
+
+      .comment-time {
+        float: right;
+        text-align: right;
+
+        div {
+          font-size: 10px;
+          color: $grayLight;
+        }
+      }
+
 		}
 		.comment-input{
 				width: 506px;
@@ -2526,6 +2560,13 @@ nav {
     margin-right: 30px;
   }
 }
+
+.more-from-right-container {
+  width: $rightcontainerWidth;
+  float: right;
+}
+
+
 
 .more-from-user-container {
 	//@include testing();
@@ -2544,16 +2585,51 @@ nav {
 		span {
 			font-size: 12px;
 			font-weight: normal;
+      font-style: italic;
+      color: #444;
+      border: 1px solid rgba(243, 235, 172, 0.1);
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      background-color: #F3F0D5;
+      padding: 2px 8px 2px 8px;
 			margin-left: 10px;
 		}
 	}
-	.more-from-user-pic-container {
-		margin: 3px 1px 3px 1px;
-		img {
-			padding-bottom: 3px;
-		}
 
-	}
+  .more-from-user-item {
+    overflow: auto;
+    padding: 9px 5px 9px 5px;
+    border-bottom: 1px solid #D9D4D4;
+  
+    .more-from-user-image {
+      float: left;
+    }
+
+    .more-from-video-info {
+      float: right;
+      width: 110px;
+      line-height: 12px;
+
+      a {
+        font-size: 11px;
+        font-weight: bold;
+      }
+
+      p {
+        font-size: 11px;
+        line-height: 11px;
+        margin: 5px 0 0 0;
+
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .more-from-user-item:hover {
+    background-color: #f7f7f7;
+  }
 }
 
 .follow {

@@ -2454,9 +2454,7 @@ nav {
 	
 
 		.video-player-background {
-			background-color: $grayDarker;
 			padding: 25px;
-			margin: 25px;
 		}
 
 		.video-points-and-comments-container {
@@ -2512,7 +2510,7 @@ nav {
 	}
 
   .points-container {
-    padding: 16px 30px 20px;
+    padding: 16px 30px 16px;
     border-top: 1px solid #D9D4D4;
     color: #9C9C9C;
     font-weight: bold;
@@ -2598,7 +2596,7 @@ nav {
 
   .more-from-user-item {
     overflow: auto;
-    padding: 9px 5px 9px 5px;
+    padding: 10px 8px 10px 11px;
     border-bottom: 1px solid #D9D4D4;
   
     .more-from-user-image {
@@ -2607,7 +2605,7 @@ nav {
 
     .more-from-video-info {
       float: right;
-      width: 110px;
+      width: 104px;
       line-height: 12px;
 
       a {

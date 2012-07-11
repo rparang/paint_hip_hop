@@ -7,7 +7,7 @@
   <%= form_for(@video) do |f| %>
     <div class="new-video-title">
       <%= f.label :title %>
-      <%= f.text_field :title, :size => "100", :value => @vids.title %>
+      <%= f.text_field :title, :size => "100", :maxlength => 155, :value => @vids.title %>
     </div>
     <div class="new-video-description">
       <%= f.label :description %>
@@ -19,7 +19,5 @@
       <%= f.submit "Post", :class => "btn-primary new-video-submit" %>
     </div>
   <% end %>
-
-
 
 </div>

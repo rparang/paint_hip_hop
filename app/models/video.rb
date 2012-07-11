@@ -21,7 +21,8 @@ class Video < ActiveRecord::Base
   has_many :votes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 
-  validates :user_id, :presence => true
+  validates :user_id, :presence => true, :length => { maximum: 255 }
+  validates :title, :presence => true
 
   default_scope order: 'videos.created_at DESC'
   #scope :videos_created_at_descending, order: 'videos.created_at DESC'
@@ -37,5 +38,8 @@ class Video < ActiveRecord::Base
           user_id: user.id)
   end
 
+  def self.desc_videos 
+    self.unscoped.order("votes_count DESC")
+  end
 
 end

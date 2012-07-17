@@ -1975,9 +1975,10 @@ nav {
             display: none;
             width: 103px;
             z-index: 1000;
-            float: right;
+            //float: right;
+            position: absolute;
             padding: 4px 0 4px 0;
-            margin: -4px 0 0 0px;
+            margin: -4px 0px 0 2px;
             list-style: none;
             background-color: #4D5A60;
             -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);

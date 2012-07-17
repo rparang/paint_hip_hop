@@ -10,8 +10,8 @@
       <%= f.text_field :title, :size => "100", :maxlength => 155, :value => @vids.title %>
     </div>
     <div class="new-video-description">
-      <%= f.label :description %>
-      <%= f.text_area :description, :size => "60x12", :value => @vids.description %>
+      <%= f.label :comment %>
+      <%= f.text_area :description, :size => "60x12" %>
       <%= f.hidden_field :youtube_id, :value => @vids.video_id.split(":").last %>
     </div>
     <div class="new-video-buttons">

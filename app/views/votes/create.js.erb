@@ -1,2 +1,7 @@
+//Video show page
+$("#points-value").html("<%= @video.votes_count %><span> Points</span>")
+$("#video-votes-ajax").html("<%= escape_javascript(render('videos/unvote')) %>")
+
+//Home feed
 $("#vote-ajax-<%= @video.id %>").html("<%= @video.votes_count %>")
-$("#vote-button-<%= @video.id %>").html("<div class='vote-button-check'><span>+1</span></div>")
+$("#vote-button-<%= @video.id %>").html("<%= escape_javascript(render('videos/unvote')) %>")

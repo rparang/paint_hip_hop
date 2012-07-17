@@ -14,7 +14,7 @@
 						<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 || current_user.videos.first.votes.count >=2 %> 
 							<li><%= link_to "Post", post_path %></li>
 						<% else %>
-							<li class="post-info"><%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left or <%= 2- current_user.videos.first.votes.count %> more points until you can post</li>
+							<li class="post-info"><%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left or <%= pluralize(2- current_user.videos.first.votes.count, 'more point') %> until you can post</li>
 						<% end %>
 					<% else %>
 						<li><%= link_to "Post", post_path %></li>

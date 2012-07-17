@@ -1,0 +1,4 @@
+<%= form_for(@vote, :remote => true) do |f| %>
+	<%= f.hidden_field "video_id", :value => @video.id %>
+	<%= f.submit "+1", class: "btn btn-small" %>
+<% end %>

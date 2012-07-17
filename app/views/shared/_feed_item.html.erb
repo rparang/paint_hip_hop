@@ -47,16 +47,19 @@
 				<% unless current_user.nil? %>
 
 					<% if current_user.vote?(feed_item.id) %>
-						<div class="vote-button-check">
-							<span>+1</span>
+					
+						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
+							<div><%= link_to "Remove point...", vote_path(current_user.votes.find_by_video_id(feed_item.id)), :method => :delete, :remote => true, :id => 'vote-input' %></div>
 						</div>
+
 					<% else %>
 						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
 						<%= form_for(@vote, :remote => true) do |f| %>
 							<%= f.hidden_field "video_id", :value => feed_item.id %>
-							<%= f.submit "+1", :class => "btn btn-small", :id => "vote-button-#{ feed_item.id }" %>
+							<%= f.submit "+1", :class => "btn btn-small", :id => 'vote-input' %>
 						<% end %>
 						</div>
+
 					<% end %>
 
 				<% else %>
@@ -100,6 +103,11 @@
     	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
     	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
     });
+
+    $("#vote-input-<%= feed_item.id %>").click(function () {
+    	$(this).hide();
+    });
+
 	</script>
 
 </div>

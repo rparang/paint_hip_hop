@@ -23,6 +23,7 @@ class VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
+    @user_videos = Video.find(params[:id]).user.videos.limit(10)
     @vote = Vote.new(params[:vote])
     @comment = Comment.new(params[:vote])
     @comment_items = @video.comments

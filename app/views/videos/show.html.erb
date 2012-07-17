@@ -11,23 +11,22 @@
 		
 			<div class="video-points-and-comments-container">
 				<div class="video-votes-container">
-					<div class="video-votes-value" id="vote-ajax-<%= @video.id %>"><%= @video.votes_count %><span> Points</span></div>
+					<div class="video-votes-value" id="points-value"><%= @video.votes_count %><span> Points</span></div>
 
 					<% if signed_in? %>
-
-
+					
+						<div id="video-votes-ajax">
 						<% if current_user.vote?(@video.id) %>
-							<div class="vote-button-check">
-								<span>+1</span>
-							</div>
+						
+							<%= render '/videos/unvote' %>
+
 						<% else %>
-							<div id="vote-button-<%= @video.id %>">
-								<%= form_for(@vote, :remote => true) do |f| %>
-									<%= f.hidden_field "video_id", :value => @video.id %>
-									<%= f.submit "+1", class: "btn btn-small" %>
-								<% end %>
-							</div>
+
+							<%= render '/videos/vote' %>
+
 						<% end %>
+						</div>
+
 					<% else %>
 						<form>
 							<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'"> 
@@ -80,27 +79,22 @@
 	</div>
 </div>
 
-
-
-
-<% video_array = @video.user.videos.collect { |v| v.youtube_id } %>
-
 <div class="more-from-right-container">
 	<div class="more-from-user-container">
 		<div class="more-from-user-header"><%= @video.user.username %> <span><%= @video.user.points %></span></div>
 
-		<% unless @video.user.videos.empty? %>
+		<% unless @user_videos.empty? %>
 
-			<% @video.user.videos.count.times do |v| %>
+			<% @user_videos.count.times do |v| %>
 
 				<div class="more-from-user-item">
 					<div class="more-from-user-image">
-						<a href="<%= video_path(@video.user.videos[v].id) %>"><img src="http://i.ytimg.com/vi/<%= @video.user.videos[v].youtube_id %>/default.jpg" width="90px"/></a>
+						<a href="<%= video_path(@user_videos[v].id) %>"><img src="http://i.ytimg.com/vi/<%= @user_videos[v].youtube_id %>/default.jpg" width="90px"/></a>
 					</div>
 					<div class="more-from-video-info">
-						<a href="<%= video_path(@video.user.videos[v].id) %>"><%= @video.user.videos[v].title %></a>
-						<p><span><%= @video.user.videos[v].votes.count %></span> votes</p>
-						<p><span><%= @video.user.videos[v].comments.count %></span> comments</p>
+						<a href="<%= video_path(@user_videos[v].id) %>"><%= @user_videos[v].title %></a>
+						<p><span><%= @user_videos[v].votes.count %></span> points</p>
+						<p><span><%= @user_videos[v].comments.count %></span> comments</p>
 					</div>
 				</div>
 

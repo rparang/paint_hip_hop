@@ -20,6 +20,7 @@ Jams::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
 
   resources :votes, :only => [:create, :destroy]
+  #match '/votes', :to => 'votes#destroy'
 
   resources :comments
   

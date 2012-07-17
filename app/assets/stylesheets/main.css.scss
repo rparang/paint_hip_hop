@@ -2330,11 +2330,18 @@ nav {
           padding: 2px 8px 2px 8px;
         }
 
-				#vote-button {
-				}
-
 				.vote-button {
 					float: left;
+          .btn { padding: 2px; }
+
+          div {
+            margin-top: 13px;
+            a {
+              font-size: 12px;
+              color: $linkColor;  
+            }
+          }
+
 					form {
 						margin: 0;
 					}
@@ -2852,3 +2859,53 @@ nav {
   border-bottom: 1px solid #D9D4D4;
 }
 
+//Update Profile
+
+.update-profile-header {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 8px 0 8px 12px;
+  border-bottom: 1px solid #D9D4D4; 
+}
+
+.update-profile-field{
+  padding: 12px 0 0 48px;
+
+  label {
+    font-size: 16px;
+    margin-top: 9px;
+  }
+
+  input {
+    height: 27px;
+    font-size: 18px;
+    width: 552px;
+  }
+}
+
+.update-profile-textfield {
+  padding: 12px 0 0 48px;
+
+  label {
+    font-size: 16px;
+    margin-top: 9px;
+  }
+
+  textarea {
+    height: 90px;
+    font-size: 14px;
+    width: 552px;
+
+  }
+}
+
+.update-profile-buttons {
+  text-align: right;
+  padding: 12px 48px 0 48px;
+
+  input.new-video-submit {
+    width: 136px;
+    height: 36px;
+    margin-left: 6px;
+  }
+}

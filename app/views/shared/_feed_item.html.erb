@@ -20,7 +20,7 @@
 			<script type="text/javascript">
 				var shortText = $("#video-title-<%= feed_item.id %>").text()
 				if (shortText.length > 45) {
-					var shortText = $("#video-title-<%= feed_item.id %>").text().trim().substring(0,45)+"..."
+					var shortText = $("#video-title-<%= feed_item.id %>").text().trim().substring(0,42)+"..."
 				}
 				else {
 					var shortText = $("#video-title-<%= feed_item.id %>").text()

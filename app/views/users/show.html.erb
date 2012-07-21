@@ -1,8 +1,13 @@
 <div class="left-container">
 
 <div class="video-feed-header">Videos from <%= @user.username %></div>
-<%= render 'shared/feed' %>
-
+	<% if @feed_items.empty? && current_user == @user %>
+		<div style="font-size: 20px; text-align: center; margin: 37px; line-height: 29px;">You haven't posted any videos yet. <br /><a href="<%= post_path %>" style="font-size: 25px">Make your first post</a>.</div>
+	<% elsif @feed_items.empty? %>
+		<div style="font-size: 20px; text-align: center; margin: 37px; line-height: 29px;"><%= @user.username %> hasn't posted any videos yet. <br />What's up with that?</div>
+	<% else %>
+		<%= render 'shared/feed' %>
+	<% end %>
 </div>
 
 

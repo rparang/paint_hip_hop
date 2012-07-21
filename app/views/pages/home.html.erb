@@ -29,7 +29,7 @@
 				<a href="<%= video_path(current_user.current_video.id) %>"><img src="http://i.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/default.jpg" /></a>
 			</div>
 			<div class="current-video-title-and-time">
-				<h3><a href="<%= video_path(current_user.current_video.id) %>"><%= current_user.current_video.title %></a></h3>
+				<h3><a href="<%= video_path(current_user.current_video.id) %>" id="video-title"><%= current_user.current_video.title %></a></h3>
 				<p><%= time_ago_in_words(current_user.current_video.created_at) %></p>
 			</div>
 			<ul class="current-video-points-comments unstyled">
@@ -38,6 +38,18 @@
 			</ul>
 			<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
 		</div>
+		<script type="text/javascript">
+
+				var shortText = $("#video-title").text()
+				if (shortText.length > 45) {
+					var shortText = $("#video-title").text().trim().substring(0,42)+"..."
+				}
+				else {
+					var shortText = $("#video-title").text()
+				}
+				$("#video-title").html(shortText);
+
+			</script>
 
 	<% else %>
 

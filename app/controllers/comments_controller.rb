@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
 
 	def create
 		@comment = current_user.comments.build(params[:comment])
-		@video = Video.find(136)
+		@video = Video.find(params[:comment][:video_id])
 		if @comment.save
 			UserMailer.video_comment_email(@video, current_user, @comment).deliver
 			respond_to do |format|

@@ -4,8 +4,8 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-	@url  = "http://localhost:3000/signin"
-	mail(:to => user.email, :from => "Paint the Town", :subject => "Welcome to Paint the Town")
+  	@url  = "http://localhost:3000/signin"
+  	mail(:to => user.email, :from => "Paint the Town", :subject => "Welcome to Paint the Town")
   end
 
   def video_comment_email(video, commenting_user, comment)
@@ -14,4 +14,11 @@ class UserMailer < ActionMailer::Base
   	@comment = comment
   	mail(:to => video.user.email, :from => "Paint the Town", :subject => "#{@commenting_user.username} commented on your video")
   end
+
+  def follow_email (user, follower_user)
+    @user = user
+    @follower_user = follower_user
+    mail(:to => user.email, :from => "Paint the Town", :subject => "#{@follower_user.username} is now following you!")
+  end
+  
 end

@@ -26,16 +26,6 @@
 					var shortText = $("#video-title-<%= feed_item.id %>").text()
 				}
 				$("#video-title-<%= feed_item.id %>").html(shortText);
-
-
-				//var shortText = $("#video-title-<%= feed_item.id %>").text()    // get the text within the div
-    			//.trim()    // remove leading and trailing spaces
-    			//.substring(0, 45) // get first 45 characters
-    			//if shortText.length >   // get first 600 characters
-    			//.split(" ") // separate characters into an array of words
-    			//.slice(0, -1)    // remove the last full or partial word
-    			//.join(" ") + "..."; // combine into a single string and append "..."
-    			//$("#video-title-<%= feed_item.id %>").html(shortText);
 			</script>
 
 			<div class="video-user-container">
@@ -49,15 +39,16 @@
 					<% if current_user.vote?(feed_item.id) %>
 					
 						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
-							<div><%= link_to "Remove point...", vote_path(current_user.votes.find_by_video_id(feed_item.id)), :method => :delete, :remote => true, :id => 'vote-input' %></div>
+							<div id="delete-holder-<%= feed_item.id %>"><%= link_to "Remove point...", vote_path(current_user.votes.find_by_video_id(feed_item.id)), :method => :delete, :remote => true, :id => "delete-vote-input-#{feed_item.id}" %></div>
 						</div>
 
 					<% else %>
 						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
 						<%= form_for(@vote, :remote => true) do |f| %>
 							<%= f.hidden_field "video_id", :value => feed_item.id %>
-							<%= f.submit "+1", :class => "btn btn-small", :id => 'vote-input' %>
-						<% end %>
+							<%= f.submit "+1", :class => "btn btn-small", :id => "vote-input-#{feed_item.id}" %>
+						<% end %>	
+
 						</div>
 
 					<% end %>
@@ -79,17 +70,6 @@
 		</div>
 	</div>
 
-	<!--
-	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>">Gooz</div>
-	<script>
-    $("#youtube-container-<%= feed_item.id %>").click(function () {
-    	var youtubeString = "<iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>' frameborder='0' allowfullscreen></iframe>";
-    	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
-    });
-	</script>
--->
-	<!--<iframe title="YouTube video player" width="560" height="315" src="http://www.youtube.com/embed/<%= feed_item.youtube_id %>" frameborder="0" allowfullscreen></iframe> -->
-
 	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>" style="display: none">Video Placeholder</div>
 
 	<script>
@@ -104,9 +84,16 @@
     	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
     });
 
-    $("#vote-input-<%= feed_item.id %>").click(function () {
-    	$(this).hide();
-    });
+	$("#vote-input-<%= feed_item.id %>").click(function () {
+		$("#vote-input-<%= feed_item.id %>").removeClass("btn btn-small").addClass("loading");
+	});
+
+	$("#delete-vote-input-<%= feed_item.id %>").click(function () {
+		$("#delete-vote-input-<%= feed_item.id %>").text("")
+		$("#delete-holder-<%= feed_item.id %>").addClass("loading");
+	});
+
+
 
 	</script>
 

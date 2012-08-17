@@ -14,7 +14,7 @@
 #
 
 class User < ActiveRecord::Base
-  attr_accessible :first_name, :last_name, :email, :username, :bio, :password, :password_confirmation
+  attr_accessible :first_name, :last_name, :email, :username, :bio, :password, :password_confirmation, :notify_follow, :notify_comment, :notify_post_available
   has_secure_password
 
   has_many :videos, :dependent => :destroy

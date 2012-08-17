@@ -6,6 +6,7 @@ class PagesController < ApplicationController
   		@feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 10)
       if request.xhr?
         render :partial => 'shared/feed'
+        sleep(6)
       end
     else
       @feed_items = Video.desc_videos.paginate(:page => params[:page], :per_page => 10)

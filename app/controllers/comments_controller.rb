@@ -8,7 +8,7 @@ class CommentsController < ApplicationController
 		@comment = current_user.comments.build(params[:comment])
 		@video = Video.find(params[:comment][:video_id])
 		if @comment.save
-			UserMailer.video_comment_email(@video, current_user, @comment).deliver
+			UserMailer.video_comment_email(@video, current_user, @comment).deliver if @video.user.notify_comment == true
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.js

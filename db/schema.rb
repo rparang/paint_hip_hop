@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120619064110) do
+ActiveRecord::Schema.define(:version => 20120817055707) do
 
   create_table "comments", :force => true do |t|
     t.integer  "video_id"
@@ -36,13 +36,16 @@ ActiveRecord::Schema.define(:version => 20120619064110) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "email"
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.datetime "created_at",                               :null => false
+    t.datetime "updated_at",                               :null => false
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",                 :default => false
     t.string   "username"
     t.text     "bio"
+    t.boolean  "notify_follow",         :default => true
+    t.boolean  "notify_comment",        :default => true
+    t.boolean  "notify_post_available", :default => true
   end
 
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"

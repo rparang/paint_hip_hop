@@ -29,6 +29,13 @@
       <%= f.password_field :password_confirmation, :maxlength => 155 %>
       </div>
 
+      <div class="update-profile-field update-profile-notify">
+      <%= f.label "Send me an email" %>
+      <div><%= f.check_box :notify_follow %> when someone follows me</div>
+      <div><%= f.check_box :notify_comment %> when someone comments on my video </div>
+      <!--<div><%= f.check_box :notify_post_available %> when someone follows me</div> -->
+      </div>
+
       <div class="update-profile-buttons">
       <%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
       </div>

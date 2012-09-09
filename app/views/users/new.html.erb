@@ -9,17 +9,22 @@
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
 
-      <%= f.label :username %>
-      <%= f.text_field :username %>
+      <img src="<%= @user_image %>" />
+      <%= f.label "Username" %>
+      <%= f.text_field :username, :value => @nickname %>
 
       <%= f.label :email %>
       <%= f.text_field :email %>
 
-      <%= f.label :password %>
-      <%= f.password_field :password %>
+      <p><%= session[:omniauth] %></p>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation %>
+      <% unless session[:omniauth] %>
+        <%= f.label :password %>
+        <%= f.password_field :password %>
+
+        <%= f.label :password_confirmation, "Confirmation" %>
+        <%= f.password_field :password_confirmation %>
+      <% end %>
       <br />
       <%= f.submit "Create my account", class: "sign-in-btn btn btn-large" %>
     <% end %>

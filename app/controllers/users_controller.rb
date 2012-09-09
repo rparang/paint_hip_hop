@@ -13,12 +13,24 @@ class UsersController < ApplicationController
   
   def new
     @user = User.new
+    if @omniauth = session[:omniauth]
+      @user_image = @omniauth.info.image
+      @nickname = @omniauth.info.nickname
+    end
   end
   
   def create
-    @user = User.create(params[:user])
+
+    @user = User.new(params[:user])
+    omniauth = session[:omniauth]
+
+    if omniauth
+      @user.apply_omniauth(omniauth)
+    end
+
     if @user.save
-      UserMailer.welcome_email(@user).deliver
+      #UserMailer.welcome_email(@user).deliver
+      session[:omniauth] = nil
       sign_in @user
       flash[:success] = "Welcome to Paint the Town! Let's have a toast."
       redirect_to @user

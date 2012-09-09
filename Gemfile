@@ -5,6 +5,10 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'youtube_it'
 gem 'jquery-rails'
 gem 'will_paginate', '~> 3.0'
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'koala'
 
 group :development do
   gem 'sqlite3'

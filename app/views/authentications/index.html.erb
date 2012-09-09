@@ -1,0 +1,15 @@
+<h1>Sign in with <a href="/auth/twitter">Twitter</a></h1>
+<h1>Sign in with <a href="/auth/facebook">Facebook</a></h1>
+
+<% if current_user %>
+	<% @authentications.each do |a| %>
+		<ul>
+			<li><%= a.user.username %></li>
+			<li><%= a.provider %></li>
+			<li><%= a.uid %></li>
+			<li><%= link_to "Delete", a, :method => :delete, :confirm => "Are you sure you want to delete this authentication?" %></li>
+		</ul>
+	<% end %>
+<% end %>
+
+<%= link_to "Sign in with an email address", signin_path %>

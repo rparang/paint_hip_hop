@@ -22,7 +22,12 @@
 					<li><%= link_to "Popular", videos_path %></li>
 					<li><%= link_to "People", users_path %></li>
 					<li class="nav-menu" id="menu-toggle">
-						<a href="<%= user_path(current_user.id) %>" id="menu-user"><%= current_user.username %><b class="caret"></b></a>
+						<a href="<%= user_path(current_user.id) %>" id="menu-user">
+							<% unless current_user.image == nil %>
+								<img src="<%= current_user.image %>" height="22px" width="22px" />
+							<% end %>
+							<%= current_user.username %><b class="caret"></b>
+						</a>
 						<ul class="unstyled nav-menu-container" id="sub-menu">
 							<li><%= link_to "Edit account", edit_user_path(current_user) %></li>
 							<li><%= link_to "Sign Out", signout_path %></li>

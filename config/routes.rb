@@ -1,5 +1,11 @@
 Jams::Application.routes.draw do
   
+  get "authentications/index"
+
+  get "authentications/create"
+
+  get "authentications/destroy"
+
   root :to => 'pages#home'
   
   resources :users do
@@ -20,18 +26,10 @@ Jams::Application.routes.draw do
   resources :relationships, :only => [:create, :destroy]
 
   resources :votes, :only => [:create, :destroy]
-  #match '/votes', :to => 'votes#destroy'
 
   resources :comments
-  
-  #match '/meta' => 'videos#new'
-  
-  #get "pages/home"
-  #get "pages/user"
+  resources :authentications, :only => [:index, :create, :destroy]
 
-  #match '/user',  :to => 'pages#user'
-  #match '/videos', :to => 'video#index'
-  
-  #get "pages/home"
+  match '/auth/:provider/callback' => 'authentications#create'
 
 end

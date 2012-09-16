@@ -80,7 +80,8 @@
 							<div class="count" id="count-<%= feed_item.id %>"><%= feed_item.votes_count %></div>
 						<% end %>
 					<% else %>
-
+						<div><a href="javascript:;" class="heart vote" style="margin-top: 2px;" onclick="window.location.href='<%= signin_path %>'"></a></div>
+						<div class="count" id="count-<%= feed_item.id %>"><%= feed_item.votes_count %></div>
 					<% end %>
 				</div>
 				<div class="middle">

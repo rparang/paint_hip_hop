@@ -24,7 +24,7 @@
 					<li class="nav-menu" id="menu-toggle">
 						<a href="<%= user_path(current_user.id) %>" id="menu-user">
 							<% unless current_user.image == nil %>
-								<img src="<%= current_user.image %>" height="22px" width="22px" />
+								<img src="<%= current_user.image %>" />
 							<% end %>
 							<%= current_user.username %><b class="caret"></b>
 						</a>

@@ -4,4 +4,5 @@ $("#video-votes-ajax").html("<%= escape_javascript(render('videos/unvote')) %>")
 
 //Home feed
 $("#vote-ajax-<%= @video.id %>").html("<%= @video.votes_count %>")
-$("#vote-button-<%= @video.id %>").html("<%= escape_javascript(render('videos/unvote')) %>")
+$("#heart-holder-<%= @video.id %>").html("<%= escape_javascript(render('videos/unvote_newsfeed')) %>")
+$("#count-<%= @video.id %>").html("<%= @video.votes_count %>")

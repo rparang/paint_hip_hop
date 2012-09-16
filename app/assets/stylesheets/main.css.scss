@@ -2031,6 +2031,13 @@ nav {
           font-size: 13px;
           text-shadow: 0 1px #353535;
           padding: 3px 11px 3px 11px;
+
+          img {
+            width: 22px;
+            height: 22px;
+            border-radius: 2px;
+          }
+
 				}
 				a:hover, a.selected {
           -webkit-border-radius: 5px;
@@ -2452,23 +2459,62 @@ nav {
         @include clearfix();
         margin-top: 18px;
         div.left{
+          @include clearfix();
           float: left;
-          margin-top: 4px;
+          margin-top: 2px;
           .comment {
-            background-image: url("comment.png");
+            float: left;
+            background: url("comment.png") 0 1px;
+            //width: 20px;
+            //height: 20ps;
             background-repeat:no-repeat;
             padding: 1px 5px 0 18px;
             color: #aeb2b3;       
           }
-          .heart {      
-            background-image: url("heart.png");
-            background-repeat:no-repeat;
-            padding: 0 8px 0 18px;
-            color: #aeb2b3;       
+          div{
+            float: left;
+            margin-top: 1px;
+            form { 
+              margin: 0;
+              padding-top: 4px;
+            }
+            .heart {      
+              padding: 0 0 0 18px;
+              color: #aeb2b3;       
+            }
+            .vote{
+              font-weight: normal;
+              padding: 4px 0px 0px 18px;
+              background: url("heart.png") 0 -1px;
+              background-repeat: no-repeat;
+              width: 0px;
+              height: 8px;
+              display: block;
+              margin: -1px 0 0 0;
+            }
+
+            .vote:hover{
+              background: url("heart.png") 0 -16px;
+              background-repeat: no-repeat;
+              color: #467590;
+            }
+
+            .voted {
+              color: #467590;
+              background: url("heart.png") 0 -15px;
+              background-repeat: no-repeat;
+              width: 0px;
+              height: 8px;
+            }
           }
+          .count {
+              margin-top: 1px;
+              color: #aeb2b3;
+            }
         }
         div.middle {
           float: left;
+          margin-left: 8px;
           img {
             width: 20px;
             border-radius: 2px;
@@ -2476,13 +2522,24 @@ nav {
         }
         div.right {
           float: right;
-          margin-top: 5px;
+          margin-top: 1px;
+          display: none; //toggled by jQuery
           a{
             color: #AEB2B3;
             font-weight: normal;
             font-size: 12px;
-            img {
-              margin: 0 4px 2px 0;
+            span {
+              background: url("video.png") 0 0px;
+              background-repeat: no-repeat;
+              padding: 1px 0 0 25px;
+            }
+          }
+          a:hover {
+            span {
+              background: url("video.png") 0 -19px;
+              background-repeat: no-repeat;
+              padding: 1px 0 0 25px;
+              color: #467590;
             }
           }
         }
@@ -3020,4 +3077,15 @@ nav {
     margin: 5px 0 8px 0;
     font-size: 24px;
   }
+}
+
+.loading {
+font-weight: normal;
+padding: 4px 0px 0px 18px;
+background: url("ajax-loader.gif") 0 -1px;
+background-repeat: no-repeat;
+width: 0px;
+height: 16px;
+display: block;
+margin: -1px 0 0 0;
 }

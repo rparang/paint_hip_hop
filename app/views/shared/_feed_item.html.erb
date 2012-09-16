@@ -1,4 +1,4 @@
-<div class="video-container">
+<div class="video-container" id="container-<%= feed_item.id %>">
 	<div class="vote-container">
 		<p class="vote-points" id="vote-ajax-<%= feed_item.id %>"><%= feed_item.votes_count %></p>
 		<span class="vote-points-label">
@@ -32,6 +32,7 @@
 				<% feed_item.user.image == nil ? image = "/assets/default-small.png" : image = feed_item.user.image %>
 				<a class="user" href="<%= user_path(feed_item.user.id) %>"><img src="<%= image %>"/><%= feed_item.user.username %></a>
 				<span class="video-user-points"><%= feed_item.user.points %></span>
+				<span style="font-size: 10px;"><%= time_ago_in_words(feed_item.created_at) %> ago</span>
 <!--
 				<% unless current_user.nil? %>
 
@@ -65,7 +66,22 @@
 			<div class="comments-faces">
 				<div class="left">
 					<span class="comment"><%= feed_item.comments.count %></span>
-					<span class="heart"><%= feed_item.votes_count %></span>
+					<% unless current_user.nil? %>
+						<% if current_user.vote?(feed_item.id) %>
+							<div><span class="heart voted"><%= feed_item.votes_count %></span></div>
+						<% else %>
+							<div id="heart-holder-<%= feed_item.id %>">
+								<%= form_for(@vote, :remote => true, :html => {:id => "vote_form-#{feed_item.id}"}) do |f| %>
+									<!--<span class="heart"><%= feed_item.votes_count %></span>-->
+									<%= f.hidden_field "video_id", :value => feed_item.id %>
+									<%= link_to '', "javascript:;", :id => "heart-#{feed_item.id}", :class => "heart vote",:onclick=>"$('#vote_form-#{feed_item.id}').submit()" %>
+								<% end %>
+							</div>
+							<div class="count" id="count-<%= feed_item.id %>"><%= feed_item.votes_count %></div>
+						<% end %>
+					<% else %>
+
+					<% end %>
 				</div>
 				<div class="middle">
 				<% feed_item.votes.each do |u| %>
@@ -73,8 +89,8 @@
 					<a href="<%= user_path(u.user.id) %>"><img src="<%= image %>" /></a>
 				<% end %>
 				</div>
-				<div class="right">
-					<a id="button-<%= feed_item.id %>" href="javascript:;" onclick="jquery_stuff(); return false;"><%= image_tag("video.png") %>watch</a>
+				<div class="right" id="right-<%= feed_item.id %>">
+					<a id="button-<%= feed_item.id %>" href="javascript:;" onclick="return false;"><span id="watch-<%= feed_item.id %>">watch</span></a>
 				</div>
 			</div>
 		</div>
@@ -84,26 +100,24 @@
 
 	<script>
 	$("#button-<%= feed_item.id %>").click(function () {
+    	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
+    	var text = $("#watch-<%= feed_item.id %>").text() == 'watch' ? 'close' : 'watch';
 		$("#youtube-container-<%= feed_item.id %>").toggle();
-		var text = $(this).text() == 'watch' ? 'close' : 'watch';
-		var video_image = '<%= image_tag("video.png") %>';
-    	$(this).html(video_image + text)
+    	$("#watch-<%= feed_item.id %>").html(text);
+    	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
 	});
 
-    $("#button-<%= feed_item.id %>").click(function () {
-    	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
-    	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
-    });
-
-
-
-	$("#vote-input-<%= feed_item.id %>").click(function () {
-		$("#vote-input-<%= feed_item.id %>").removeClass("btn btn-small").addClass("loading");
+	$("#heart-<%= feed_item.id %>").click(function () {
+		$("#heart-<%= feed_item.id %>").removeClass("vote").addClass("loading");
 	});
 
 	$("#delete-vote-input-<%= feed_item.id %>").click(function () {
 		$("#delete-vote-input-<%= feed_item.id %>").text("")
 		$("#delete-holder-<%= feed_item.id %>").addClass("loading");
+	});
+
+	$("#container-<%= feed_item.id %>").hover(function () {
+		$("#right-<%= feed_item.id %>").toggle();
 	});
 
 

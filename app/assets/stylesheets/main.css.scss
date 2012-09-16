@@ -2284,8 +2284,11 @@ nav {
 		float: right;
 		width: 570px;
 
-		img {
+		img.thumb {
 			float: left;
+      padding: 3px;
+      border: 1px solid #F1F1F1;
+      border-radius: 3px;
 			//border: 1px solid $grayLighter;
 			//padding: 3px;
 		}
@@ -2315,20 +2318,28 @@ nav {
 				@include clearfix();
 				margin-top: 5px;
 
-        div a {
+        a.user {
           color: #444;
           font-weight: normal;
+          font-size: 13px;
+          line-height: 23px;
+
+          img {
+            width: 22px;
+            border-radius: 2px;
+            margin: 0 5px 3px 0;
+          }
         }
 
         span.video-user-points {
-          font-size: 12px;
+          font-size: 10px;
           font-style: italic;
           color: #444;
           border: 1px solid rgba(243, 235, 172, 0.1);
           -webkit-border-radius: 5px;
           -moz-border-radius: 5px;
           background-color: #f3f0d5;
-          padding: 2px 8px 2px 8px;
+          padding: 1px 4px 1px 4px;
         }
 
 				.vote-button {
@@ -2431,10 +2442,51 @@ nav {
 						background-repeat:no-repeat;
 						padding: 0 10px 0 21px;
 						margin-left: 15px;
-
 					}
 				}
+
+
+
 			}
+      .comments-faces {
+        @include clearfix();
+        margin-top: 18px;
+        div.left{
+          float: left;
+          margin-top: 4px;
+          .comment {
+            background-image: url("comment.png");
+            background-repeat:no-repeat;
+            padding: 1px 5px 0 18px;
+            color: #aeb2b3;       
+          }
+          .heart {      
+            background-image: url("heart.png");
+            background-repeat:no-repeat;
+            padding: 0 8px 0 18px;
+            color: #aeb2b3;       
+          }
+        }
+        div.middle {
+          float: left;
+          img {
+            width: 20px;
+            border-radius: 2px;
+          }
+        }
+        div.right {
+          float: right;
+          margin-top: 5px;
+          a{
+            color: #AEB2B3;
+            font-weight: normal;
+            font-size: 12px;
+            img {
+              margin: 0 4px 2px 0;
+            }
+          }
+        }
+      }
 		}
 	}
 

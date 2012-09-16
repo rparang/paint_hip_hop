@@ -13,7 +13,7 @@
 		
 	</div>
 	<div class="video-container-inner">
-		<a href="<%= video_path(feed_item.id) %>"><img src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
+		<a href="<%= video_path(feed_item.id) %>"><img class="thumb" src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
 		<div class="video-info-container">
 			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}", :title => "#{feed_item.title}" %>
 
@@ -29,11 +29,10 @@
 			</script>
 
 			<div class="video-user-container">
-				<div>
-				<%= link_to feed_item.user.username, feed_item.user %>
+				<% feed_item.user.image == nil ? image = "/assets/default-small.png" : image = feed_item.user.image %>
+				<a class="user" href="<%= user_path(feed_item.user.id) %>"><img src="<%= image %>"/><%= feed_item.user.username %></a>
 				<span class="video-user-points"><%= feed_item.user.points %></span>
-			</div>
-
+<!--
 				<% unless current_user.nil? %>
 
 					<% if current_user.vote?(feed_item.id) %>
@@ -61,10 +60,21 @@
 
 				<% end %>
 
-				<div class="video-comments-and-time">
-					<span><%= time_ago_in_words(feed_item.created_at) %> ago</span>
-					<span class="comments-icon"><%= feed_item.comments.count %> comments</span>
-					<a href="javascript:;" onclick="jquery_stuff(); return false;" class="watch-toggle" id="button-<%= feed_item.id %>">Expand</a>
+				-->
+			</div>
+			<div class="comments-faces">
+				<div class="left">
+					<span class="comment"><%= feed_item.comments.count %></span>
+					<span class="heart"><%= feed_item.votes_count %></span>
+				</div>
+				<div class="middle">
+				<% feed_item.votes.each do |u| %>
+					<% u.user.image == nil ? image = "/assets/default-small.png" : image = u.user.image %>
+					<a href="<%= user_path(u.user.id) %>"><img src="<%= image %>" /></a>
+				<% end %>
+				</div>
+				<div class="right">
+					<a id="button-<%= feed_item.id %>" href="javascript:;" onclick="jquery_stuff(); return false;"><%= image_tag("video.png") %>watch</a>
 				</div>
 			</div>
 		</div>
@@ -75,14 +85,17 @@
 	<script>
 	$("#button-<%= feed_item.id %>").click(function () {
 		$("#youtube-container-<%= feed_item.id %>").toggle();
-		var text = $(this).text() == 'Expand' ? 'Collapse' : 'Expand';
-	    	$(this).text(text)
+		var text = $(this).text() == 'watch' ? 'close' : 'watch';
+		var video_image = '<%= image_tag("video.png") %>';
+    	$(this).html(video_image + text)
 	});
 
     $("#button-<%= feed_item.id %>").click(function () {
     	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
     	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
     });
+
+
 
 	$("#vote-input-<%= feed_item.id %>").click(function () {
 		$("#vote-input-<%= feed_item.id %>").removeClass("btn btn-small").addClass("loading");
@@ -92,7 +105,6 @@
 		$("#delete-vote-input-<%= feed_item.id %>").text("")
 		$("#delete-holder-<%= feed_item.id %>").addClass("loading");
 	});
-
 
 
 	</script>

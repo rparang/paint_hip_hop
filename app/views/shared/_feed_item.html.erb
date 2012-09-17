@@ -87,7 +87,7 @@
 				<div class="middle">
 				<% feed_item.votes.each do |u| %>
 					<% u.user.image == nil ? image = "/assets/default-small.png" : image = u.user.image %>
-					<a href="<%= user_path(u.user.id) %>"><img src="<%= image %>" /></a>
+					<a href="<%= user_path(u.user.id) %>"><img src="<%= image %>" title="<%= u.user.username %>" /></a>
 				<% end %>
 				</div>
 				<div class="right" id="right-<%= feed_item.id %>">

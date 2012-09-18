@@ -9,7 +9,7 @@
     <%= link_to image_tag("sign-in-twitter.png"), '/auth/twitter', :class => "auth" %>
   </div>
 
-  <div id="sign-in-holder">Or, <a href="#" id="sign-in">sign in with an email address</a></div>
+  <div id="sign-in-holder">Or, <a href="javascript:;" id="sign-in">sign in with an email address</a></div>
 
   <div id="sign-in-form">
     <%= form_for(:session, url: sessions_path) do |f| %>

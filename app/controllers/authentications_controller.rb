@@ -9,7 +9,7 @@ class AuthenticationsController < ApplicationController
     if authentication
       sign_in(authentication.user)
       flash[:success] = "Signed in successfully"
-      redirect_to authentications_path
+      redirect_to root_path
     elsif current_user
       omniauth['info']['urls']['Twitter'] ? omniauth_social_url = omniauth['info']['urls']['Twitter'] : omniauth_social_url = omniauth['info']['urls']['Facebook']
     	current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], 
@@ -17,7 +17,7 @@ class AuthenticationsController < ApplicationController
                                            :token_expiration => omniauth['credentials']['expires_at'], :social_url => omniauth_social_url,
                                            :social_image => omniauth['info']['image'])
     	flash[:success] = "Authentication successful"
-    	redirect_to authentications_path
+    	redirect_to root_path
     else
       user = User.new
       user.apply_omniauth(omniauth)
@@ -36,6 +36,6 @@ class AuthenticationsController < ApplicationController
   	@authentication = current_user.authentications.find(params[:id])
   	@authentication.destroy
   	flash[:success] = "Your authentication was successfully removed."
-  	redirect_to authentications_path
+  	redirect_to :back
   end
 end

@@ -2,10 +2,16 @@
 
 <div class="sign-in-container">
 
-<%= link_to logo, root_path %>
+  <%= link_to logo, root_path %>
 
-<div>
-  <div>
+  <div id="auth-buttons">
+    <%= link_to image_tag("sign-in-facebook.png"), '/auth/facebook', :class => "auth" %>
+    <%= link_to image_tag("sign-in-twitter.png"), '/auth/twitter', :class => "auth" %>
+  </div>
+
+  <div id="sign-in-holder">Or, <a href="#" id="sign-in">sign in with an email address</a></div>
+
+  <div id="sign-in-form">
     <%= form_for(:session, url: sessions_path) do |f| %>
 
       <%= f.label :email %>
@@ -17,8 +23,14 @@
       <%= f.submit "Sign in", class: "sign-in-btn btn btn-large" %>
     <% end %>
 
-    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+    <%= link_to "Want to sign up with an email?", signup_path %>
   </div>
 </div>
 
-</div>
+<script>
+
+$("#sign-in").click(function () {
+  $("#sign-in-form").toggle();
+});
+
+</script>

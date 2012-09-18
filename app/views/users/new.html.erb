@@ -2,21 +2,21 @@
 
 <div class="sign-in-container">
 
-<%= link_to logo, root_path %>
+  <%= link_to logo, root_path %>
 
-<div>
   <div>
+    
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
 
-      <img src="<%= @user_image %>" />
       <%= f.label "Username" %>
+      <img src="<%= @user_image %>" id="sign-up-image" />
       <%= f.text_field :username, :value => @nickname %>
 
       <%= f.label :email %>
       <%= f.text_field :email %>
 
-      <p><%= session[:omniauth] %></p>
+      <!--<p><%= session[:omniauth] %></p>-->
 
       <% unless session[:omniauth] %>
         <%= f.label :password %>
@@ -26,12 +26,12 @@
         <%= f.password_field :password_confirmation %>
       <% end %>
       <br />
+
       <%= f.submit "Create my account", class: "sign-in-btn btn btn-large" %>
     <% end %>
 
     <p>Already a user? <%= link_to "Sign in now!", signin_path %></p>
 
   </div>
-</div>
 
 </div>

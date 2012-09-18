@@ -2117,15 +2117,16 @@ nav {
 
 	.current-video-image {
 		float: left;
-		margin: 12px 0 0 5px;
+		margin: 12px 0 0 10px;
 
 		img {
 			width: 90px;
+      border-radius: 3px;
 		}
 	}
 
 	.current-video-title-and-time {
-		margin-left: 98px;
+		margin-left: 104px;
 		margin-top:	10px;
 		height: 74px;
 		padding: 3px;
@@ -2140,26 +2141,25 @@ nav {
 	}
 
 	.current-video-points-comments {
-		margin: 0 0 20px 5px;
+		margin: 0 0 20px 11px;
 		li {
 			float: left;
 			padding-left: 20px;
-			font-weight: bold;
 		}
 		.current-video-points {
-			background-image: url("star.png");
+			background: url("heart.png") 0 -13px;
 			background-repeat: no-repeat;
 		}
 
 		.current-video-comments {
-			background-image: url("comment.png");
+			background: url("comment.png") 0 -16px;
 			background-repeat: no-repeat;
 			margin-left: 15px;
 		}
 	}
 
 	.current-video-update {
-		margin: 4px 0 8px 7px;
+		margin: 4px 0 8px 11px;
 		font-size: 11px;
 	}
 }
@@ -2225,12 +2225,13 @@ nav {
 		padding: 12px 0 10px 12px;
 
 		li {
-			padding: 0 0 6px 22px;
+			padding: 0 0 0 22px;
 			font-size: 14px;
+      margin-bottom: 3px;
 		}
 
 		.list-points	{
-			background-image: url("star.png");
+			background: url("heart.png") 0 -14px;
 			background-repeat: no-repeat;
 		}
 
@@ -2294,7 +2295,7 @@ nav {
 		img.thumb {
 			float: left;
       padding: 3px;
-      border: 1px solid #F1F1F1;
+      border: 1px solid #D8D8D8;
       border-radius: 3px;
 			//border: 1px solid $grayLighter;
 			//padding: 3px;
@@ -2749,6 +2750,10 @@ nav {
   
     .more-from-user-image {
       float: left;
+      a img {
+        border-radius: 3px;
+        width: 90px;
+      }
     }
 
     .more-from-video-info {
@@ -2971,9 +2976,9 @@ nav {
 .sign-in-container {
   margin-left: auto;
   margin-right: auto;
-  width: 260px;
+  width: 310px;
 
-  img {
+  img.logo {
     margin-bottom: 24px;
   }
 
@@ -2986,12 +2991,42 @@ nav {
     width: 310px;
   }
 
+  #auth-buttons {
+    text-align: center;
+  }
+
+  #sign-in-holder {
+    margin: 5px 0 0 47px;
+  }
+
+  div .auth img {
+    margin-bottom: 8px;
+  }
+
   .sign-in-btn {
     width: 319px;
     height: 42px;
     margin-top: 15px;
   }
+
+  #sign-in-form {
+    margin-top: 8px;
+    display: none;
+  }
+
+  div form img {
+    position: absolute;
+    width: 38px;
+    margin-left: 280px;
+    border-radius: 4px;
+    border: 1px solid #CCC;
+  }
+
 }
+
+
+
+
 
 .follow-header {
   font-size: 14px;

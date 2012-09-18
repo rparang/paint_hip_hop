@@ -41,6 +41,7 @@ class UsersController < ApplicationController
   
   def edit
     @user = User.find(params[:id])
+    @authentications = User.find(params[:id]).authentications
   end
   
   def index

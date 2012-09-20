@@ -1943,8 +1943,8 @@ nav {
 		//background-image: url('/assets/nav-background.png');
 		width: 100%;
 		height: 44px;
-		background-image: url('/assets/black-texture.png');
-    box-shadow: 0 1px 1px #666666;
+		background: #191919 url("/assets/header.png") repeat-x;
+    box-shadow: 0 1px 1px #303030;
 		position: fixed;
 		top: 0;
 		z-index: 10;

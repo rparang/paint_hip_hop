@@ -70,7 +70,26 @@
 				</a></li>
 			<li class="list-followers"><a href="<%= followers_user_path(current_user) %>"><%= current_user.followers.count %> followers</a></li>
 			<li class="list-following"><a href="<%= following_user_path(current_user) %>"><%= current_user.following.count %> following</a></li>
+		</ul>
 	</div>
+
+	<% unless current_user.authentications.count == 2 %>
+
+		<div class="stats-container">
+			<div>
+				<p><i>Paint the Town is better social</i></p>
+				<ul class="connect unstyled">
+					<% unless current_user.has_facebook?.present? %>
+						<li class="facebook"><a href="/auth/facebook">Connect to Facebook</a></li>
+					<% end %>
+					<% unless current_user.has_twitter?.present? %>
+						<li class="twitter"><a href="/auth/twitter">Connect to Twitter</a></li>
+					<% end %>
+				</ul>
+			</div>
+		</div>
+
+	<% end %>
 
 </div>
 

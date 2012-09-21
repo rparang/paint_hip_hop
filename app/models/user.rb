@@ -92,6 +92,14 @@ class User < ActiveRecord::Base
     return user_image
   end
 
+  def has_facebook?
+    authentications.where(:provider => "facebook")
+  end
+
+  def has_twitter?
+    authentications.where(:provider => "twitter")
+  end
+
   @called_omniauth = false
 
   def apply_omniauth(omniauth)

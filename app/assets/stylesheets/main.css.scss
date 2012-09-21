@@ -2071,7 +2071,7 @@ nav {
 .container {
 	@include container-fixed();
 	margin-top: 70px;
-	padding-bottom: 50px;
+	padding-bottom: 20px;
 
 	width: $containerWidth;
 	//@include testing();
@@ -2147,12 +2147,12 @@ nav {
 			padding-left: 20px;
 		}
 		.current-video-points {
-			background: url("heart.png") 0 -13px;
+			background: url("heart.png") 0 2px;
 			background-repeat: no-repeat;
 		}
 
 		.current-video-comments {
-			background: url("comment.png") 0 -16px;
+			background: url("comment.png") 0 2px;
 			background-repeat: no-repeat;
 			margin-left: 15px;
 		}
@@ -2226,7 +2226,7 @@ nav {
 
 		li {
 			padding: 0 0 0 22px;
-			font-size: 14px;
+			font-size: 13px;
       margin-bottom: 3px;
 		}
 
@@ -2245,6 +2245,30 @@ nav {
 			background-repeat: no-repeat;
 		}
 	}
+
+  div {
+    padding: 12px 0 12px 14px;
+
+    ul {
+      margin-bottom: 0px;
+      li {
+        padding-left: 21px;
+        margin-bottom: 4px;
+      }
+      li.facebook {
+        background: no-repeat url("facebook.png") 0 1px;
+      }
+      li.facebook:hover {
+        background: no-repeat url("facebook.png") 0 -16px;
+      }
+      li.twitter {
+       background: no-repeat url("twitter.png") 0 1px; 
+      }
+      li.twitter:hover {
+       background: no-repeat url("twitter.png") 0 -16px; 
+      }
+    }
+  }
 
 }
 
@@ -3124,3 +3148,28 @@ height: 16px;
 display: block;
 margin: -1px 0 0 0;
 }
+
+footer {
+  overflow: auto;
+  //border-top: 1px solid #8c8c8c;
+  //background: #9c9c9c;
+  padding: 0px 0 14px 0;
+  div{
+    width: 900px;
+    margin: 0 auto 0 auto;
+    padding-left: 450px;
+    ul {
+      color: #9c9c9c;
+      //margin-left: 300px;
+      li {
+        float: left;
+        padding-left: 19px;
+        a {
+          color: #9c9c9c;
+        }
+      }
+    }
+  }
+}
+
+

@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
                                     :dependent => :destroy
   has_many :following, :through => :relationships, :source => :followed         #User that you follow
   has_many :followers, :through => :reverse_relationships, :source => :follower #Users that follow you
-  has_many :votes
+  has_many :votes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
 

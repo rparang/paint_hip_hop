@@ -101,7 +101,7 @@
 
 	<script>
 	$("#button-<%= feed_item.id %>").click(function () {
-    	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>";
+    	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque&autoplay=1' frameborder='0' allowfullscreen></iframe>";
     	var text = $("#watch-<%= feed_item.id %>").text() == 'watch' ? 'close' : 'watch';
 		$("#youtube-container-<%= feed_item.id %>").toggle();
     	$("#watch-<%= feed_item.id %>").html(text);

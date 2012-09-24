@@ -1,18 +1,40 @@
 <div class="left-container">
   <div class="new-video-header">Configure your video</div>
   <div class="new-video-preview">
-    <iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= @vids.video_id.split(":").last %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
+    <iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= @vid.video_id.split(":").last %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
   </div>
 
   <%= form_for(@video) do |f| %>
     <div class="new-video-title">
       <%= f.label :title %>
-      <%= f.text_field :title, :size => "100", :maxlength => 155, :value => @vids.title %>
+      <%= f.text_field :title, :size => "100", :maxlength => 155, :value => @vid.title %>
     </div>
     <div class="new-video-description">
       <%= f.label :comment %>
       <%= f.text_area :description, :size => "60x12" %>
-      <%= f.hidden_field :youtube_id, :value => @vids.video_id.split(":").last %>
+      <%= f.hidden_field :youtube_id, :value => @vid.video_id.split(":").last %>
+      <%= f.hidden_field :duration, :value => @vid.duration %>
+    </div>
+
+    <div class="new-video-sharing">
+      <span id="facebook">
+        <% if current_user.has_facebook?.present? %>
+          <%= f.check_box :share_facebook, :checked => true %>
+          <%= f.label :share_facebook, "Share on Facebook" %>
+        <% else %>
+          <input checked="checked" disabled="disabled" id="video_share_facebook" type="checkbox" value="1">
+          <label for="video_share_facebook" style="color: gray;">Share on Facebook</label>&nbsp;<a href="/auth/facebook" target="_blank">Connect account</a>
+        <% end %>
+      </span>
+      <span id="twitter">
+        <% if current_user.has_twitter?.present? %>
+          <%= f.check_box :share_twitter, :checked => true %>
+          <%= f.label :share_twitter, "Share on Twitter" %>
+        <% else %>
+          <input checked="checked" disabled="disabled" id="video_share_twitter" type="checkbox" value="1">
+          <label for="video_share_twitter" style="color: gray;">Share on Twitter</label>&nbsp;<a href="/auth/twitter" target="_blank">Connect account</a>
+        <% end %>
+      </span>
     </div>
     <div class="new-video-buttons">
       <input class="btn new-video-back" type="button" value="Back" onclick="window.location.href='/post?s=<%= escape_javascript(params[:s]) %>'"> 

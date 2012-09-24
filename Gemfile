@@ -9,6 +9,7 @@ gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'koala'
+gem 'twitter'
 
 group :development do
   gem 'sqlite3'

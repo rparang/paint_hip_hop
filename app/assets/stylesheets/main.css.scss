@@ -1856,7 +1856,7 @@ input[type="submit"].btn {
   color: #C09855;
   text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
   background-color: #FCF8E3;
-  border: 1px solid #E0C69A;
+  border: 1px solid #FEF0C9;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
@@ -2941,6 +2941,34 @@ nav {
   }
 
 }
+
+.new-video-sharing {
+  @include clearfix();
+  width: 300px;
+  float: left;
+  margin: 9px 0 0 44px;
+  span {
+    float: left;
+    input#video_share_facebook, input#video_share_twitter {
+      margin-left: 20px;
+      float: left;
+    }
+    label {
+      float: left;
+      margin-left: 6px;
+    }
+    a {
+      font-size: 11px;
+    }
+  }
+  span#facebook {
+    background: no-repeat url("facebook.png") 0 -16px;
+  }
+  span#twitter {
+    background: no-repeat url("twitter.png") 0 -16px;
+  }
+}
+
 
 //USER LIST
 .user-list-header {

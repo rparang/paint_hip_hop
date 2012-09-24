@@ -16,6 +16,8 @@
 class User < ActiveRecord::Base
   attr_accessible :first_name, :last_name, :email, :username, :bio, :password, :password_confirmation, :notify_follow, :notify_comment, :notify_post_available
 
+  #BEGIN USER MODEL DEPENDENCIES -----------------------
+
   has_many :videos, :dependent => :destroy
   has_many :relationships, :foreign_key => "follower_id", :dependent => :destroy
   has_many :reverse_relationships, :foreign_key => "followed_id",
@@ -27,11 +29,18 @@ class User < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
   has_many :authentications, :dependent => :destroy
 
+  #END USER MODEL DEPENDENCIES -----------------------
+
+
+  #BEGIN FILTERS -----------------------
+
   before_save { |user| user.email = email.downcase }
   before_save :create_remember_token
   before_save :create_bio
   after_create :initial_follow
   
+  #END FILTERS -----------------------
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
   validates :username, :presence => true, :length => { maximum: 50 }, :uniqueness => { case_sensitive: false }
@@ -100,6 +109,26 @@ class User < ActiveRecord::Base
     authentications.where(:provider => "twitter")
   end
 
+  def share_video_facebook(token, message, title, url, caption, description, thumb_url, target)
+    @graph = Koala::Facebook::API.new(token)
+    @graph.put_wall_post(message, {
+      :name => title,
+      :link => url,
+      :caption => caption,
+      :description => description,
+      :picture => thumb_url 
+      }, target 
+    )
+  end
+
+  def share_video_twitter(consumer_key, consumer_secret, token, secret, message)
+    @client = Twitter::Client.new(:consumer_key => consumer_key, :consumer_secret => consumer_secret, :oauth_token => token, :oauth_token_secret => secret)
+    @client.update(message)
+  end
+
+
+  #BEGIN OMNIAUTH -----------------------
+
   @called_omniauth = false
 
   def apply_omniauth(omniauth)
@@ -118,6 +147,9 @@ class User < ActiveRecord::Base
     return false if @called_omniauth == true
     (authentications.empty? || !password.blank?)
   end
+
+
+#END OMNIAUTH -----------------------
 
   private
   

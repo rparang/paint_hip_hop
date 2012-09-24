@@ -131,6 +131,11 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
+    twitter (2.1.0)
+      activesupport (< 4, >= 2.3.9)
+      faraday (~> 0.7)
+      multi_json (~> 1.0)
+      simple_oauth (~> 0.1)
     tzinfo (0.3.33)
     uglifier (1.2.4)
       execjs (>= 0.3.0)
@@ -160,6 +165,7 @@ DEPENDENCIES
   sass-rails (~> 3.2.3)
   sqlite3
   therubyracer
+  twitter
   uglifier (>= 1.0.3)
   will_paginate (~> 3.0)
   youtube_it

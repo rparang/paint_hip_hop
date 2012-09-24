@@ -34,26 +34,55 @@ class VideosController < ApplicationController
   def new
     @yt_client = YouTubeIt::Client.new
     query = params[:v]
-    @vids =  @yt_client.video_by("#{query}")
-    @video_image_url = @vids.thumbnails
+    @vid =  @yt_client.video_by("#{query}")
+    @video_image_url = @vid.thumbnails
     @video = Video.new
     @comment = Comment.new
   end
 
   def create
     @video = current_user.videos.build(params[:video])
-    time_now = Time.now.localtime
-    @last_video_created_time = current_user.videos.first.created_at
-    #if (time_now - @last_video_created_time) >= 84600
-        if @video.save
-          #flash.now[:notice] = "Video created biaatch"
-          redirect_to @video
-        else
-          render '/pages/home'
+    #logger.debug "share_facebook is #{params[:video]}"
+            #time_now = Time.now.localtime
+            #@last_video_created_time = current_user.videos.first.created_at
+            #if (time_now - @last_video_created_time) >= 84600
+    if @video.save
+      flash[:success] = "Your Video is now live"
+      #If the user has selected the checkbox to share on Facebook
+      if params[:video][:share_facebook] == "1"
+        begin
+          token = current_user.authentications.where(:provider => "facebook")[0].token
+          message = ""
+          title = @video.title
+          url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}"
+          caption = MESSAGE
+          description = @video.description
+          thumb_url = "http://i.ytimg.com/vi/#{@video.youtube_id}/default.jpg"
+          target = ""
+          current_user.share_video_facebook(token, message, title, url, caption, description, thumb_url, target)
+        rescue
+          flash[:error] = "There was a problem sharing your video. We're looking into it."
         end
-      #else
-        #render :js =>  "alert('You may vote once every 24 hours for any one item.');"
-      #end
+      end    
+      #If the user has selected the checkbox to share on Twitter
+      if params[:video][:share_twitter] == "1"
+        begin
+          token = current_user.authentications.where(:provider => "twitter")[0].token
+          secret = current_user.authentications.where(:provider => "twitter")[0].secret
+          message = MESSAGE + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
+          current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
+        rescue
+          flash[:error] = "There was a problem sharing your video. We're looking into it."
+        end
+      end
+      redirect_to @video
+    else
+      flash[:error] = "Something went wrong with your video. We're looking into it."
+      render '/pages/home'
+    end
+            #else
+              #render :js =>  "alert('You may vote once every 24 hours for any one item.');"
+            #end
   end
 
   def edit

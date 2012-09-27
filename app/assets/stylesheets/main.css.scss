@@ -2071,15 +2071,12 @@ nav {
 .container {
 	@include container-fixed();
 	margin-top: 70px;
-	padding-bottom: 20px;
-
+	margin-bottom: 120px;
 	width: $containerWidth;
-	//@include testing();
 	text-shadow: 0 1px 1px white;
 }
 
 .left-container {
-	//@include testing();
 	float: left;
 	width: $leftcontainerWidth;
 	background-color: $white;
@@ -3207,21 +3204,45 @@ margin: -1px 0 0 0;
 
 footer {
   overflow: auto;
-  //border-top: 1px solid #8c8c8c;
-  //background: #9c9c9c;
-  padding: 0px 0 14px 0;
-  div{
+  //height: 37px;
+  background-color: #242424;
+  div.footer-container {
     width: 900px;
     margin: 0 auto 0 auto;
-    padding-left: 450px;
-    ul {
-      color: #9c9c9c;
-      //margin-left: 300px;
-      li {
+    a.skyline {
+      position: absolute;
+      margin-top: -38px;
+      img {
+        width: 106px;
+      }
+    }
+    div.footer-wrapper {
+      margin-top: 8px;
+      @include clearfix();
+      span.by {
         float: left;
-        padding-left: 19px;
-        a {
-          color: #9c9c9c;
+        margin-top: 5px;
+        color: #9C9C9C;
+        font-size: 11px;
+        a { color: #9C9C9C; }
+      }
+      ul {
+        @include clearfix();
+        color: #9c9c9c;
+        margin-top: 4px;
+        float: right;
+        li {
+          float: left;
+          //padding-left: 19px;
+          a {
+            color: #9c9c9c;
+          }
+        }
+        li#facebook{
+          width: 88px;
+        }
+        li#twitter {
+          width: 120px;
         }
       }
     }

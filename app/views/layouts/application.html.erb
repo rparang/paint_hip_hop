@@ -8,24 +8,20 @@
   <%= render 'layouts/ga' %>
 </head>
 <body>
-
-<% unless request.fullpath == signup_path || request.fullpath == signin_path %>
-<%= render 'layouts/header' %>
-<% end %>
-
-<div class="container">
-
-	<% flash.each do |key, value| %>
-		<div class="alert alert-<%= key %>"><%= value %></div>
+	<%= render 'layouts/fb' %>
+	<% unless request.fullpath == signup_path || request.fullpath == signin_path %>
+	<%= render 'layouts/header' %>
 	<% end %>
 
-	<%= yield %>
+	<div class="container">
 
-</div>
+		<% flash.each do |key, value| %>
+			<div class="alert alert-<%= key %>"><%= value %></div>
+		<% end %>
 
-<%= render 'layouts/footer' %>
+		<%= yield %>
 
-
-
+	</div>
+	<%= render 'layouts/footer' %>
 </body>
 </html>

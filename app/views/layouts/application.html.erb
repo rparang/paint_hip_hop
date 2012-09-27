@@ -9,9 +9,7 @@
 </head>
 <body>
 	<%= render 'layouts/fb' %>
-	<% unless request.fullpath == signup_path || request.fullpath == signin_path %>
-	<%= render 'layouts/header' %>
-	<% end %>
+	<%= render 'layouts/header' unless request.fullpath == signup_path || request.fullpath == signin_path %>
 
 	<div class="container">
 
@@ -22,6 +20,6 @@
 		<%= yield %>
 
 	</div>
-	<%= render 'layouts/footer' %>
+	<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>
 </body>
 </html>

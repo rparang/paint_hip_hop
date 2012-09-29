@@ -19,7 +19,7 @@
 	</div>
 
 
-<div class="right-container">
+<div class="right-container fixed floatright">
 
 	<% unless current_user.videos.first.nil? %>
 
@@ -53,12 +53,12 @@
 
 	<% else %>
 
-		<%= link_to "Post your first video", post_path %>
+		<div style="margin-bottom: 10px;"><%= link_to "Post your first video", post_path %></div>
 
 	<% end %>
 
 
-	<div class="stats-container">
+	<div class="stats-container" style="height: 148px;">
 		<div class="stats-header">Your Stats</div>
 		<ul class="list-stats unstyled">
 			<li class="list-points"><a href="<%= user_path(current_user) %>">

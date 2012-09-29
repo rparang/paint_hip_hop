@@ -2069,6 +2069,10 @@ nav {
   float: right;
 }
 
+.fixed {
+  position: fixed;
+}
+
 .container {
 	@include container-fixed();
 	margin-top: 70px;
@@ -2088,11 +2092,11 @@ nav {
 
 .right-container {
 	//@include testing();
-	float: right;
+	//float: right;
 	width: $rightcontainerWidth;
 	//padding: 8px 8px 0;
 	//position: relative;
-  position: fixed;
+  //position: fixed;
   margin-left: 682px;
 }
 
@@ -2140,6 +2144,7 @@ nav {
 	@include clearfix();
 	width: 100%;
 	background-color: $white;
+  margin-bottom: 20px;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
 	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
@@ -2262,7 +2267,7 @@ nav {
 
 		li {
 			padding: 0 0 0 22px;
-			font-size: 16px;
+			font-size: 14px;
       margin-bottom: 8px;
 		}
 
@@ -2980,7 +2985,7 @@ nav {
 
 .new-video-sharing {
   @include clearfix();
-  width: 300px;
+  width: 270px;
   float: left;
   margin: 9px 0 0 44px;
   span {

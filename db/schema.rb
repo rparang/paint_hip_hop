@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120907051707) do
+ActiveRecord::Schema.define(:version => 20120928234021) do
 
   create_table "authentications", :force => true do |t|
     t.integer  "user_id"
@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(:version => 20120907051707) do
     t.string   "token"
     t.string   "secret"
     t.integer  "token_expiration"
-    t.string   "social_url"
-    t.string   "social_image"
   end
 
   create_table "comments", :force => true do |t|

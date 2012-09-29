@@ -256,13 +256,6 @@ $fluidGridGutterWidth:    2.127659574% !default;
   outline-offset: -2px;
 }
 
-// Center-align a block level element
-// ----------------------------------
-@mixin center-block() {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
 
 // IE7 inline-block
 // ----------------
@@ -2068,6 +2061,14 @@ nav {
 	}
 }
 
+.floatleft {
+  float: left;
+}
+
+.floatright {
+  float: right;
+}
+
 .container {
 	@include container-fixed();
 	margin-top: 70px;
@@ -2083,7 +2084,6 @@ nav {
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
 	-webkit-box-shadow: 0 1px 3px rgba(34,25,25,0.4);
-
 }
 
 .right-container {
@@ -2094,6 +2094,45 @@ nav {
 	//position: relative;
   position: fixed;
   margin-left: 682px;
+}
+
+.user {
+  margin-bottom: 20px;
+  @include clearfix();
+  #image {
+    img { 
+      height: 170px;
+    }
+  }
+  .user-info {
+    padding: 5px 0 0 18px;
+    p {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .social {
+      a.facebook {
+        overflow: hidden;
+        img {
+          margin-top: -20px;
+        }
+      }
+      a.twitter {
+        overflow: hidden;
+        padding-left: 5px;
+        img {
+          margin-top: -20px;
+        }
+      }
+    }
+  }
+  .follow {
+    margin: 6px 6px 0 0;
+    a {
+      font-size: 12px;
+      margin: 6px 6px 0 0;
+    }
+  }
 }
 
 .current-video-container {
@@ -2204,7 +2243,7 @@ nav {
 .stats-container {
 	//@include testing();
 	width: 100%;
-	margin-top: 20px;
+  height: 170px;
 	background-color: $white;
 	box-shadow: 0 1px 3px rgba(34,25,25,0.4);
 	-moz-box-shadow: 0 1px 2px rgba(34,25,25,0.4);
@@ -2219,16 +2258,16 @@ nav {
 
 	.list-stats{
 
-		padding: 12px 0 10px 12px;
+		padding: 18px 0 10px 12px;
 
 		li {
 			padding: 0 0 0 22px;
-			font-size: 13px;
-      margin-bottom: 3px;
+			font-size: 16px;
+      margin-bottom: 8px;
 		}
 
 		.list-points	{
-			background: url("heart.png") 0 -14px;
+			background: url("heart.png") 0 -13px;
 			background-repeat: no-repeat;
 		}
 

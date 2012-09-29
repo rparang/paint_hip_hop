@@ -91,14 +91,50 @@ class User < ActiveRecord::Base
     count = authentications.count
     if count == 0
       user_image = nil
-    elsif count == 1
-      user_image = authentications[0].social_image
+    elsif count == 1 && authentications[0].provider == 'facebook'
+      user_image = "https://graph.facebook.com/#{authentications[0].uid}/picture"
+    elsif count == 1 && authentications[0].provider == 'twitter'
+      user_image = "https://api.twitter.com/1/users/profile_image?user_id=#{authentications[0].uid}"
     elsif count == 2 && authentications[0].provider == 'facebook'
-      user_image = authentications[0].social_image
+      user_image = "https://graph.facebook.com/#{authentications[0].uid}/picture"
     else
-      user_image = authentications[1].social_image
+      user_image = "https://graph.facebook.com/#{authentications[1].uid}/picture"
     end
     return user_image
+  end
+
+  def image_big
+    count = authentications.count
+    if count == 0
+      user_image = nil
+    elsif count == 1 && authentications[0].provider == 'facebook'
+      user_image = "https://graph.facebook.com/#{authentications[0].uid}/picture?type=large"
+    elsif count == 1 && authentications[0].provider == 'twitter'
+      user_image = "https://api.twitter.com/1/users/profile_image?user_id=#{authentications[0].uid}&size=original"
+    elsif count == 2 && authentications[0].provider == 'facebook'
+      user_image = "https://graph.facebook.com/#{authentications[0].uid}/picture?type=large"
+    else
+      user_image = "https://graph.facebook.com/#{authentications[1].uid}/picture?type=large"
+    end
+    return user_image
+  end
+
+  def facebook_uid
+    if has_facebook?.present?
+      user_id = authentications.where(:provider => "facebook")[0].uid
+    else
+      user_id = nil
+    end
+    return user_id
+  end
+
+  def twitter_uid
+    if has_twitter?.present?
+      user_id = authentications.where(:provider => "twitter")[0].uid
+    else
+      user_id = nil
+    end
+    return user_id
   end
 
   def has_facebook?

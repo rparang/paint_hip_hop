@@ -171,8 +171,7 @@ class User < ActiveRecord::Base
     omniauth['info']['urls']['Twitter'] ? omniauth_social_url = omniauth['info']['urls']['Twitter'] : omniauth_social_url = omniauth['info']['urls']['Facebook']
     authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], 
                           :token => omniauth['credentials']['token'], :secret => omniauth['credentials']['secret'],
-                          :token_expiration => omniauth['credentials']['expires_at'], :social_url => omniauth_social_url,
-                          :social_image => omniauth['info']['image'])
+                          :token_expiration => omniauth['credentials']['expires_at'])
     self.email = omniauth['info']['email'] if email.blank?
     self.first_name = omniauth['info']['first_name'] if first_name.blank?
     self.last_name = omniauth['info']['last_name'] if last_name.blank?

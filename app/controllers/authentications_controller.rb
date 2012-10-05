@@ -15,8 +15,7 @@ class AuthenticationsController < ApplicationController
       omniauth['info']['urls']['Twitter'] ? omniauth_social_url = omniauth['info']['urls']['Twitter'] : omniauth_social_url = omniauth['info']['urls']['Facebook']
     	current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], 
                                            :token => omniauth['credentials']['token'], :secret => omniauth['credentials']['secret'],
-                                           :token_expiration => omniauth['credentials']['expires_at'], :social_url => omniauth_social_url,
-                                           :social_image => omniauth['info']['image'])
+                                           :token_expiration => omniauth['credentials']['expires_at'])
     	flash[:success] = "Authentication successful"
     	redirect_to root_path
     else

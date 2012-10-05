@@ -69,7 +69,7 @@ class VideosController < ApplicationController
         begin
           token = current_user.authentications.where(:provider => "twitter")[0].token
           secret = current_user.authentications.where(:provider => "twitter")[0].secret
-          message = MESSAGE + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
+          message = "#{params[:video][:title]} on @thepaintapp:" + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
           current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
         rescue
           flash[:error] = "There was a problem sharing your video. We're looking into it."

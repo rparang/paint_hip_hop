@@ -13,7 +13,7 @@
 		
 	</div>
 	<div class="video-container-inner">
-		<a href="<%= video_path(feed_item.id) %>"><img class="thumb" src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
+		<a href="<%= video_path(feed_item) %>"><img class="thumb" src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
 		<div class="video-info-container">
 			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}", :title => "#{feed_item.title}" %>
 
@@ -30,7 +30,7 @@
 
 			<div class="video-user-container">
 				<% feed_item.user.image == nil ? image = "/assets/default-small.png" : image = feed_item.user.image %>
-				<a class="user" href="<%= user_path(feed_item.user.id) %>"><img src="<%= image %>"/><%= feed_item.user.username %></a>
+				<a class="user" href="<%= user_path(feed_item.user) %>"><img src="<%= image %>"/><%= feed_item.user.username %></a>
 				<span class="video-user-points"><%= feed_item.user.points %></span>
 				<span style="font-size: 10px;"><%= time_ago_in_words(feed_item.created_at) %> ago</span>
 <!--
@@ -87,7 +87,7 @@
 				<div class="middle">
 				<% feed_item.votes.each do |u| %>
 					<% u.user.image == nil ? image = "/assets/default-small.png" : image = u.user.image %>
-					<a href="<%= user_path(u.user.id) %>"><img src="<%= image %>" title="<%= u.user.username %>" /></a>
+					<a href="<%= user_path(u.user) %>"><img src="<%= image %>" title="<%= u.user.username %>" /></a>
 				<% end %>
 				</div>
 				<div class="right" id="right-<%= feed_item.id %>">

@@ -41,21 +41,22 @@ class User < ActiveRecord::Base
   
   #END FILTERS -----------------------
 
+  #VALIDAIONS
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   
   validates :username, :presence => true, :length => { maximum: 50 }, :uniqueness => { case_sensitive: false }
-  
   validates :email, :presence => true, 
                    :format => { with: VALID_EMAIL_REGEX }, 
                    :uniqueness => { case_sensitive: false }
-
   default_scope order: 'users.created_at ASC'
-
   has_secure_password
-
   validates_presence_of :password, :on => :create, :if => :password_required
-
   before_validation :no_password_omniauth
+
+  def to_param
+    "#{id} #{username}".parameterize
+  end
 
   def feed
     Video.from_users_following(self)

@@ -29,6 +29,9 @@ class Video < ActiveRecord::Base
   #scope :videos_created_at_descending, order: 'videos.created_at DESC'
   #scope :videos_votes_count_descending, order: 'videos.votes_count DESC'
   
+  def to_param
+    "#{id} #{title}".parameterize
+  end
 
   def self.from_users_following(user) #Note: tutorial takes this further for scale
   	#following_ids = (user.following_ids << user.id).join(', ')

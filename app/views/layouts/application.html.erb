@@ -6,6 +6,8 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <%= render 'layouts/ga' %>
+  <!--<%= render 'layouts/fb_ogo' if params[:controller] == "videos#show" %> -->
+  <%= yield :head %>
 </head>
 <body>
 	<%= render 'layouts/fb' %>

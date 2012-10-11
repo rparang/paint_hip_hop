@@ -40,12 +40,8 @@
 
 				</div>
 				<div class="video-comments-count-container"><%= @video.comments.count %> comments</div>
-				<div class="fb-like" data-href="<%= url %>" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false"></div>
-				<a class="twitter-share-button" data-via="thepaintapp" href="https://twitter.com/share/tweet?original_referer=<%= url %>
-					&amp;source=tweetbutton
-					&amp;text=<%= @video.title %>
-					&amp;url=<%= url %>
-					&amp;via=Paint the Town">Tweet</a>
+
+				<%= render '/videos/social' %>
 
 			</div>
 		</div>
@@ -117,4 +113,4 @@
 
 </div>
 
-
+<script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>

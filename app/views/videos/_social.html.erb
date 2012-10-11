@@ -1,0 +1,12 @@
+<% url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>
+<div class="fb-like" data-href="<%= url %>" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false"></div>
+<a class="twitter-share-button" data-via="thepaintapp" href="https://twitter.com/share/tweet?
+	original_referer=<%= url %>
+	&amp;source=tweetbutton
+	&amp;text=<%= @video.title %>
+	&amp;url=<%= url %>
+	&amp;via=Paint the Town">Tweet</a>
+<a class="pin-it-button" count-layout="horizontal" href="http://pinterest.com/pin/create/button/?
+	url=<%= url %>
+	&amp;media=http://i.ytimg.com/vi/<%= @video.youtube_id %>/default.jpg
+	&amp;description=<%= @video.title %>"><img border="0" src="//assets.pinterest.com/images/PinExt.png" title="Pin It" /></a>

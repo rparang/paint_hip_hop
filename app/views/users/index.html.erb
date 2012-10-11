@@ -4,7 +4,7 @@
 <% @users.each do |u| %>
 	<div class="user-listing-container">
 		<div class="user-image">
-			<a href="<%= user_path(u.id) %>">
+			<a href="<%= user_path(u) %>">
 				<% unless u.image.nil? %>
 					<img src="<%= u.image %>" title="<%= u.username %>" />
 				<% else %>

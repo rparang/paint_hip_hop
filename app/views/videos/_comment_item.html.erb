@@ -1,4 +1,13 @@
 <div class="comment-item">
+	<div class="comment-image">
+		<a href="<%= user_path(comment_item.user) %>">
+			<% unless comment_item.user.image.nil? %>
+				<img src="<%= comment_item.user.image %>" title="<%= comment_item.user.username %>" />
+			<% else %>
+				<%= image_tag "default.png", :title => comment_item.user.username %>
+			<% end %>
+		</a>
+	</div>
 	<div class="comment-username">
 		<%= link_to comment_item.user.username, comment_item.user %>
 		<p><%= comment_item.content %></p>

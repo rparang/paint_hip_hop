@@ -1,6 +1,7 @@
 <% content_for :head do  %>
 	<%= render :partial => 'layouts/fb_ogo' %>
 <% end %>
+<% url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}" %>
 
 <div class="left-container">
 	<div class="video-main">
@@ -39,7 +40,12 @@
 
 				</div>
 				<div class="video-comments-count-container"><%= @video.comments.count %> comments</div>
-				<div class="fb-like" data-href="<%= request.protocol + request.host_with_port + request.fullpath  %>" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false"></div>
+				<div class="fb-like" data-href="<%= url %>" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false"></div>
+				<a class="twitter-share-button" data-via="thepaintapp" href="https://twitter.com/share/tweet?original_referer=<%= url %>
+					&amp;source=tweetbutton
+					&amp;text=<%= @video.title %>
+					&amp;url=<%= url %>
+					&amp;via=Paint the Town">Tweet</a>
 
 			</div>
 		</div>
@@ -94,10 +100,10 @@
 
 				<div class="more-from-user-item">
 					<div class="more-from-user-image">
-						<a href="<%= video_path(@user_videos[v].id) %>"><img src="http://i.ytimg.com/vi/<%= @user_videos[v].youtube_id %>/default.jpg" /></a>
+						<a href="<%= video_path(@user_videos[v]) %>"><img src="http://i.ytimg.com/vi/<%= @user_videos[v].youtube_id %>/default.jpg" /></a>
 					</div>
 					<div class="more-from-video-info">
-						<a href="<%= video_path(@user_videos[v].id) %>"><%= @user_videos[v].title %></a>
+						<a href="<%= video_path(@user_videos[v]) %>"><%= @user_videos[v].title %></a>
 						<p><span><%= @user_videos[v].votes.count %></span> points</p>
 						<p><span><%= @user_videos[v].comments.count %></span> comments</p>
 					</div>

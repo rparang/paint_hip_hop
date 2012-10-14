@@ -2679,17 +2679,25 @@ nav {
         }
         #video-votes-ajax {
           margin-right: 10px;
-          form { margin: 0;
+          form { 
+            margin: 0;
             input {
               width: 65px;
-              height: 21px;
+              height: 20px;
             }
             .btn-small {
               padding: 0;
               font-size: 12px;
-              line-height: 11px;
+              line-height: 12px;
             }
-
+          }
+          a.disabled {
+            margin: 0;
+            width: 65px;
+            height: 18px;
+            padding: 0;
+            font-size: 12px;
+            line-height: 18px;
           }
         }
         .fb-like {
@@ -2708,7 +2716,6 @@ nav {
 			//@include testing();
 
 			.video-votes-container {	
-				width: 250px;
 
 				form {
 					float: right;
@@ -2726,8 +2733,10 @@ nav {
     color: #9C9C9C;
     font-weight: bold;
 
-    p {
-      margin: 0 0 3px 0;
+    img {
+      -webkit-border-radius: 3px;
+      -moz-border-radius: 3px;
+      border-radius: 3px;
     }
   }
 
@@ -2771,8 +2780,25 @@ nav {
       }
 
 		}
+
+    #comment-form-container {
+      @include clearfix();
+      img {
+        width: 40px;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+      }
+      form {
+        float: left;
+        margin: 0;
+      }
+    }
+
 		.comment-input{
-				width: 506px;
+				width: 540px;
+        height: 30px;
+        margin-left: 11px;
 		}
 	}
 
@@ -2850,12 +2876,9 @@ nav {
 
       p {
         font-size: 11px;
+        font-weight: bold;
         line-height: 11px;
         margin: 5px 0 0 0;
-
-        span {
-          font-weight: bold;
-        }
       }
     }
   }

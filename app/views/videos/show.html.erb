@@ -24,9 +24,11 @@
 						<% end %>
 						</div>
 					<% else %>
-						<form>
-							<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'"> 
-						</form>
+						<div id="video-votes-ajax" class="floatleft">
+							<form>
+								<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'">
+							</form>
+						</div>
 					<% end %>
 					<%= render '/videos/social' %>
 				</div>
@@ -39,7 +41,7 @@
 					<div class="points-container">
 						<% @video.votes.each do |v| %>
 							<% v.user.image == nil ? image = "/assets/default-small.png" : image = v.user.image %>
-							<a href="<%= user_path(v) %>"><img src="<%= image %>" title="<%= v.user.username %>" /></a>
+							<a href="<%= user_path(v) %>"><img src="<%= image %>" title="<%= v.user.username %>" style="width:39px;" /></a>
 						<% end %>
 					</div>
 				<% end %>
@@ -52,17 +54,17 @@
 			<% if signed_in? %>
 
 				<div id="comment-form-container">
+					<% current_user.image == nil ? image = "/assets/default-small.png" : image = current_user.image %>
+					<img src="<%= image %>" class="floatleft" />
 					<%= form_for(@comment, :remote => true) do |f| %>
 	    				<%= f.text_field :content, :class => "comment-input" %>
-						<%= f.hidden_field "video_id", :value => @video.id %>
-	    				<%= f.submit "Comment", class: "btn btn-primary" %>
+						<%= f.hidden_field "video_id", :value => @video.id %><br />
+	    				<%= f.submit "Comment", class: "btn btn-default floatright" %>
 					<% end %>
 				</div>
 
 			<% else %>
-
-				<p>Sign in to comment</p>
-
+				<%= link_to "Sign in to comment", signin_path %>
 			<% end %>
 
 		</div>
@@ -88,8 +90,8 @@
 					</div>
 					<div class="more-from-video-info">
 						<a href="<%= video_path(@user_videos[v]) %>"><%= @user_videos[v].title %></a>
-						<p><span><%= @user_videos[v].votes.count %></span> points</p>
-						<p><span><%= @user_videos[v].comments.count %></span> comments</p>
+						<p><%= pluralize(@user_videos[v].votes.count, 'point') %></p>
+						<p><%= pluralize(@user_videos[v].comments.count, 'comment') %></p>
 					</div>
 				</div>
 

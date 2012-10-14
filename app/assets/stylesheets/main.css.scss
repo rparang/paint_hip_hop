@@ -2643,7 +2643,7 @@ nav {
 	box-shadow: 0 1px 2px rgba(34,25,25,0.4);
 
 	.video-header {
-		padding: 20px 10px 16px 30px;
+		padding: 20px 10px 16px 25px;
 
 		p.name {
 			font-size: 23px;
@@ -2662,35 +2662,53 @@ nav {
 	}
 
 	.video-player {
-		text-align: center;
 		border-top: 1px solid #D9D4D4;
 		border-bottom: 1px solid #D9D4D4;
 	
 
 		.video-player-background {
-			padding: 25px;
+			padding: 15px 25px 12px 25px;
+      p.video-description {
+        margin-top: 9px;
+      }
+      .video-social {
+        @include clearfix();
+        margin-top: 10px;
+        iframe,span {
+          width: 88px !important;
+        }
+        #video-votes-ajax {
+          margin-right: 10px;
+          form { margin: 0;
+            input {
+              width: 65px;
+              height: 21px;
+            }
+            .btn-small {
+              padding: 0;
+              font-size: 12px;
+              line-height: 11px;
+            }
+
+          }
+        }
+        .fb-like {
+          display: inline;
+          float: left;
+        }
+      }
 		}
+  }
 
 		.video-points-and-comments-container {
 			text-align: left;
-			margin: 0 25px 14px 25px;
+			padding: 15px 30px 20px 25px;
+      border-bottom: 1px solid #D9D4D4;
 			@include clearfix();
 			//@include testing();
 
-			.video-votes-container {
-				//@include testing();
-				float: left;
+			.video-votes-container {	
 				width: 250px;
-
-				.video-votes-value {
-					float: left;
-					color: #222;
-					font-size: 52px;
-
-					span {
-						font-size: 20px;
-					}
-				}
 
 				form {
 					float: right;
@@ -2702,30 +2720,9 @@ nav {
 					}
 				}
 			}
-
-			.video-comments-count-container {
-				//@include testing();
-				float: right;
-				background-image: url("comment.png");
-				background-repeat: no-repeat;
-				padding-left: 20px;
-				margin-top: 12px;
-				font-weight: bold;
-				font-size: 14px;
-			}
 		}
-	}
-
-	.video-description {
-		line-height: 1.5em;
-    color: #9c9c9c;
-		padding: 16px 30px 20px;
-		font-size: 12px;
-	}
 
   .points-container {
-    padding: 16px 30px 16px;
-    border-top: 1px solid #D9D4D4;
     color: #9C9C9C;
     font-weight: bold;
 
@@ -2735,8 +2732,10 @@ nav {
   }
 
 	#comments-container {
-		padding: 16px 30px 20px;
-		border-top: 1px solid #D9D4D4;
+		padding: 15px 30px 20px 25px;
+    .video-comments-count-container {
+
+    }
 
 		.comment-item {
 			margin-bottom: 12px;
@@ -2781,6 +2780,12 @@ nav {
     float: right;
     margin-right: 30px;
   }
+}
+
+.video-subheader {
+  color: #222;
+  font-size: 18px;
+  margin-bottom: 12px;
 }
 
 .more-from-right-container {

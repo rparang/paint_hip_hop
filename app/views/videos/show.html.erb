@@ -10,54 +10,43 @@
 		</div>
 		<div class="video-player">
 			<div class="video-player-background">
-				<iframe title='YouTube video player' width='600' height='370' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
-			</div>
-		
-			<div class="video-points-and-comments-container">
-				<div class="video-votes-container">
-					<div class="video-votes-value" id="points-value"><%= @video.votes_count %><span> Points</span></div>
-
+				<iframe title='YouTube video player' width='610' height='380' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
+				<% unless @video.description.empty? %>
+					<p class="video-description"><%=raw @video.description.gsub(/\n/, '<br/>') %></p>
+				<% end %>
+				<div class="video-social">
 					<% if signed_in? %>
-					
-						<div id="video-votes-ajax">
+						<div id="video-votes-ajax" class="floatleft">
 						<% if current_user.vote?(@video.id) %>
-						
 							<%= render '/videos/unvote' %>
-
 						<% else %>
-
 							<%= render '/videos/vote' %>
-
 						<% end %>
 						</div>
-
 					<% else %>
 						<form>
 							<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'"> 
 						</form>
 					<% end %>
-
+					<%= render '/videos/social' %>
 				</div>
-				<div class="video-comments-count-container"><%= @video.comments.count %> comments</div>
-
-				<%= render '/videos/social' %>
-
 			</div>
 		</div>
-
-		<% unless @video.description.empty? %>
-			<p class="video-description"><%=raw @video.description.gsub(/\n/, '<br/>') %></p>
-		<% end %>
-
-		<% unless @video.votes.empty? %>
-			<div class="points-container">
-				<% @video.votes.count.times do |n| %>
-					<p><a href="<%= user_path(@video.votes[n].user.id) %>"><%= @video.votes[n].user.username %></a> gave a point</p>
+		<div class="video-points-and-comments-container">
+			<div class="video-votes-container">
+				<div class="video-subheader" id="points-value"><%= pluralize(@video.votes_count, 'point') %></div>
+				<% unless @video.votes.empty? %>
+					<div class="points-container">
+						<% @video.votes.each do |v| %>
+							<% v.user.image == nil ? image = "/assets/default-small.png" : image = v.user.image %>
+							<a href="<%= user_path(v) %>"><img src="<%= image %>" title="<%= v.user.username %>" /></a>
+						<% end %>
+					</div>
 				<% end %>
 			</div>
-		<% end %>
-
+		</div>
 		<div id="comments-container">
+			<div class="video-subheader"><%= pluralize(@video.comments.count, 'comment') %></div>
 			<%= render :partial => 'videos/comment_item', :collection => @comment_items %>
 
 			<% if signed_in? %>

@@ -41,7 +41,7 @@
 					<div class="points-container">
 						<% @video.votes.each do |v| %>
 							<% v.user.image == nil ? image = "/assets/default-small.png" : image = v.user.image %>
-							<a href="<%= user_path(v) %>"><img src="<%= image %>" title="<%= v.user.username %>" style="width:39px;" /></a>
+							<a href="<%= user_path(v.user) %>"><img src="<%= image %>" title="<%= v.user.username %>" style="width:39px;" /></a>
 						<% end %>
 					</div>
 				<% end %>

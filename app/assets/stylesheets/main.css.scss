@@ -2288,7 +2288,7 @@ nav {
 	}
 
   div {
-    padding: 12px 0 12px 14px;
+    padding: 12px 13px 12px 13px;
 
     ul {
       margin-bottom: 0px;
@@ -2308,6 +2308,10 @@ nav {
       li.twitter:hover {
        background: no-repeat url("twitter.png") 0 -16px; 
       }
+    }
+    h3 {
+      line-height: 24px;
+      font-size: 17px;
     }
   }
 
@@ -3266,12 +3270,12 @@ div.user-listing-container {
 
   h1 {
     font-weight: normal;
-    font-size: 46px;
+    font-size: 40px;
   }
   h2 {
     font-weight: normal;
     margin: 5px 0 8px 0;
-    font-size: 24px;
+    font-size: 22px;
   }
 }
 

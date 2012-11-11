@@ -54,7 +54,8 @@ class VideosController < ApplicationController
           token = current_user.authentications.where(:provider => "facebook")[0].token
           message = ""
           title = @video.title
-          url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}"
+          url_extension = "#{@video.id} #{title}".parameterize
+          url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/#{url_extension}"
           caption = MESSAGE
           description = @video.description
           thumb_url = "http://i.ytimg.com/vi/#{@video.youtube_id}/default.jpg"

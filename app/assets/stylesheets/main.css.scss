@@ -2932,17 +2932,35 @@ nav {
 
 }
 
+.search-clear {
+  font-weight: normal;
+  padding: 4px 0px 0px 18px;
+  background: url("https://s3.amazonaws.com/static.turntable.fm/images/playlist/queue-icons.png") 0 -17px;
+  background-repeat: no-repeat;
+  width: 0px;
+  height: 13px;
+  display: block;
+  position: absolute;
+  margin-left: 508px;
+  margin-top: 19px;
+  cursor: pointer;
+  opacity: .5;
+}
+.search-clear:hover {
+  opacity: 1;
+}
+
 .search-results {
 
   .search-item {
     @include clearfix();
-    padding: 12px 0 12px 20px;
+    padding: 10px 0 10px 19px;
     border-bottom: 1px solid #D9D4D4;
 
     .search-left {
       float: left;
       img {
-        width: 80px;
+        width: 70px;
       }
     }
 
@@ -2952,13 +2970,13 @@ nav {
       margin: 4px 0 0 16px;
 
       h1 {
-        font-size: 18px;
-        line-height: 22px;
-        margin-bottom: 6px;
+        font-size: 15px;
+        line-height: 17px;
+        margin-bottom: 5px;
       }
 
       p {
-        font-size: 14px;
+        font-size: 12px;
         font-style: italic;
       }
 

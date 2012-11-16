@@ -1,4 +1,32 @@
 <% if signed_in? %>
+<% unless current_user.videos.first.nil? %>
+	<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 || current_user.videos.first.votes.count >=2 %> 
+
+	<div class="left-container" style="margin-bottom:20px;">
+		<div class="search-container" id="form-search">
+		<div class="search-header">Post a Video</div>
+		<% @query = params[:s] %>
+		<%= form_tag("#", :method => "get", :remote => true) do %>
+		  <%= text_field_tag(:q, "#{@query}", :class => "search-input") %>
+		  <%= submit_tag("Search", :id => 'search', :class => "btn search-button") %>
+		<% end %>
+		<p id="loading-search" style="display:none;margin: 0 0 18px 21px;font-size: 20px;">Loading...</p>
+	</div>
+	<div id="search-results" class="search-results"></div>
+	<script type="text/javascript">
+		$("document").ready( function () {
+
+			$("#search").click( function() {
+				$("#search-results").empty();
+				$("#loading-search").fadeIn(100);
+				var input = $("#q").val();
+				getSongs(input);		
+			});
+		});
+	</script>
+	</div>
+	<% end %>
+<% end %>
 
 	<div class="left-container">
 
@@ -15,7 +43,6 @@
 			<div>NOT FOLLOWING ANYONE</div>
 
 		<% end %>
-
 	</div>
 
 

@@ -10,7 +10,7 @@ function getSongs(who) {
           searchView(video); //Build video search markup
         });
       }
-      $("#loading-search").hide(); //Hide "Loading..."
+      $("#loading-search").fadeOut(100); //Hide "Loading..."
     }
   );
 }

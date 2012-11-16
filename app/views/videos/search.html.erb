@@ -1,33 +1,23 @@
 <div class="left-container">
-	<div class="search-container">
+	<div class="search-container" id="form-search">
 		<div class="search-header">Post a Video</div>
-		<% query = params[:s] %>
-		<%= form_tag(post_path, :method => "get") do %>
-		  <%= text_field_tag('s', "#{query}", :class => "search-input") %>
-		  <%= submit_tag("Search", :class => "btn search-button") %>
+		<% @query = params[:s] %>
+		<%= form_tag("#", :method => "get", :remote => true) do %>
+		  <%= text_field_tag(:q, "#{@query}", :class => "search-input") %>
+		  <%= submit_tag("Search", :id => 'search', :class => "btn search-button") %>
 		<% end %>
+		<p id="loading-search" style="display:none;margin: 0 0 18px 21px;font-size: 20px;">Loading...</p>
 	</div>
-	<div class="search-results">
+	<div id="search-results" class="search-results"></div>
+	<script type="text/javascript">
+		$("document").ready( function () {
 
-		<% @vids.videos.size.times do |i| %>
-
-		<!-- <a href="/videos/new?v=<%= @video_id[i].split(":").last %>"> -->
-			<div class="search-item" onclick="window.location = '/videos/new?v=<%= @video_id[i].split(":").last %>&amp;s=<%=escape_javascript(params[:s]) %>';" data-url="#">
-				<div class="search-left">
-					<img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" />
-				</div>
-				<div class="search-right">
-					<h1><%= @video_titles[i] %></h1>
-					<p><%= Time.at(@video_duration[i]).utc.strftime("%M:%S") %></p>
-				</div>
-	<!--
-				<a href="/videos/new?v=<%= @video_id[i].split(":").last %>"><h3><%= @video_titles[i] %></h3></a>
-				<a href="<%= @video_url[i] %>" target="_blank"><h3><img src="<%= @video_image_url[i].collect {|v| v.url}[0] %>" /></h3></a>
-	-->
-			</div>
-		<!-- </a> -->
-
-		<% end %>
-
-	</div>
+			$("#search").click( function() {
+				$("#search-results").empty();
+				$("#loading-search").fadeIn(100);
+				var input = $("#q").val();
+				getSongs(input);		
+			});
+		});
+	</script>
 </div>

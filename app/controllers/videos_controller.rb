@@ -7,10 +7,8 @@ class VideosController < ApplicationController
   end
  
   def index
-    #@videos = Video.paginate(:page => params[:page], :per_page => 2)
     @vote = Vote.new(params[:vote])
-    @feed_items = Video.top_alltime_videos.paginate(:page => params[:page], :per_page => 10)
-    #@feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+    @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
     @comment = Comment.new(params[:vote])
     if request.xhr?
       render :partial => 'shared/feed'
@@ -21,6 +19,9 @@ class VideosController < ApplicationController
     @vote = Vote.new(params[:vote])
     @feed_items = Video.top_day_videos.paginate(:page => params[:page], :per_page => 10)
     @comment = Comment.new(params[:vote])
+    @path = day_path
+    @header_title = "Day's Top Songs"
+    render 'sort' unless params[:page] != nil
     if request.xhr?
       render :partial => 'shared/feed'
     end 
@@ -30,9 +31,37 @@ class VideosController < ApplicationController
     @vote = Vote.new(params[:vote])
     @feed_items = Video.top_week_videos.paginate(:page => params[:page], :per_page => 10)
     @comment = Comment.new(params[:vote])
+    @path = week_path
+    @header_title = "Week's Top Songs"
+    render 'sort' unless params[:page] != nil
     if request.xhr?
       render :partial => 'shared/feed'
     end 
+  end
+
+  def top_month
+    @vote = Vote.new(params[:vote])
+    @feed_items = Video.top_month_videos.paginate(:page => params[:page], :per_page => 10)
+    @comment = Comment.new(params[:vote])
+    @path = month_path
+    @header_title = "Month's Top Songs"
+    render 'sort' unless params[:page] != nil
+    if request.xhr?
+      render :partial => 'shared/feed'
+    end 
+  end
+
+  def top_alltime
+    #@videos = Video.paginate(:page => params[:page], :per_page => 2)
+    @vote = Vote.new(params[:vote])
+    @feed_items = Video.top_alltime_videos.paginate(:page => params[:page], :per_page => 10)
+    @comment = Comment.new(params[:vote])
+    @path = alltime_path
+    @header_title = "All-Time Top Songs"
+    render 'sort' unless params[:page] != nil
+    if request.xhr?
+      render :partial => 'shared/feed'
+    end
   end
 
   def show

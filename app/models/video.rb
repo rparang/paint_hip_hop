@@ -42,10 +42,6 @@ class Video < ActiveRecord::Base
           user_id: user.id)
   end
 
-  def self.top_alltime_videos 
-    self.unscoped.order("votes_count DESC")
-  end
-
   def self.top_day_videos
     day_beg = DateTime.now.in_time_zone(Time.zone).beginning_of_day
     day_end = DateTime.now.in_time_zone(Time.zone).end_of_day
@@ -56,6 +52,16 @@ class Video < ActiveRecord::Base
     week_beg = DateTime.now.in_time_zone(Time.zone).beginning_of_week
     week_end = DateTime.now.in_time_zone(Time.zone).end_of_week
     self.unscoped.find(:all, :conditions => {:created_at => week_beg..week_end}, :order => "votes_count DESC")
+  end
+
+  def self.top_month_videos
+    month_beg = DateTime.now.in_time_zone(Time.zone).beginning_of_month
+    month_end = DateTime.now.in_time_zone(Time.zone).end_of_month
+    self.unscoped.find(:all, :conditions => {:created_at => month_beg..month_end}, :order => "votes_count DESC")
+  end
+
+  def self.top_alltime_videos 
+    self.unscoped.order("votes_count DESC")
   end
 
 end

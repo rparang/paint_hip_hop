@@ -9,6 +9,7 @@ class UsersController < ApplicationController
     @videos = @user.videos
     @feed_items = @user.videos
     @vote = Vote.new
+    @comment = Comment.new(params[:vote])
   end
   
   def new

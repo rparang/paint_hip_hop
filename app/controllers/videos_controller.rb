@@ -1,5 +1,6 @@
 class VideosController < ApplicationController
   before_filter :signed_in_user, :only => [:create, :destroy]
+  include VideoHelper
  
   def search
     #Sup
@@ -10,6 +11,7 @@ class VideosController < ApplicationController
     @vote = Vote.new(params[:vote])
     @feed_items = Video.desc_videos.paginate(:page => params[:page], :per_page => 10)
     #@feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+    @comment = Comment.new(params[:vote])
     if request.xhr?
       render :partial => 'shared/feed'
     end
@@ -35,7 +37,7 @@ class VideosController < ApplicationController
 
   def create
     @video = current_user.videos.build(params[:video])
-    #logger.debug "share_facebook is #{params[:video]}"
+    logger.debug "share_facebook is #{params[:video]}"
             #time_now = Time.now.localtime
             #@last_video_created_time = current_user.videos.first.created_at
             #if (time_now - @last_video_created_time) >= 84600

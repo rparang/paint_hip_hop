@@ -18,6 +18,10 @@ Jams::Application.routes.draw do
    
   resources :videos
   match '/post', :to => 'videos#search'
+  match '/day', :to => 'videos#top_day'
+  match '/week', :to => 'videos#top_week'
+  match '/month', :to => 'videos#top_month'
+  match '/alltime', :to => 'videos#top_alltime'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin',  :to => 'sessions#new'

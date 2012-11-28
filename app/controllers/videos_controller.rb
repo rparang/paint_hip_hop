@@ -9,12 +9,30 @@ class VideosController < ApplicationController
   def index
     #@videos = Video.paginate(:page => params[:page], :per_page => 2)
     @vote = Vote.new(params[:vote])
-    @feed_items = Video.desc_videos.paginate(:page => params[:page], :per_page => 10)
+    @feed_items = Video.top_alltime_videos.paginate(:page => params[:page], :per_page => 10)
     #@feed_items = Video.paginate(:page => params[:page], :per_page => 10)
     @comment = Comment.new(params[:vote])
     if request.xhr?
       render :partial => 'shared/feed'
     end
+  end
+
+  def top_day
+    @vote = Vote.new(params[:vote])
+    @feed_items = Video.top_day_videos.paginate(:page => params[:page], :per_page => 10)
+    @comment = Comment.new(params[:vote])
+    if request.xhr?
+      render :partial => 'shared/feed'
+    end 
+  end
+
+  def top_week
+    @vote = Vote.new(params[:vote])
+    @feed_items = Video.top_week_videos.paginate(:page => params[:page], :per_page => 10)
+    @comment = Comment.new(params[:vote])
+    if request.xhr?
+      render :partial => 'shared/feed'
+    end 
   end
 
   def show

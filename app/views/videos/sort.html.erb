@@ -1,8 +1,30 @@
+<script>
+  $(document).ready(function(){
+    var pagelessHTML = "<%= escape_javascript(pageless(@feed_items.total_pages, @path)) %>";
+    loadSongs("#recent", pagelessHTML);
+    loadSongs("#day", pagelessHTML);
+    loadSongs("#week", pagelessHTML);
+    loadSongs("#month", pagelessHTML);
+    loadSongs("#alltime", pagelessHTML);
+  });
+</script>
+
 <div class="left-container">
-	<div class="video-feed-header"><%= @header_title %></div>
+	<div class="video-feed-header"><%= @header_title %>
+    <%= link_to "Recent", videos_path, :remote => true, :id => 'recent' %>
+		<%= link_to "Day", day_path, :remote => true, :id => 'day' %>
+    <%= link_to "Week", week_path, :remote => true, :id => 'week' %>
+    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
+    <%= link_to "All time", alltime_path, :remote => true, :id => 'alltime' %>
+	</div>
 		<div id="results">
-			<%= render 'shared/feed' %>
-			<%= will_paginate @feed_items %>
-			<%= pageless(@feed_items.total_pages, @path, "#results") %>
+		  <%= render 'shared/feed' %>
+        <!-- Render first count of feed items with render. Remaining are sent from controller
+        after Pageless requests asynchronously -->
+      <%= will_paginate @feed_items %>
+        <!-- Keep to show pagination if JS is disabled. Requesting ?page=2 doesn't work though as 'sort' template doesn't render to prevent multiple template requests once Pageless fires.  -->
+      <%= pageless(@feed_items.total_pages, @path) %>
+        <!-- First param is total number of pages sent back by will_paginate gem, which should descrease in count.
+        Second param is path to request more data.   -->
 		</div>
 </div>

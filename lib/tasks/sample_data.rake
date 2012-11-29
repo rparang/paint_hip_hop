@@ -45,7 +45,7 @@ def make_videos
 			duration = vids_trim[0].duration
 			youtube_view_count = vids_trim[0].view_count
 
-			user.videos.create!(:title => title, :youtube_id => youtube_id, :youtube_id => youtube_id, :description => description, :duration => duration, :youtube_view_count => youtube_view_count)
+			user.videos.create!(:title => title, :youtube_id => youtube_id, :description => description, :duration => duration, :youtube_view_count => youtube_view_count)
 		end
 	end
 end

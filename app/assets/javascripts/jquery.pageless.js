@@ -71,7 +71,7 @@
   var loaderHtml = function () {
     return settings.loaderHtml || '\
 <div id="pageless-loader" style="display:none;width: 102px;margin: 10px auto 10px auto;overflow: auto;">\
-  <img src="' + settings.loaderImage + '" alt="loading more results" style="float: left;" />\
+  <img src="' + settings.loaderImage + '" alt="Loading more results" style="float: left;" />\
   <div class="msg" style="color: #222;font-size: 14px;float: left;margin-left: 10px;"></div>\
 </div>';
   };

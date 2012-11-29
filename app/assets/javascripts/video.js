@@ -1,3 +1,30 @@
+//Ajax functionality for music sort including recent, day, 
+//week, month and all time
+//--------------------------------------------------------
+
+function loadSongs(elementID, pagelessHTML) {
+  $(elementID)
+    .bind("ajax:beforeSend", function(evt, xhr, settings){
+      var $label = $(this);
+      $label.data('origText', $(this).text() ); //Store label
+      $label.text("Loading...");
+    })
+    .bind("ajax:success", function(evt, data, status, xhr){
+      var $pageless_html = pagelessHTML;
+      $('#results').html(data); //Replace HTML within #results with data, which is populated with the shared/feed partial
+      $('#results').append($pageless_html); //Append Pageless loader div that
+      //is removed once the #results is replaced using the html() method
+    })
+    .bind('ajax:complete', function(evt, xhr, status){
+      var $label = $(this);
+      $(this).text($label.data('origText')); //Restore label
+    })
+};
+
+
+//Search music via YouTube's API 
+//--------------------------------------------------------
+
 function getSongs(who) {
   $.getJSON('http://gdata.youtube.com/feeds/api/videos?start-index=1&max-results=15&v=2&alt=json-in-script&callback=?', 
     {
@@ -15,8 +42,10 @@ function getSongs(who) {
   );
 }
 
+
 //Build video search markup. This function is
 //iterated for each video from the search query
+//--------------------------------------------------------
 
 function searchView(video) {
   var url = 'http://img.youtube.com/vi/';

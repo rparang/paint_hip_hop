@@ -6,7 +6,7 @@ Jams::Application.routes.draw do
 
   get "authentications/destroy"
 
-  root :to => 'pages#home'
+  root :to => 'videos#home'
   
   resources :users do
     member do
@@ -22,6 +22,7 @@ Jams::Application.routes.draw do
   match '/week', :to => 'videos#top_week'
   match '/month', :to => 'videos#top_month'
   match '/alltime', :to => 'videos#top_alltime'
+  match '/topdayjson', :to => 'videos#top_day_json'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin',  :to => 'sessions#new'

@@ -1,3 +1,18 @@
+<script type="text/javascript">
+	$("document").ready( function() {
+		xhr_get("<%= escape_javascript(topdayjson_path) %>");
+
+		var shortText = $("#video-title").text()
+		if (shortText.length > 45) {
+			var shortText = $("#video-title").text().trim().substring(0,42)+"..."
+		}
+		else {
+			var shortText = $("#video-title").text()
+		}
+		$("#video-title").html(shortText);
+	})
+</script>
+
 <% if signed_in? %>
 	<% if current_user.videos.first.nil? %>
 		<%= render 'shared/search' %>
@@ -19,7 +34,7 @@
 </div>
 
 
-<div class="right-container fixed floatright">
+<div class="right-container floatright" style="margin-left:0;">
 	<% unless current_user.videos.first.nil? %>
 		<div class="current-video-container">
 			<div class="current-video-header">Your Current Video</div>
@@ -37,14 +52,7 @@
 			<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
 		</div>
 		<script type="text/javascript">
-				var shortText = $("#video-title").text()
-				if (shortText.length > 45) {
-					var shortText = $("#video-title").text().trim().substring(0,42)+"..."
-				}
-				else {
-					var shortText = $("#video-title").text()
-				}
-				$("#video-title").html(shortText);
+				
 			</script>
 	<% end %>
 
@@ -62,9 +70,7 @@
 			<li class="list-following"><a href="<%= following_user_path(current_user) %>"><%= current_user.following.count %> following</a></li>
 		</ul>
 	</div>
-
 	<% unless current_user.authentications.count == 2 %>
-
 		<div class="stats-container" style="height:100%; margin-top: 20px; ">
 			<div>
 				<p><i>Paint the Town is better social</i></p>
@@ -78,11 +84,16 @@
 				</ul>
 			</div>
 		</div>
-
 	<% end %>
 
-</div>
+	<div class="more-from-right-container" style="margin-top:20px;">
+		<div class="more-from-user-container" id="items-trending">
+			<div class="more-from-user-header">Trending</div>
+			<div id="loading" style="margin:10px;"></div>
 
+		</div>
+	</div>
+</div>
 
 <% else %>
 <!-- Hero Container -->

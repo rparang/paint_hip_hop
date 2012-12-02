@@ -25,6 +25,67 @@ function loadSongs(el, pagelessHTML) {
   });
 };
 
+
+//Trending songs on front page
+//--------------------------------------------------------
+
+function xhr_get(url) {
+  $.ajax ({
+    url: '/topdayjson',
+    dataType: "json",
+    type: "GET",
+    processData: false,
+    contentType: "application/json",
+    beforeSend: showLoading()
+  }).done( function(data) {
+    buildTrending(data);
+    hideLoading();
+  });
+};
+
+function buildTrending(data) {
+  var limit = 4;
+  $.each(data, function(i,item) {
+    if(i > limit) return false;
+    var img_url = 'http://i.ytimg.com/vi/'+item.youtube_id+'/default.jpg';
+    var base_url = '/videos/'+item.id;
+    $("<div>").attr({
+      class: 'more-from-user-item',
+      id: 'item-'+i
+      }).appendTo("#items-trending");
+    $("<div>").attr({
+      class: 'more-from-user-image',
+      id: 'item-image-'+i
+      }).appendTo("#item-"+i);
+    $("<a>").attr({
+      href: base_url
+      })
+      .append("<img src="+img_url+" />")
+      .appendTo("#item-image-"+i);
+    $("<div>").attr({
+      class: 'more-from-video-info',
+      id: 'item-info-'+i
+      }).appendTo("#item-"+i);
+    $("<a>").attr({
+      href: base_url
+      })
+      .html(item.title)
+      .appendTo("#item-info-"+i);
+    $("<p>")
+      .html(item.votes_count)
+      .appendTo("#item-info-"+i);
+  });
+}
+
+function showLoading() {
+  $("#loading").html("Loading...");
+}
+
+function hideLoading() {
+  $("#loading").empty();
+}
+
+
 //Search music via YouTube's API 
 //--------------------------------------------------------
 
@@ -84,4 +145,3 @@ function searchView(video) {
   $("<p>").html(video_duration).appendTo('#r-'+video.id.$t.split(":")[3]);
 
 }
-

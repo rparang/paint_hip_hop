@@ -7,6 +7,34 @@ class VideosController < ApplicationController
     #Sup
   end
 
+  def home
+    @vote = Vote.new
+    @comment = Comment.new(params[:vote])
+    if signed_in?
+      @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 10)
+      if request.xhr?
+        render :partial => 'shared/feed'
+        #sleep(6)
+      else
+        render 'pages/home'
+      end
+    else
+      @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+      if request.xhr?
+        render :partial => 'shared/feed'
+      else
+        render 'pages/home'
+      end
+    end
+  end
+
+  def top_day_json
+    @items = Video.top_week_videos
+    respond_to do |format|
+      format.json { render :json => @items }
+    end
+  end
+
   #Pulled out common variables and partial rendering for top song methods
   #----------------------------------------------------------------------
   def top_songs_common

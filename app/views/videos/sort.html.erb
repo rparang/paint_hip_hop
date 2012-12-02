@@ -15,13 +15,11 @@
     <%= link_to "All time", alltime_path, :remote => true, :id => 'alltime' %>
 	</div>
 		<div id="results">
-		  <%= render 'shared/feed' %>
-        <!-- Render first count of feed items with render. Remaining are sent from controller
-        after Pageless requests asynchronously -->
-      <%= will_paginate @feed_items %>
-        <!-- Keep to show pagination if JS is disabled. Requesting ?page=2 doesn't work though as 'sort' template doesn't render to prevent multiple template requests once Pageless fires.  -->
-      <%= pageless(@feed_items.total_pages, @path) %>
-        <!-- First param is total number of pages sent back by will_paginate gem, which should descrease in count.
-        Second param is path to request more data.   -->
+		  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. Remaining are sent from controller
+                                       after Pageless requests asynchronously -->
+      <%= will_paginate @feed_items %> <!-- Keep to show pagination if JS is disabled. Requesting ?page=2 doesn't 
+                                            work though as 'sort' template doesn't render to prevent multiple template requests once Pageless fires.  -->
+      <%= pageless(@feed_items.total_pages, @path) %> <!-- First param is total number of pages sent back by will_paginate gem, which should descrease in count.
+                                                           Second param is path to request more data.   -->
 		</div>
 </div>

@@ -45,23 +45,23 @@ class Video < ActiveRecord::Base
   def self.top_day_videos
     day_beg = DateTime.now.in_time_zone(Time.zone).beginning_of_day
     day_end = DateTime.now.in_time_zone(Time.zone).end_of_day
-    self.unscoped.find(:all, :conditions => {:created_at => day_beg..day_end}, :order => "votes_count DESC")
+    self.unscoped.find(:all, :limit => 50, :conditions => {:created_at => day_beg..day_end}, :order => "votes_count DESC")
   end
 
   def self.top_week_videos
     week_beg = DateTime.now.in_time_zone(Time.zone).beginning_of_week
     week_end = DateTime.now.in_time_zone(Time.zone).end_of_week
-    self.unscoped.find(:all, :conditions => {:created_at => week_beg..week_end}, :order => "votes_count DESC")
+    self.unscoped.find(:all, :limit => 50, :conditions => {:created_at => week_beg..week_end}, :order => "votes_count DESC")
   end
 
   def self.top_month_videos
     month_beg = DateTime.now.in_time_zone(Time.zone).beginning_of_month
     month_end = DateTime.now.in_time_zone(Time.zone).end_of_month
-    self.unscoped.find(:all, :conditions => {:created_at => month_beg..month_end}, :order => "votes_count DESC")
+    self.unscoped.find(:all, :limit => 50, :conditions => {:created_at => month_beg..month_end}, :order => "votes_count DESC")
   end
 
   def self.top_alltime_videos 
-    self.unscoped.order("votes_count DESC")
+    self.unscoped.order("votes_count DESC").limit(50)
   end
 
 end

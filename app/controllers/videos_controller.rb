@@ -6,14 +6,6 @@ class VideosController < ApplicationController
   def search
     #Sup
   end
- 
-  def index
-    @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
-    @path = videos_path
-    @header_title = "Hits"
-    top_songs_common
-  end
-
 
   #Pulled out common variables and partial rendering for top song methods
   #----------------------------------------------------------------------
@@ -23,7 +15,7 @@ class VideosController < ApplicationController
     respond_with do |format|
       format.html do
         if request.xhr?
-          render :partial => 'shared/feed', :layout => false
+          render :partial => 'shared/feed', :layout => false#, :locals => { :path => @path }
         else
           render 'sort' unless params[:page] != nil
         end
@@ -31,31 +23,30 @@ class VideosController < ApplicationController
     end
   end
 
+  def index
+    @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+    @path = videos_path
+    @header_title = "Hits"
+    top_songs_common
+  end
+
   def top_day
     @feed_items = Video.top_day_videos.paginate(:page => params[:page], :per_page => 10)
-    @path = day_path
-    @header_title = "Day's Hits"
     top_songs_common
   end
 
   def top_week
-    @feed_items = Video.top_week_videos.paginate(:page => params[:page], :per_page => 10)
-    @path = week_path
-    @header_title = "Week's Hits"
+    @feed_items = Video.top_week_videos.paginate(:page => params[:page], :per_page => 50)
     top_songs_common
   end
 
   def top_month
     @feed_items = Video.top_month_videos.paginate(:page => params[:page], :per_page => 10)
-    @path = month_path
-    @header_title = "Month's Hits"
     top_songs_common
   end
 
   def top_alltime
-    @feed_items = Video.top_alltime_videos.paginate(:page => params[:page], :per_page => 10)
-    @path = alltime_path
-    @header_title = "All-Time Top Songs"
+    @feed_items = Video.top_alltime_videos.paginate(:page => params[:page], :per_page => 50)
     top_songs_common
   end
 
@@ -83,48 +74,47 @@ class VideosController < ApplicationController
 
   def create
     @video = current_user.videos.build(params[:video])
-    logger.debug "share_facebook is #{params[:video]}"
-            #time_now = Time.now.localtime
-            #@last_video_created_time = current_user.videos.first.created_at
-            #if (time_now - @last_video_created_time) >= 84600
     if @video.save
       flash[:success] = "Your Video is now live"
-      #If the user has selected the checkbox to share on Facebook
-      if params[:video][:share_facebook] == "1"
+      facebook_share(params[:video], @video) #If the user has selected the checkbox to share on Facebook
+      twitter_share(params[:video])          #If the user has selected the checkbox to share on Twitter
+      redirect_to @video
+    else
+      flash[:error] = "Something went wrong with your video. We're looking into it."
+      redirect_to root_path
+    end
+  end
+
+  def twitter_share(params)
+    if params[:share_twitter] == "1"
+        begin
+          token = current_user.authentications.where(:provider => "twitter")[0].token
+          secret = current_user.authentications.where(:provider => "twitter")[0].secret
+          message = "#{params[:title]} on @thepaintapp:" + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
+          current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
+        rescue
+          flash[:error] = "There was a problem sharing your video. We're looking into it."
+        end
+      end
+  end
+
+  def facebook_share(params, video)
+    if params[:share_facebook] == "1"
         begin
           token = current_user.authentications.where(:provider => "facebook")[0].token
           message = ""
-          title = @video.title
-          url_extension = "#{@video.id} #{title}".parameterize
+          title = video.title
+          url_extension = "#{video.id} #{title}".parameterize
           url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/#{url_extension}"
           caption = MESSAGE
-          description = @video.description
-          thumb_url = "http://i.ytimg.com/vi/#{@video.youtube_id}/default.jpg"
+          description = video.description
+          thumb_url = "http://i.ytimg.com/vi/#{video.youtube_id}/default.jpg"
           target = ""
           current_user.share_video_facebook(token, message, title, url, caption, description, thumb_url, target)
         rescue
           flash[:error] = "There was a problem sharing your video. We're looking into it."
         end
       end    
-      #If the user has selected the checkbox to share on Twitter
-      if params[:video][:share_twitter] == "1"
-        begin
-          token = current_user.authentications.where(:provider => "twitter")[0].token
-          secret = current_user.authentications.where(:provider => "twitter")[0].secret
-          message = "#{params[:video][:title]} on @thepaintapp:" + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
-          current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
-        rescue
-          flash[:error] = "There was a problem sharing your video. We're looking into it."
-        end
-      end
-      redirect_to @video
-    else
-      flash[:error] = "Something went wrong with your video. We're looking into it."
-      render '/pages/home'
-    end
-            #else
-              #render :js =>  "alert('You may vote once every 24 hours for any one item.');"
-            #end
   end
 
   def edit

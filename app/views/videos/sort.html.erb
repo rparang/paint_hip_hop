@@ -1,11 +1,8 @@
 <script>
   $(document).ready(function(){
-    var pagelessHTML = "<%= escape_javascript(pageless(@feed_items.total_pages, @path)) %>";
-    loadSongs("#recent", pagelessHTML);
-    loadSongs("#day", pagelessHTML);
-    loadSongs("#week", pagelessHTML);
-    loadSongs("#month", pagelessHTML);
-    loadSongs("#alltime", pagelessHTML);
+    pagelessHTML = "<%= escape_javascript(pageless(@feed_items.total_pages, @path)) %>";
+    elemIds = {'recent': '#recent', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
+    loadSongs(elemIds, pagelessHTML);
   });
 </script>
 

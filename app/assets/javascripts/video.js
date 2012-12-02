@@ -2,25 +2,28 @@
 //week, month and all time
 //--------------------------------------------------------
 
-function loadSongs(elementID, pagelessHTML) {
-  $(elementID)
+function loadSongs(el, pagelessHTML) {
+  $.each(el, function(key,value){
+    $(value)
     .bind("ajax:beforeSend", function(evt, xhr, settings){
-      var $label = $(this);
+      var $label = $(value);
       $label.data('origText', $(this).text() ); //Store label
       $label.text("Loading...");
     })
     .bind("ajax:success", function(evt, data, status, xhr){
       var $pageless_html = pagelessHTML;
       $('#results').html(data); //Replace HTML within #results with data, which is populated with the shared/feed partial
-      $('#results').append($pageless_html); //Append Pageless loader div that
+      if (value == "#recent") {
+        $('#results').append($pageless_html); //Append Pageless loader div that
       //is removed once the #results is replaced using the html() method
+      }
     })
     .bind('ajax:complete', function(evt, xhr, status){
-      var $label = $(this);
-      $(this).text($label.data('origText')); //Restore label
+      var $label = $(value);
+      $(value).text($label.data('origText')); //Restore label
     })
+  });
 };
-
 
 //Search music via YouTube's API 
 //--------------------------------------------------------

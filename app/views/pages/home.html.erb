@@ -16,8 +16,10 @@
 <% if signed_in? %>
 	<% if current_user.videos.first.nil? %>
 		<%= render 'shared/search' %>
-	<% elsif (Time.now - current_user.videos.first.created_at.localtime) >= 84600 || current_user.videos.first.votes.count >=2 %> 
+		<style>.right-container { margin-top: -136px; }</style> <!-- Ugly style fix. Address in redesign -->
+	<% elsif (Time.now - current_user.videos.first.created_at.localtime) >= 84600 || current_user.videos.first.votes.count >=2 %>
 		<%= render 'shared/search' %>
+		<style>.right-container { margin-top: -136px; }</style> <!-- Ugly style fix. Address in redesign -->
 	<% end %>
 
 <div class="left-container">
@@ -32,7 +34,6 @@
 		<div style="padding: 30px;font-size: 20px;">You're not following anyone. Check out some <%= link_to "suggested people", users_path %>.</div>
 	<% end %>
 </div>
-
 
 <div class="right-container floatright" style="margin-left:0;">
 	<% unless current_user.videos.first.nil? %>
@@ -51,9 +52,6 @@
 			</ul>
 			<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
 		</div>
-		<script type="text/javascript">
-				
-			</script>
 	<% end %>
 
 	<div class="stats-container" style="height: 148px;">

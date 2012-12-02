@@ -72,7 +72,7 @@ function buildTrending(data) {
       .html(item.title)
       .appendTo("#item-info-"+i);
     $("<p>")
-      .html(item.votes_count)
+      .html(item.votes_count + ' points')
       .appendTo("#item-info-"+i);
   });
 }

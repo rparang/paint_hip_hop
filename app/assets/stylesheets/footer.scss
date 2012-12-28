@@ -1,0 +1,49 @@
+@import 'variables';
+@import 'mixins';
+
+footer {
+  overflow: auto;
+  //height: 37px;
+  background-color: #242424;
+  div.footer-container {
+    width: 900px;
+    margin: 0 auto 0 auto;
+    a.skyline {
+      position: absolute;
+      margin-top: -38px;
+      img {
+        width: 106px;
+      }
+    }
+    div.footer-wrapper {
+      margin-top: 8px;
+      @include clearfix();
+      span.by {
+        float: left;
+        margin-top: 5px;
+        color: #9C9C9C;
+        font-size: 11px;
+        a { color: #9C9C9C; }
+      }
+      ul {
+        @include clearfix();
+        color: #9c9c9c;
+        margin-top: 4px;
+        float: right;
+        li {
+          float: left;
+          //padding-left: 19px;
+          a {
+            color: #9c9c9c;
+          }
+        }
+        li#facebook{
+          width: 88px;
+        }
+        li#twitter {
+          width: 120px;
+        }
+      }
+    }
+  }
+}

@@ -24,11 +24,31 @@
 
 <div class="left-container">
 	<% unless current_user.feed.empty? %>
-		<div class="video-feed-header">Videos from your followers</div>
+
+		<script>
+		  $(document).ready(function(){
+		    pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
+		    elemIds = {'feed': '#feed', 'recent': '#recent', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
+		    loadSongs(elemIds, pagelessHTML, "<%= @feed_items.total_pages %>");
+		  });
+		</script>
+
+		<div class="video-feed-header">Videos from your followers
+			<%= link_to "Your feed", root_path, :remote => true, :id => 'feed' %>
+			<%= link_to "Recent", videos_path, :remote => true, :id => 'recent' %>
+			<%= link_to "Day", day_path, :remote => true, :id => 'day' %>
+		    <%= link_to "Week", week_path, :remote => true, :id => 'week' %>
+		    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
+		    <%= link_to "All time", alltime_path, :remote => true, :id => 'alltime' %>
+		    <a href="#">People</a>
+		</div>
 			<div id="results">
-				<%= render 'shared/feed' %>
-				<%= will_paginate @feed_items %>
-				<%= pageless(@feed_items.total_pages, root_path, "#results") %>
+			  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. Remaining are sent from controller
+	                                       after Pageless requests asynchronously -->
+		      <%= will_paginate @feed_items %> <!-- Keep to show pagination if JS is disabled. Requesting ?page=2 doesn't 
+		                                            work though as 'sort' template doesn't render to prevent multiple template requests once Pageless fires.  -->
+		      <%= pageless(@feed_items.total_pages, @path) %> <!-- First param is total number of pages sent back by will_paginate gem, which should descrease in count.
+		                                                           Second param is path to request more data.   -->
 			</div>
 	<% else %>
 		<div style="padding: 30px;font-size: 20px;">You're not following anyone. Check out some <%= link_to "suggested people", users_path %>.</div>

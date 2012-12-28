@@ -1,0 +1,216 @@
+@import 'variables';
+@import 'mixins';
+
+.sign-in-container {
+  @include container-fixed();
+  margin-top: 10px;
+  margin-bottom: 200px;
+  width: 500px;
+  text-shadow: none;
+
+  a.account {
+    font-size: 14px;
+    color: $gray;
+  }
+  a.account:hover{
+    color: $gray * 1.4;
+  }
+
+  a:hover{
+    text-decoration: none;
+  }
+
+  .field_with_errors {
+    display: inline-block;
+  }
+
+  .signin-big {
+    background: url("sprite.png") no-repeat -7px -92px;
+    display: block;
+    opacity: .5;
+    height: 80px;
+    width: 80px;
+    @include container-fixed();
+  }
+
+  .signup-big {
+    background: url("sprite.png") no-repeat -110px -92px;
+    display: block;
+    opacity: .5;
+    height: 80px;
+    width: 80px;
+    @include container-fixed();
+  }
+
+  h1 {
+    font-size: 42px;
+    line-height: 90px;
+    font-weight: normal;
+    color: $white;
+    text-align: center;
+  }
+
+  .facebook-icon {
+    background: url("sprite.png") no-repeat -30px -53px;
+    display: inline-block;
+    padding-left: 39px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 12px;
+  }
+
+  .twitter-icon {
+    background: url("sprite.png") no-repeat 5px -53px;
+    display: inline-block;
+    padding-left: 42px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 9px;
+  }
+
+  .email {
+    background: url("sprite.png") no-repeat -92px -21px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 12px;
+    opacity: .5;
+  }
+
+  .password {
+    background: url("sprite.png") no-repeat -144px -21px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 30px;
+    vertical-align: middle;
+    margin-left: 9px;
+    opacity: .5;
+  }
+
+  .key {
+    background: url("sprite.png") no-repeat -75px 2px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 9px;
+  }
+
+  .username {
+    background: url("sprite.png") no-repeat -169px -51px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 9px;
+    opacity: .5;
+  }
+
+  .password_confirmation {
+    background: url("sprite.png") no-repeat -144px -21px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 9px;
+    opacity: .5;
+  }
+
+
+
+  input {
+    height: 30px;
+    border: none;
+    color: $black;
+    font-size: 18px;
+    padding: 0;
+    background: transparent;
+  }
+
+  input:focus{
+    outline:none;
+  }
+
+  .button {
+    font-size: 16px;
+    color: $white;
+    margin-bottom: 10px;
+    padding: 11px 0px 5px 0px;
+    @include button_transition();
+  }
+
+  .sign-in-button {
+    background: $gray;
+    float: right;
+    position: relative;
+    padding: 10px 14px 0px 4px;
+    height: 41px;
+    width: 130px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -ms-border-radius: 3px;
+    -o-border-radius: 3px;
+    border-radius: 3px;
+    @include button_transition();
+
+    input {
+      background: none;
+      color: $white;
+      font-size: 16px;
+      padding-left: 17px;
+    }
+  }
+
+  .sign-in-button:hover{
+    background: $gray * 1.4;
+  }
+
+  .button.facebook:hover {
+    background: #4a6eb9;
+  }
+
+  .button.twitter:hover {
+    background: #14beff;
+  }
+
+  .facebook {
+    background: #3B5998;
+    width: 100%;
+  }
+
+  .twitter {
+    background: #00aced;
+    width: 100%;
+  }
+
+  #sign-in-form {
+    margin-top: 20px;
+
+    ul.form {
+      li {
+        background: white;
+        width: 100%;
+        padding: 11px 5px;
+        margin: 0 0 10px 0;
+        margin: 0 0 10px 0;
+        border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+      }
+    }
+    ul.error-list {
+      margin-bottom: 10px;
+      li {
+        font-size: 13px;
+        color: $white;
+      }
+    }
+  }
+}

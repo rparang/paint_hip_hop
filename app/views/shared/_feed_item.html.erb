@@ -1,147 +1,136 @@
-<div class="video-container" id="container-<%= feed_item.id %>">
-	<div class="vote-container">
-		<p class="vote-points" id="vote-ajax-<%= feed_item.id %>"><%= feed_item.votes_count %></p>
-		<span class="vote-points-label">
-
-			<% if feed_item.votes_count == 1 %>
-				Point
-			<% else %>
-				Points
-			<% end %>
-
-		</span>
+<% feed_item.user.image == nil ? image = "/assets/default-small.png" : image = feed_item.user.image %>
+<% if signed_in? %>
+	<% current_user.vote?(feed_item.id) ? css_class = "voted" : css_class = "" %>
+<% end %>
+<div class="feed-container" id="container-<%= feed_item.id %>">
+  <div class="image">
+	<a class="user" href="<%= user_path(feed_item.user) %>"><img src="<%= image %>" class="image-round-3"/></a>
+  </div>
+  <div class="feed-inner">
+	  <div class="user-container">
+	    <a class="user" href="<%= user_path(feed_item.user) %>"><%= feed_item.user.username %></a>
+		<span class="video-user-points"><%= feed_item.user.points %></span>
+		<span class="time"><div class="clock"></div><%= time_ago_in_words(feed_item.created_at) %> ago</span>
+	  </div>
+	  <div class="media-container <%= css_class %>" id="media-container-<%= feed_item.id %>">
+	  	<div class="cover floatleft" id="cover-<%= feed_item.id %>">
+	  	  <img class="thumb" src="http://i2.ytimg.com/vi/<%= feed_item.youtube_id %>/mqdefault.jpg"/>
+	  	  <div class="play"></div>
+	  	</div>
+	  	<div class="info floatleft" id="info-<%= feed_item.id %>">
+	  		<a class="title" href="<%= video_path(feed_item) %>"><%= feed_item.title %></a>
+	  		<% unless css_class =="voted" %>
+		  		<div class="actions" id="actions-<%= feed_item.id %>">
+		  		  <span class="like" id="vote-<%= feed_item.id %>"><div class="sunglasses"></div><span>Like</span></span>
+		  		</div>
+		  	<% else %>
+		  		<div class="actions voted" id="actions-<%= feed_item.id %>">
+		  		  <span class="like"><div class="sunglasses"></div><span>Liked</span></span>
+		  		</div>
+	  		<% end %>
+	    </div>
+	  </div>
+	  <div class="meta">
+	  	<span><div class="sunglasses <%= css_class %>" id="sunglasses-<%= feed_item.id %>"></div><a href="#" id="points-value-<%= feed_item.id %>"><%= pluralize(feed_item.votes_count, 'person') %> liked this</a></span>
+	  	<span class="dot">&#8901;</span>
+	  	<span><div class="comment"></div><span id="comment-<%= feed_item.id %>"><%= pluralize(feed_item.comments.count, 'comment') %></span></span>
+	  </div>
+	  
+		  <div class="faces" id="faces-<%= feed_item.id %>" style="border-bottom: 1px dotted #EEE;margin-bottom: 7px;">
+		  	<% unless feed_item.votes.empty? %>
+		  	<% feed_item.votes.each do |u| %>
+					<% u.user.image == nil ? image = "/assets/default-small.png" : image = u.user.image %>
+					<a href="<%= user_path(u.user) %>"><img src="<%= image %>" title="<%= u.user.username %>" class="image-round-3"/></a>
+				<% end %>
+				<% end %>
+		  </div>
+	  
+	  <% unless feed_item.comments.empty? %>
+		  <div id="comments-container">
+				<%= render :partial => 'videos/comment_item', :collection => feed_item.comments %>
+				<% if signed_in? %>
+			    <div id="comment-form-container-<%= feed_item.id %>" class="comment-form-container">
+					<% current_user.image == nil ? image = "/assets/default-small.png" : image = current_user.image %>
+				  <img src="<%= image %>" class="floatleft" />
+						<%= form_for(@comment, :remote => true, :html => {:id => "form-#{feed_item.id}" }) do |f| %>
+				    	<%= f.text_field :content, :class => "comment-input", :id => "input-#{feed_item.id}", :placeholder => "Write a comment", :maxlength => "255", :style => "width: 518px;" %>
+						  <%= f.hidden_field "video_id", :value => feed_item.id %><br />
+						<% end %>
+					</div>
+			  <% else %>
+			    <%= link_to "Sign in to comment", signin_path %>
+			  <% end %>
+		  </div>
+		<% end %>
 		
-	</div>
-	<div class="video-container-inner">
-		<a href="<%= video_path(feed_item) %>"><img class="thumb" src="http://i.ytimg.com/vi/<%= feed_item.youtube_id %>/default.jpg"/></a>
-		<div class="video-info-container">
-			<%= link_to feed_item.title, feed_item, :id => "video-title-#{feed_item.id}", :title => "#{feed_item.title}" %>
+
+
+
+
+
+
 
 			<script type="text/javascript">
-				var shortText = $("#video-title-<%= feed_item.id %>").text()
-				if (shortText.length > 45) {
-					var shortText = $("#video-title-<%= feed_item.id %>").text().trim().substring(0,42)+"..."
+				$input = $(".comment-input");
+				if ($input.val() == "") {
+					$(".button").attr('disabled', 'disabled'); //REDO
 				}
-				else {
-					var shortText = $("#video-title-<%= feed_item.id %>").text()
-				}
-				$("#video-title-<%= feed_item.id %>").html(shortText);
+
+
+
 			</script>
 
-			<div class="video-user-container">
-				<% feed_item.user.image == nil ? image = "/assets/default-small.png" : image = feed_item.user.image %>
-				<a class="user" href="<%= user_path(feed_item.user) %>"><img src="<%= image %>"/><%= feed_item.user.username %></a>
-				<span class="video-user-points"><%= feed_item.user.points %></span>
-				<span style="font-size: 10px;"><%= time_ago_in_words(feed_item.created_at) %> ago</span>
-<!--
-				<% unless current_user.nil? %>
+		<script type="text/javascript">
+			$("document").ready( function() {
+			  var video = "<iframe title='YouTube video player' width='568' height='310' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque&autoplay=1' frameborder='0' allowfullscreen></iframe>";
+			  $("#cover-<%= feed_item.id %>").click(function() {
+			  	$("#media-container-<%= feed_item.id %>").fadeOut(150, function() {
+			  		$("#cover-<%= feed_item.id %>").removeClass('floatleft').html(video);
+			  		$("#media-container-<%= feed_item.id %>").fadeIn(150);
+			  		$("#info-<%= feed_item.id %>").css('width','543px');
+			  	});
+			  	
+			  });
 
-					<% if current_user.vote?(feed_item.id) %>
-					
-						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
-							<div id="delete-holder-<%= feed_item.id %>"><%= link_to "Remove point...", vote_path(current_user.votes.find_by_video_id(feed_item.id)), :method => :delete, :remote => true, :id => "delete-vote-input-#{feed_item.id}" %></div>
-						</div>
+<% if signed_in? %>
+			  $("#vote-<%= feed_item.id %>").click(function() {
+			  	var video_id = "<%= feed_item.id %>";
+		  		var current_user_id = "<%= current_user.id %>";
+			  	addPointOnMedia(video_id,current_user_id, true);
+			  });
+<% end %>
 
-					<% else %>
-						<div class="vote-button" id="vote-button-<%= feed_item.id %>">
-						<%= form_for(@vote, :remote => true) do |f| %>
-							<%= f.hidden_field "video_id", :value => feed_item.id %>
-							<%= f.submit "+1", :class => "btn btn-small", :id => "vote-input-#{feed_item.id}" %>
-						<% end %>	
+$('#form-<%= feed_item.id %>').submit(function() {  
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: $(this).attr('action'), //sumbits it to the given url of the form
+      data: valuesToSubmit,
+    }).done(function(data){
+        alert(data);
+        buildCommentOnFeed(data);
+       });
+    return false; // prevents normal behaviour
+  });
 
-						</div>
 
-					<% end %>
 
-				<% else %>
+			});
+		</script>
 
-					<form>
-						<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'"> 
-					</form>
 
-				<% end %>
+<script type="text/javascript">
+	var shortText = $("#video-title-<%= feed_item.id %>").text()
+	if (shortText.length > 45) {
+		var shortText = $("#video-title-<%= feed_item.id %>").text().trim().substring(0,42)+"..."
+	}
+	else {
+		var shortText = $("#video-title-<%= feed_item.id %>").text()
+	}
+	$("#video-title-<%= feed_item.id %>").html(shortText);
+</script>
 
-				-->
-			</div>
-			<div class="comments-faces">
-				<div class="left">
-					<span class="comment"><%= feed_item.comments.count %></span>
-					<% unless current_user.nil? %>
-						<% if current_user.vote?(feed_item.id) %>
-							<div><span class="heart voted"><%= feed_item.votes_count %></span></div>
-						<% else %>
-							<div id="heart-holder-<%= feed_item.id %>">
-								<%= form_for(@vote, :remote => true, :html => {:id => "vote_form-#{feed_item.id}"}) do |f| %>
-									<!--<span class="heart"><%= feed_item.votes_count %></span>-->
-									<%= f.hidden_field "video_id", :value => feed_item.id %>
-									<%= link_to '', "javascript:;", :id => "heart-#{feed_item.id}", :class => "heart vote",:onclick=>"$('#vote_form-#{feed_item.id}').submit()" %>
-								<% end %>
-							</div>
-							<div class="count" id="count-<%= feed_item.id %>"><%= feed_item.votes_count %></div>
-						<% end %>
-					<% else %>
-						<div><a href="javascript:;" class="heart vote" style="margin-top: 2px;" onclick="window.location.href='<%= signin_path %>'"></a></div>
-						<div class="count" id="count-<%= feed_item.id %>"><%= feed_item.votes_count %></div>
-					<% end %>
-				</div>
-				<div class="middle">
-				<% feed_item.votes.each do |u| %>
-					<% u.user.image == nil ? image = "/assets/default-small.png" : image = u.user.image %>
-					<a href="<%= user_path(u.user) %>"><img src="<%= image %>" title="<%= u.user.username %>" /></a>
-				<% end %>
-				</div>
-				<div class="right" id="right-<%= feed_item.id %>">
-					<a id="button-<%= feed_item.id %>" href="javascript:;" onclick="return false;"><span id="watch-<%= feed_item.id %>">watch</span></a>
-				</div>
-			</div>
-		</div>
 	</div>
-
-	<div class="youtube-container" id="youtube-container-<%= feed_item.id %>" style="display: none">Video Placeholder</div>
-<!--
-	<% feed_item.comments.each do |c| %>
-		<p><%= c.content %></p>
-	<% end %>
-
-	<% if signed_in? %>
-		<div id="comment-form-container">
-			<% current_user.image == nil ? image = "/assets/default-small.png" : image = current_user.image %>
-			<img src="<%= image %>" class="floatleft" />
-			<%= form_for(@comment, :remote => true) do |f| %>
-				<%= f.text_field :content, :class => "comment-input" %>
-				<%= f.hidden_field "video_id", :value => feed_item.id %><br />
-				<%= f.submit "Comment", class: "btn btn-default floatright" %>
-			<% end %>
-		</div>
-
-	<% else %>
-		<%= link_to "Sign in to comment", signin_path %>
-	<% end %>
--->
-
-	<script>
-	$("#button-<%= feed_item.id %>").click(function () {
-    	var youtubeString = "<iframe title='YouTube video player' width='660' height='370' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque&autoplay=1' frameborder='0' allowfullscreen></iframe>";
-    	var text = $("#watch-<%= feed_item.id %>").text() == 'watch' ? 'close' : 'watch';
-		$("#youtube-container-<%= feed_item.id %>").toggle();
-    	$("#watch-<%= feed_item.id %>").html(text);
-    	$("#youtube-container-<%= feed_item.id %>").html(youtubeString);
-	});
-
-	$("#heart-<%= feed_item.id %>").click(function () {
-		$("#heart-<%= feed_item.id %>").removeClass("vote").addClass("loading");
-	});
-
-	$("#delete-vote-input-<%= feed_item.id %>").click(function () {
-		$("#delete-vote-input-<%= feed_item.id %>").text("")
-		$("#delete-holder-<%= feed_item.id %>").addClass("loading");
-	});
-
-	$("#container-<%= feed_item.id %>").hover(function () {
-		$("#right-<%= feed_item.id %>").toggle();
-	});
-
-
-	</script>
-
 </div>
+
+<!-- if liked background is 5E7291 -->

@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
   
   def new
+    @black_page = true
   end
   
   def create
@@ -10,8 +11,8 @@ class SessionsController < ApplicationController
       sign_in user
       redirect_back_or root_path
     else
-      flash.now[:error] = 'Invalid email/password combination'
-      render 'new'
+      flash[:message] = "Your email or password is incorrect. Please try again."
+      redirect_to signin_path
     end
   end
     

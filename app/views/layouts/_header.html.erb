@@ -1,66 +1,28 @@
-<% logo = image_tag("logo_new_2.png", :alt => "Paint the Town", :class => "logo") %>
-
+<% logo = image_tag("logo_new_2.png", :alt => "Paint the Town", :class => "floatleft") %>
 <nav>
-	<div id="nav-wrapper">
-		<div class="nav-container">
-			<%= link_to logo, root_path %>
-			
-			<% if signed_in? %>
-
-
-				<ul class="nav nav-right">
-					<% unless current_user.videos.first.nil? %>
-						<% if current_user.admin? %><li style="color: #fff"><a href="#">ADMIN</a></li><% end %>
-						<% if (Time.now - current_user.videos.first.created_at.localtime) >= 84600 || current_user.videos.first.votes.count >=2 %> 
-							<li><%= link_to "Post", post_path %></li>
-						<% else %>
-							<li class="post-info"><%= (24 - ((Time.now - current_user.videos.first.created_at.localtime)/3600)).to_i %> hours left or <%= pluralize(2- current_user.videos.first.votes.count, 'more point') %> until you can post</li>
-						<% end %>
-					<% else %>
-						<li><%= link_to "Post", post_path %></li>
-					<% end %>
-					<li><%= link_to "Popular", videos_path %></li>
-					<li><%= link_to "People", users_path %></li>
-					<li class="nav-menu" id="menu-toggle">
-						<a href="<%= user_path(current_user.id) %>" id="menu-user">
-							<% unless current_user.image == nil %>
-								<img src="<%= current_user.image %>" />
-							<% end %>
-							<%= current_user.username %><b class="caret"></b>
-						</a>
-						<ul class="unstyled nav-menu-container" id="sub-menu">
-							<li><%= link_to "Edit account", edit_user_path(current_user) %></li>
-							<li><%= link_to "Sign Out", signout_path %></li>
-						</ul>
-					</li>
-				</ul>
-
-				<script type="text/javascript">
-
-					$("#menu-toggle").hover(
-					 	function () {
-					 		$("#sub-menu").toggle();
-						}
-					);
-
-					$("#sub-menu").hover(
-						function () {
-							$("#menu-user").addClass('selected');
-						},
-						function () {
-							$("#menu-user").removeClass('selected');
-						}
-					);
-
-				</script>
-
-			<% else %>
-				<ul class="nav nav-right">
-					<!--<li><%= link_to "Sign Up", signup_path %></li>-->
-					<li><%= link_to "Sign In", signin_path %></li>
-				</ul>
-
-			<% end %>
-		</div>
+  <div id="nav-wrapper">
+  	<div class="nav-container">
+	  <%= link_to logo, root_path %>
+	  <% if signed_in? %>
+	  <ul class="nav floatright">
+	  <li><a href="<%= post_path %>"><div class="post"></div>Post track</a></li>
+	  <li>
+		<a href="<%= user_path(current_user.id) %>">
+		<% unless current_user.image == nil %>
+		  <img src="<%= current_user.image %>" />
+		<% end %>
+		<%= current_user.username %>
+		</a>
+	  </li>
+	  <li><a href="<%= edit_user_path(current_user) %>"><div class="edit"></div></a></li>
+	  <li><a href="<%= signout_path %>"><div class="signout"></div></a></li>
+	  </ul>
+	  <% else %>
+	  <ul class="nav floatright">
+	  <li><a href="<%= signup_path %>">&#43;<div class="signup"></div>Sign Up</a></li>
+	  <li><a href="<%= signin_path %>"><div class="signin"></div>Sign In</a></li>
+	  </ul>
+	<% end %>
 	</div>
+  </div>
 </nav>

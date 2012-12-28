@@ -1,4 +1,4 @@
-<div class="comment-item">
+<div class="comment-item" id="comment-<%= comment_item.id %>">
 	<div class="comment-image">
 		<a href="<%= user_path(comment_item.user) %>">
 			<% unless comment_item.user.image.nil? %>
@@ -13,9 +13,8 @@
 		<p><%= comment_item.content %></p>
 	</div>
 	<div class="comment-time">
-		<div><%= time_ago_in_words(comment_item.created_at) %> ago</div>
 		<% if current_user?(comment_item.user) %>
-			<%= link_to "Delete", comment_item, :method => :delete, :class => "comment-delete" %>
+			<%= link_to "", comment_item, :method => :delete, :class => "comment-delete", :title => "Delete comment" %>
 		<% end %>
 	</div>
 </div>

@@ -2,7 +2,7 @@
   $(document).ready(function(){
     pagelessHTML = "<%= escape_javascript(pageless(@feed_items.total_pages, @path)) %>";
     elemIds = {'recent': '#recent', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
-    loadSongs(elemIds, pagelessHTML);
+    loadSongs(elemIds, pagelessHTML); //Pass pageless page count in as variable, save in function to reset count.
   });
 </script>
 

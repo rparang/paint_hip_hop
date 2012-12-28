@@ -2,19 +2,20 @@
 //week, month and all time
 //--------------------------------------------------------
 
-function loadSongs(el, pagelessHTML) {
+function loadSongs(el, pagelessHTML, pagelessPagesCount) {
+  console.log(pagelessPagesCount);
   $.each(el, function(key,value){
     $(value)
     .bind("ajax:beforeSend", function(evt, xhr, settings){
       var $label = $(value);
       $label.data('origText', $(this).text() ); //Store label
       $label.text("Loading...");
+      $('#results').empty();
     })
     .bind("ajax:success", function(evt, data, status, xhr){
-      var $pageless_html = pagelessHTML;
       $('#results').html(data); //Replace HTML within #results with data, which is populated with the shared/feed partial
-      if (value == "#recent") {
-        $('#results').append($pageless_html); //Append Pageless loader div that
+      if (value == "#feed") {
+        $('#results').append(pagelessHTML); //Append Pageless loader div that
       //is removed once the #results is replaced using the html() method
       }
     })
@@ -145,3 +146,107 @@ function searchView(video) {
   $("<p>").html(video_duration).appendTo('#r-'+video.id.$t.split(":")[3]);
 
 }
+
+
+//Add vote on media page
+//--------------------------------------------------------
+
+function addPointOnMedia(video_id, current_user_id, isFeed) {
+  $("#vote").off().removeClass('button-hover').addClass('voted');
+  $("#vote-"+video_id).off();
+  $("#vote-"+video_id+" span").text('Liked');
+  $("#media-container-"+video_id).addClass('voted');
+  $("#actions-"+video_id).addClass('voted');
+  $.ajax({
+    type: "POST",
+    url: "/votes",
+    data: {vote: {
+      video_id: video_id,
+      user_id: current_user_id
+    }}
+  }).done(function (data) {
+    if(isFeed) {
+      addPointsAndFacesOnFeed(data);
+    }
+    else {
+      addPointsAndFacesOnMedia(data);
+    }
+  });
+  return false;
+};
+
+function addPointsAndFacesOnMedia(data) {
+  var image;
+  var obj = jQuery.parseJSON(data);
+  obj.image == null ? image = "/assets/default-small.png" : image = obj.image;
+  $("#points-value").text(obj.vote_count+ " points");
+  $("#points-container").append("<a href="+obj.path+"><img src="+image+" title="+obj.name+" style='width:39px;''></a>");
+};
+
+function addPointsAndFacesOnFeed(data) {
+  var image;
+  var obj = jQuery.parseJSON(data);
+  var vote_count = parseInt(obj.vote_count);
+  var points = vote_count - 1;
+  obj.image == null ? image = "/assets/default-small.png" : image = obj.image;
+  $("#points-value-"+obj.video_id).text("You and "+points+ " people liked this");
+  $("#faces-"+obj.video_id).append("<a href="+obj.path+"><img src="+image+" title="+obj.name+" class='image-round-3' style='width:28px;''></a>");
+  $("#sunglasses-"+obj.video_id).addClass('voted');
+};
+
+
+
+//Add and build comment
+//--------------------------------------------------------
+
+function addCommentOnMedia() {
+  $('form').submit(function() {  
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: $(this).attr('action'), //sumbits it to the given url of the form
+      data: valuesToSubmit,
+    }).done(function(data){
+        alert(data);
+        buildCommentOnMedia(data);
+       });
+    return false; // prevents normal behaviour
+  });
+};
+
+function buildCommentOnMedia(data) {
+  var obj = jQuery.parseJSON(data)
+  var image;
+  obj.image == null ? image = "/assets/default-small.png" : image = obj.image;
+  $("#comments-count").html(obj.comment_count+" comments");
+  $("#comment_content").val('');
+  $("#comment-form-container").before("<div class='comment-item' id='comment-"+obj.comment.id+"'><div class='comment-image'><a href='"+obj.path+"'><img src="+image+" title='"+obj.name+"' /></a></div><div class='comment-username'><a href='"+obj.path+"'>"+obj.name+"</a><p>"+obj.comment.content+"</p></div><div class='comment-time'></div></div>");
+};
+
+function buildCommentOnFeed(data) {
+  var obj = jQuery.parseJSON(data)
+  var image;
+  obj.image == null ? image = "/assets/default-small.png" : image = obj.image;
+  $("#comment-"+obj.video_id).text(obj.comment_count+" comments");
+  $("#input-"+obj.video_id).val('');
+  $("#comment-form-container-"+obj.video_id).before("<div class='comment-item' id='comment-"+obj.comment.id+"'><div class='comment-image'><a href='"+obj.path+"'><img src="+image+" title='"+obj.name+"' /></a></div><div class='comment-username'><a href='"+obj.path+"'>"+obj.name+"</a><p>"+obj.comment.content+"</p></div><div class='comment-time'></div></div>");
+};
+
+
+//Delete comment
+//--------------------------------------------------------
+
+function deleteComment() {
+  $(".comment-delete").click(function() {
+  $.ajax({ 
+    url : this.href,
+    type : 'DELETE', 
+    dataType : 'html', 
+    success : function(data) {
+      var obj = jQuery.parseJSON(data);
+      $("#comment-"+obj.comment.id).fadeOut();
+     }
+  });
+  return false;
+  });
+};

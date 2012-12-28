@@ -1,37 +1,41 @@
-<% logo = image_tag("logo_new_2_big.png", :alt => "Paint the Town", :class => "logo") %>
-
 <div class="sign-in-container">
-
-  <%= link_to logo, root_path %>
-
-  <div>
-    
+  <div class="signup-big"></div>
+  <h1>Sign Up</h1>
+  <% unless session[:omniauth] %>
+  <div id="auth-buttons">
+    <a href="/auth/facebook/" class="button facebook"><div class="facebook-icon"></div>Sign in with Facebook</a>
+    <a href="/auth/twitter/" class="button twitter"><div class="twitter-icon"></div>Sign in with Twitter</a>
+  </div>
+  <% end %>
+  <div id="sign-in-form">
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages' %>
-
-      <%= f.label "Username" %>
-      <img src="<%= @user_image %>" id="sign-up-image" />
-      <%= f.text_field :username, :value => @nickname %>
-
-      <%= f.label :email %>
-      <%= f.text_field :email %>
-
       <!--<p><%= session[:omniauth] %></p>-->
-
-      <% unless session[:omniauth] %>
-        <%= f.label :password %>
-        <%= f.password_field :password %>
-
-        <%= f.label :password_confirmation, "Confirmation" %>
-        <%= f.password_field :password_confirmation %>
-      <% end %>
-      <br />
-
-      <%= f.submit "Create my account", class: "sign-in-btn btn btn-large" %>
+      <ul class="form unstyled">
+        <li>
+          <div class="username"></div>
+          <%= f.text_field :username, :placeholder => "Username", :value => @nickname, :size => "53", :maxlength => "30", :autocomplete => "off" %>
+        </li>
+        <li>
+          <div class="email"></div>
+          <%= f.text_field :email, :placeholder => "Email", :value => @email, :size => "53", :maxlength => "255", :autocomplete => "off" %>
+        </li>
+        <% unless session[:omniauth] %>
+        <li>
+          <div class="password"></div>
+          <%= f.password_field :password, :placeholder => "Password", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+        </li>
+        <li>
+          <div class="password_confirmation"></div>
+          <%= f.password_field :password_confirmation, :placeholder => "Password Confirmation", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+        </li>
+        <% end %>
+      </ul>
+      <span class="button sign-in-button">
+        <div class="key"></div>
+        <%= f.submit "Sign up" %>
+      </span>
     <% end %>
-
-    <p>Already a user? <%= link_to "Sign in now!", signin_path %></p>
-
+    <%= link_to "Have an account? Sign in.", signin_path, :class => "account" %>
   </div>
-
 </div>

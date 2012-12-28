@@ -1,0 +1,54 @@
+@mixin testing() {
+  border: 1px solid red
+}
+
+@mixin clearfix() {
+  *zoom: 1;
+  &:before,
+  &:after {
+    display: table;
+    content: "";
+  }
+  &:after {
+    clear: both;
+  }
+}
+
+@mixin image-round($value) {
+  border-radius: $value;
+  -webkit-border-radius: $value;
+  -moz-border-radius: $value;
+}
+
+// Centered container element
+@mixin container-fixed() {
+  margin-left: auto;
+  margin-right: auto;
+  @include clearfix();
+}
+
+@mixin link_transition() {
+  transition: color 0.1s ease, border-color 0.1s ease;
+  -webkit-transition: color 0.1s ease, border-color 0.1s ease;
+  -moz-transition: color 0.1s ease, border-color 0.1s ease;
+}
+
+@mixin transition() {
+  transition: opacity 0.1s ease;
+  -webkit-transition: opacity 0.1s ease;
+  -moz-transition: opacity 0.1s ease;
+}
+
+@mixin button_transition() {
+  transition: background 0.1s ease;
+  -webkit-transition: background 0.1s ease;
+  -moz-transition: background 0.1s ease;
+  -o-transition: background 0.1s ease;
+}
+
+@mixin background_transition() {
+  transition: background 0.1s ease;
+  -webkit-transition: background 0.1s ease;
+  -moz-transition: background 0.1s ease;
+  -o-transition: background 0.1s ease;
+}

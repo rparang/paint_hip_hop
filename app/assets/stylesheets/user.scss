@@ -1,0 +1,41 @@
+@import 'variables';
+@import 'mixins';
+
+.user {
+  margin-bottom: 20px;
+  @include clearfix();
+  #image {
+    img { 
+      height: 170px;
+    }
+  }
+  .user-info {
+    padding: 5px 0 0 18px;
+    p {
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .social {
+      a.facebook {
+        overflow: hidden;
+        img {
+          margin-top: -20px;
+        }
+      }
+      a.twitter {
+        overflow: hidden;
+        padding-left: 5px;
+        img {
+          margin-top: -20px;
+        }
+      }
+    }
+  }
+  .follow {
+    margin: 6px 6px 0 0;
+    a {
+      font-size: 12px;
+      margin: 6px 6px 0 0;
+    }
+  }
+}

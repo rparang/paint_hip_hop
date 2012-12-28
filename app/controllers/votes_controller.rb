@@ -1,6 +1,6 @@
 class VotesController < ApplicationController
   @vote = Vote.new
-  
+  respond_to :html, :xml, :json
 
   def new
 	@vote = Vote.new
@@ -14,16 +14,26 @@ class VotesController < ApplicationController
 
 	if @vote.save
 	  @video = Video.find(params[:vote][:video_id])
-	  respond_to do |format|
-		  format.html { redirect_to :back }
-		  format.js
+	  respond_with do |format|
+	    format.html do
+		  if request.xhr?
+		    #render :text => "#{@video.votes.count} points" #Not surfacing text
+		    render :json => {:vote_count => @video.votes.count,
+												 :name => @vote.user.username,
+												 :image => @vote.user.image,
+												 :path => user_path(@vote.user),
+												 :video_id => @video.id
+												}
+		  end
+		end
 	  end
-
 	else
-	  flash[:error] = "Something is wrong with your vote"
-	  respond_to do |format|
-	      format.html { redirect_to :back }
-	      format.js
+	  respond_with do |format|
+	    format.html do
+		  if request.xhr?
+		    render :text => "Error!" #Not surfacing text
+		  end
+		end
 	  end
 	end
   end

@@ -8,15 +8,19 @@ class VideosController < ApplicationController
   end
 
   def home
+    @path = root_path
     @vote = Vote.new
     @comment = Comment.new(params[:vote])
     if signed_in?
       @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 10)
-      if request.xhr?
-        render :partial => 'shared/feed'
-        #sleep(6)
-      else
-        render 'pages/home'
+      respond_with do |format|
+        format.html do 
+          if request.xhr?
+            render :partial => 'shared/feed', :layout => false
+          else
+            render 'pages/home'
+          end
+        end
       end
     else
       @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
@@ -52,7 +56,7 @@ class VideosController < ApplicationController
   end
 
   def index
-    @feed_items = Video.paginate(:page => params[:page], :per_page => 10)
+    @feed_items = Video.paginate(:page => params[:page], :per_page => 50)
     @path = videos_path
     @header_title = "Hits"
     top_songs_common
@@ -84,6 +88,7 @@ class VideosController < ApplicationController
 
   def show
     @video = Video.find(params[:id])
+    @title = @video.title
     @user_videos = Video.find(params[:id]).user.videos.limit(10)
     @vote = Vote.new(params[:vote])
     @comment = Comment.new(params[:vote])
@@ -103,7 +108,7 @@ class VideosController < ApplicationController
   def create
     @video = current_user.videos.build(params[:video])
     if @video.save
-      flash[:success] = "Your Video is now live"
+      flash[:success] = "Your Video is now live. #{ActionController::Base.helpers.link_to "Click", '#'}".html_safe
       facebook_share(params[:video], @video) #If the user has selected the checkbox to share on Facebook
       twitter_share(params[:video])          #If the user has selected the checkbox to share on Twitter
       redirect_to @video

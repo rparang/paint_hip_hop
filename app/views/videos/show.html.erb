@@ -2,105 +2,115 @@
 	<%= render :partial => 'layouts/fb_ogo' %>
 <% end %>
 
+<% if signed_in? %>
+<script type="text/javascript">
+  $("document").ready( function() {
+    $("#vote").click(function() {
+		  var video_id = "<%= @video.id %>";
+		  var current_user_id = "<%= current_user.id %>";
+		  addPointOnMedia(video_id,current_user_id);
+    });	
+    addCommentOnMedia();
+    deleteComment();
+  });
+</script>
+<% end %>
+
 <div class="left-container">
-	<div class="video-main">
-		<div class="video-header">
-			<p class="name"><%= link_to @video.title, "http://www.youtube.com/watch?v=#{@video.youtube_id}", :target => '_blank' %></p>
-			<p class="created-at"><%= time_ago_in_words(@video.created_at) %> ago by <%= link_to @video.user.username, @video.user %></p>
+  <div class="video-main">
+	<div class="video-header">
+	  <div class="name"><%= @video.title %>
+	    <% if current_user?(@video.user) %><a href="<%= edit_video_path(@video.id) %>" title="Edit #{@video.title}"><div class="edit"></div>Edit video</a><% end %>
+	  </div>
+	  <div class="left">
+		<div class="created-at">
+		  <% @video.user.image == nil ? image = "/assets/default-small.png" : image = @video.user.image %>
+		  <a href="<%= user_path(@video.user.id) %>"><img src="<%= image %>" /><%= @video.user.username %></a><div class="clock"></div><%= time_ago_in_words(@video.created_at) %> ago
 		</div>
-		<div class="video-player">
-			<div class="video-player-background">
-				<iframe title='YouTube video player' width='610' height='380' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
-				<% unless @video.description.empty? %>
-					<p class="video-description"><%=raw @video.description.gsub(/\n/, '<br/>') %></p>
-				<% end %>
-				<div class="video-social">
-					<% if signed_in? %>
-						<div id="video-votes-ajax" class="floatleft">
-						<% if current_user.vote?(@video.id) %>
-							<%= render '/videos/unvote' %>
-						<% else %>
-							<%= render '/videos/vote' %>
-						<% end %>
-						</div>
-					<% else %>
-						<div id="video-votes-ajax" class="floatleft">
-							<form>
-								<input class="btn btn-small" type="button" value="+1" onclick="window.location.href='/signin'">
-							</form>
-						</div>
-					<% end %>
-					<%= render '/videos/social' %>
-				</div>
-			</div>
-		</div>
-		<div class="video-points-and-comments-container">
-			<div class="video-votes-container">
-				<div class="video-subheader" id="points-value"><%= pluralize(@video.votes_count, 'point') %></div>
-				<% unless @video.votes.empty? %>
-					<div class="points-container">
-						<% @video.votes.each do |v| %>
-							<% v.user.image == nil ? image = "/assets/default-small.png" : image = v.user.image %>
-							<a href="<%= user_path(v.user) %>"><img src="<%= image %>" title="<%= v.user.username %>" style="width:39px;" /></a>
-						<% end %>
-					</div>
-				<% end %>
-			</div>
-		</div>
-		<div id="comments-container">
-			<div class="video-subheader"><%= pluralize(@video.comments.count, 'comment') %></div>
-			<%= render :partial => 'videos/comment_item', :collection => @comment_items %>
-
-			<% if signed_in? %>
-
-				<div id="comment-form-container">
-					<% current_user.image == nil ? image = "/assets/default-small.png" : image = current_user.image %>
-					<img src="<%= image %>" class="floatleft" />
-					<%= form_for(@comment, :remote => true) do |f| %>
-	    				<%= f.text_field :content, :class => "comment-input" %>
-						<%= f.hidden_field "video_id", :value => @video.id %><br />
-	    				<%= f.submit "Comment", class: "btn btn-default floatright" %>
-					<% end %>
-				</div>
-
-			<% else %>
-				<%= link_to "Sign in to comment", signin_path %>
+	  </div>
+	  <a href="http://youtube.com/watch?v=<%= @video.youtube_id %>" class="right" target="_blank">Powered by<div class="powered"></div></a>
+	</div>
+	<div class="video-player">
+	  <iframe title='YouTube video player' width='620' height='380' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
+	  <% unless @video.description.empty? %>
+	    <p class="video-description"><%=raw @video.description.gsub(/\n/, '<br/>') %></p>
+	  <% end %>
+	  <div class="video-social">
+	  	<div id="video-votes" class="floatleft">
+	    <% if signed_in? %>
+	      <% unless current_user.vote?(@video.id) %>
+			<span class="button button-hover" id="vote"><div class="sunglasses"></div></span>
+		  <% else %>
+		  	<span class="button voted"><div class="sunglasses"></div></span>
+		  <% end %> 
+	    <% else %>
+		<span class="button button-hover" onclick="window.location='/signin' "><div class="sunglasses"></div></span>
+	    <% end %>
+	  </div>
+	    <%= render '/videos/social' %>
+	  </div>
+	</div>
+	<div class="video-points-and-comments-container">
+	  <div class="video-votes-container">
+		<div class="video-subheader" id="points-value"><%= pluralize(@video.votes_count, 'point') %></div>
+		  <div id="points-container">
+		    <% @video.votes.each do |v| %>
+			    <% v.user.image == nil ? image = "/assets/default-small.png" : image = v.user.image %>
+				  <a href="<%= user_path(v.user) %>"><img src="<%= image %>" title="<%= v.user.username %>" style="width:39px;" /></a>
+		    <% end %>
+		  </div>
+	  </div>
+	</div>
+	<div id="comments-container">
+	  <div class="video-subheader" id="comments-count"><%= pluralize(@video.comments.count, 'comment') %></div>
+	  <%= render :partial => 'videos/comment_item', :collection => @comment_items %>
+	  <% if signed_in? %>
+	    <div id="comment-form-container" class="comment-form-container">
+		<% current_user.image == nil ? image = "/assets/default-small.png" : image = current_user.image %>
+		  <img src="<%= image %>" class="floatleft" />
+			<%= form_for(@comment, :remote => true) do |f| %>
+	    	  <%= f.text_field :content, :class => "comment-input", :placeholder => "Write a comment", :maxlength => "255" %>
+			  <%= f.hidden_field "video_id", :value => @video.id %><br />
+	    	  <%= f.submit "Comment", class: "button floatright" %>
 			<% end %>
 
+			<script type="text/javascript">
+				$input = $(".comment-input");
+				if ($input.val() == "") {
+					$(".button").attr('disabled', 'disabled'); //REDO
+				}
+			</script>
+
 		</div>
-
-		<% if current_user?(@video.user) %>
-			<%= link_to "Delete video?", @video, :method => :delete, :confirm => "Are you sure? The video and its votes and comments won't be coming back.", :title => "Delete #{@video.title}", :class => "delete-video" %>
-			<%= link_to "Update video?", edit_video_path(@video.id), :title => "Delete #{@video.title}", :class => "delete-video" %>
-		<% end %>
+	  <% else %>
+	    <%= link_to "Sign in to comment", signin_path %>
+	  <% end %>
 	</div>
+  </div>
 </div>
-
-<div class="more-from-right-container">
-	<div class="more-from-user-container">
-		<div class="more-from-user-header"><%= @video.user.username %> <span><%= @video.user.points %></span></div>
-
-		<% unless @user_videos.empty? %>
-
-			<% @user_videos.count.times do |v| %>
-
-				<div class="more-from-user-item">
-					<div class="more-from-user-image">
-						<a href="<%= video_path(@user_videos[v]) %>"><img src="http://i.ytimg.com/vi/<%= @user_videos[v].youtube_id %>/default.jpg" /></a>
-					</div>
-					<div class="more-from-video-info">
-						<a href="<%= video_path(@user_videos[v]) %>"><%= @user_videos[v].title %></a>
-						<p><%= pluralize(@user_videos[v].votes.count, 'point') %></p>
-						<p><%= pluralize(@user_videos[v].comments.count, 'comment') %></p>
-					</div>
-				</div>
-
-			<% end %>
-
+<div class="right-container">
+  <div class="more-from-user-container">
+    <div class="more-from-user-header"><%= @video.user.username %> <span><%= @video.user.points %></span></div>
+	  <% unless @user_videos.empty? %>
+		<% @user_videos.count.times do |v| %>
+		  <div class="more-from-user-item">
+		    <div class="more-from-user-image">
+			  <a href="<%= video_path(@user_videos[v]) %>"><img src="http://i.ytimg.com/vi/<%= @user_videos[v].youtube_id %>/mqdefault.jpg" /></a>
+			</div>
+			<div class="more-from-video-info">
+			  <a href="<%= video_path(@user_videos[v]) %>"><%= @user_videos[v].title %></a>
+			  <div><div class="vote"></div><%= @user_videos[v].votes.count %></div>
+			  <div><div class="comment"></div><%= @user_videos[v].comments.count %></div>
+			</div>
+		  </div>
 		<% end %>
-		
-	</div>
-
+	  <% end %>
+  </div>
 </div>
-
 <script type="text/javascript" src="//assets.pinterest.com/js/pinit.js"></script>
+<script type="text/javascript">
+	$close = $(".alert a");
+	$close.click( function() {
+		$(".alert").fadeOut();
+	});
+</script>

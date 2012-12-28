@@ -1,4 +1,0 @@
-<div class="vote-button" id="vote-button-<%= @video.id %>">
-	<%= link_to "Voted", vote_path(current_user.votes.find_by_video_id(@video.id)), :class => "btn btn-small disabled", :method => :delete, :remote => true %>
-</div>
-

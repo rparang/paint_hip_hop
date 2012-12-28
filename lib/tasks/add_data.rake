@@ -1,7 +1,7 @@
 namespace :db do
 	desc "Fill database with sample data"
 	task :add => :environment do
-		#make_songs
+		make_songs
 		make_votes
 	end
 end
@@ -9,7 +9,7 @@ end
 def make_songs
 	users = User.all
 	yt_client = YouTubeIt::Client.new
-	5.times do |n|
+	3.times do |n|
 		#random_name = Faker::Name.name
 
 		users.each do |user|
@@ -33,7 +33,7 @@ def make_votes
 	videos = Video.all
 	vid_ids = videos.collect { |c| c.id }
 
-	50.times do |n|
+	3.times do |n|
 		users.each do |u|
 			random_id = (vid_ids.length*rand()).to_i
 			rand_vid = vid_ids[random_id]

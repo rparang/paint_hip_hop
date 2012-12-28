@@ -8,9 +8,9 @@
   <%= render 'layouts/ga' %>
   <%= yield :head %>
 </head>
-<body>
+<body class="<%= @black_page || request.fullpath == users_path ? 'body-black' : ''%>">
 	<%= render 'layouts/fb' %>
-	<%= render 'layouts/header' unless request.fullpath == signup_path || request.fullpath == signin_path %>
+	<%= render 'layouts/header' %>
 
 	<div class="container">
 
@@ -21,6 +21,6 @@
 		<%= yield %>
 
 	</div>
-	<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>
+	<!--<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>-->
 </body>
 </html>

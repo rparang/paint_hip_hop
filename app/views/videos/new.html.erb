@@ -1,45 +1,62 @@
+<script type="text/javascript">
+  $("document").ready( function() {
+    var has_facebook = "<%= current_user.has_facebook?.present? %>";
+    var has_twitter = "<%= current_user.has_twitter?.present? %>";
+    if (has_facebook == "false") {
+      $("#connect-facebook").show();
+      $("#share-facebook").attr('disabled','disabled');
+      $("#facebook").css('color','#999');
+    }
+    else {
+      $("#share-facebook").attr('checked','checked');
+    }
+    if (has_twitter == "false") {
+      $("#connect-twitter").show();
+      $("#share-twitter").attr('disabled','disabled');
+      $("#twitter").css('color','#999');
+    }
+    else {
+      $("#share-twitter").attr('checked','checked');
+    }
+  });
+</script>
+
 <div class="left-container">
-  <div class="new-video-header">Configure your video</div>
-  <div class="new-video-preview">
-    <iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= @vid.video_id.split(":").last %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
+  <div class="new-track">
+  <h1>Preview and Post</h1>
+  <a href="/post?s=<%= escape_javascript(params[:s]) %>">&#8249;&#8249;Back</a>
+  <div class="player">
+    <iframe title='YouTube video player' width='620' height='340' src='http://www.youtube.com/embed/<%= @vid.video_id.split(":").last %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
   </div>
-
   <%= form_for(@video) do |f| %>
-    <div class="new-video-title">
-      <%= f.label :title %>
-      <%= f.text_field :title, :size => "100", :maxlength => 155, :value => @vid.title %>
+    <ul class="form unstyled">
+      <li>
+        <div class="title"></div>
+        <%= f.text_field :title, :placeholder => "Title", :value => @vid.title, :class=> "image-round-3", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+      </li>
+      <li>
+        <div class="comment"></div>
+        <%= f.text_field :description, :placeholder => "Comment", :value => @email, :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
+        <%= f.hidden_field :youtube_id, :value => @vid.video_id.split(":").last %>
+        <%= f.hidden_field :duration, :value => @vid.duration %>
+      </li>
+    </ul>
+    <div class="share">
+      <div id="facebook">
+        <%= f.check_box :share_facebook, :id => "share-facebook" %>
+        <div class="facebook"></div>
+        <%= f.label :share_facebook, "Share on Facebook" %><a href="/auth/facebook" id="connect-facebook" style="display:none;" target="_blank">Connect account</a>
+      </div>
+      <div id="twitter">
+        <%= f.check_box :share_twitter, :id => "share-twitter" %>
+        <div class="twitter"></div>
+        <%= f.label :share_twitter, "Share on Twitter" %><a href="/auth/twitter" id="connect-twitter" style="display:none;" target="_blank">Connect account</a>
+      </div>
     </div>
-    <div class="new-video-description">
-      <%= f.label :comment %>
-      <%= f.text_area :description, :size => "60x12" %>
-      <%= f.hidden_field :youtube_id, :value => @vid.video_id.split(":").last %>
-      <%= f.hidden_field :duration, :value => @vid.duration %>
-    </div>
-
-    <div class="new-video-sharing">
-      <span id="facebook">
-        <% if current_user.has_facebook?.present? %>
-          <%= f.check_box :share_facebook, :checked => true %>
-          <%= f.label :share_facebook, "Share on Facebook" %>
-        <% else %>
-          <input checked="checked" disabled="disabled" id="video_share_facebook" type="checkbox" value="1">
-          <label for="video_share_facebook" style="color: gray;">Share on Facebook</label>&nbsp;<a href="/auth/facebook" target="_blank">Connect account</a>
-        <% end %>
-      </span>
-      <span id="twitter">
-        <% if current_user.has_twitter?.present? %>
-          <%= f.check_box :share_twitter, :checked => true %>
-          <%= f.label :share_twitter, "Share on Twitter" %>
-        <% else %>
-          <input checked="checked" disabled="disabled" id="video_share_twitter" type="checkbox" value="1">
-          <label for="video_share_twitter" style="color: gray;">Share on Twitter</label>&nbsp;<a href="/auth/twitter" target="_blank">Connect account</a>
-        <% end %>
-      </span>
-    </div>
-    <div class="new-video-buttons">
-      <input class="btn new-video-back" type="button" value="Back" onclick="window.location.href='/post?s=<%= escape_javascript(params[:s]) %>'"> 
-      <%= f.submit "Post", :class => "btn-primary new-video-submit" %>
-    </div>
+    <span class="button post-button floatright">
+      <div class="post"></div>
+      <%= f.submit "Post" %>
+    </span>
   <% end %>
-
+  </div>
 </div>

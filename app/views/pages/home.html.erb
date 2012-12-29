@@ -1,30 +1,31 @@
 <script type="text/javascript">
 	$("document").ready( function() {
 		xhr_get("<%= escape_javascript(topdayjson_path) %>");
-
-		var shortText = $("#video-title").text()
-		if (shortText.length > 45) {
-			var shortText = $("#video-title").text().trim().substring(0,42)+"..."
-		}
-		else {
-			var shortText = $("#video-title").text()
-		}
-		$("#video-title").html(shortText);
 	})
 </script>
 
 <% if signed_in? %>
-	<% if current_user.videos.first.nil? %>
-		<%= render 'shared/search' %>
-		<style>.right-container { margin-top: -136px; }</style> <!-- Ugly style fix. Address in redesign -->
-	<% elsif (Time.now - current_user.videos.first.created_at.localtime) >= 84600 || current_user.videos.first.votes.count >=2 %>
-		<%= render 'shared/search' %>
-		<style>.right-container { margin-top: -136px; }</style> <!-- Ugly style fix. Address in redesign -->
-	<% end %>
-
 <div class="left-container">
-	<% unless current_user.feed.empty? %>
 
+	<div class="feed-options">
+		<div class="floatleft">
+			<%= link_to raw("<div class='feed'></div>Feed"), root_path, :remote => true, :id => 'feed' %>
+			<%= link_to raw("<div class='new'></div>New"), videos_path, :remote => true, :id => 'recent' %>
+			<%= link_to raw("<div class='people'></div>People"), users_path, :remote => true, :id => 'people' %>
+		</div>
+		<div class="loading floatleft" style="display:none;" id="loading-feed"></div>
+		<div class="floatright">
+			<div class="top"></div>Top:
+			<%= link_to "Week", week_path, :remote => true, :id => 'week' %>
+	    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
+	    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
+		</div>
+<!--
+			<%= link_to "Day", day_path, :remote => true, :id => 'day' %>
+-->
+	</div>
+	<%= render 'shared/search' %>
+	<% unless current_user.feed.empty? %>
 		<script>
 		  $(document).ready(function(){
 		    pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
@@ -33,15 +34,6 @@
 		  });
 		</script>
 
-		<div class="video-feed-header">Videos from your followers
-			<%= link_to "Your feed", root_path, :remote => true, :id => 'feed' %>
-			<%= link_to "Recent", videos_path, :remote => true, :id => 'recent' %>
-			<%= link_to "Day", day_path, :remote => true, :id => 'day' %>
-		    <%= link_to "Week", week_path, :remote => true, :id => 'week' %>
-		    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
-		    <%= link_to "All time", alltime_path, :remote => true, :id => 'alltime' %>
-		    <a href="#">People</a>
-		</div>
 			<div id="results">
 			  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. Remaining are sent from controller
 	                                       after Pageless requests asynchronously -->
@@ -55,63 +47,56 @@
 	<% end %>
 </div>
 
-<div class="right-container floatright" style="margin-left:0;">
+<div class="right-container">
 	<% unless current_user.videos.first.nil? %>
 		<div class="current-video-container">
-			<div class="current-video-header">Your Current Video</div>
-			<div class="current-video-image">
-				<a href="<%= video_path(current_user.current_video.id) %>"><img src="http://i.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/default.jpg" /></a>
+			<h3>Your Current Track</h3>
+			<div class="meta">
+				<div class="points"><%= pluralize(current_user.current_video.votes_count, "point") %>, <%= pluralize(current_user.current_video.comments.count, "comment") %></div>
+				<div class="active">Active: <%= time_ago_in_words(current_user.current_video.created_at) %></div>
 			</div>
-			<div class="current-video-title-and-time">
-				<h3><a href="<%= video_path(current_user.current_video.id) %>" id="video-title"><%= current_user.current_video.title %></a></h3>
-				<p><%= time_ago_in_words(current_user.current_video.created_at) %></p>
+
+			<div class="image-title">
+				<div class="image floatleft">
+					<a href="<%= video_path(current_user.current_video) %>"><img src="http://i2.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/mqdefault.jpg" /></a>
+				</div>
+				<div class="title floatleft">
+					<a href="<%= video_path(current_user.current_video) %>" class="video-title" id="video-title"><%= current_user.current_video.title %></a>
+					<a href="<%= edit_video_path(current_user.current_video) %>" class="edit-wrapper"><div class="edit"></div>Edit</a>
+				</div>
 			</div>
-			<ul class="current-video-points-comments unstyled">
-				<li class="current-video-points"><%= current_user.current_video.votes_count %> points</li>
-				<li class="current-video-comments"><%= current_user.current_video.comments.count %> comments</li>
-			</ul>
-			<div class="current-video-update"><%= link_to "Update video", edit_video_path(current_user.current_video) %></div>
 		</div>
 	<% end %>
 
-	<div class="stats-container" style="height: 148px;">
-		<div class="stats-header">Your Stats</div>
-		<ul class="list-stats unstyled">
-			<li class="list-points"><a href="<%= user_path(current_user) %>">
-				<% if current_user.points == 0 %>
-					0 total points
-				<% else %>
-					<%= current_user.points %> total points
-				<% end %>
-				</a></li>
-			<li class="list-followers"><a href="<%= followers_user_path(current_user) %>"><%= current_user.followers.count %> followers</a></li>
-			<li class="list-following"><a href="<%= following_user_path(current_user) %>"><%= current_user.following.count %> following</a></li>
-		</ul>
+	<div class="stats-container">
+		<h3>Your Stats</h3>
+		<div class="stats">
+			<a href="<%= user_path(current_user) %>"><div class="sunglasses"></div><%= pluralize(current_user.points, "point") %></a>
+			<a href="<%= user_path(current_user) %>"><div class="tracks"></div><%= pluralize(current_user.videos.count, "track") %></a>
+			<a href="<%= followers_user_path(current_user) %>"><div class="followers"></div><%= pluralize(current_user.followers.count, "follower") %></a>
+			<a href="<%= following_user_path(current_user) %>"><div class="following"></div><%= current_user.following.count %> following</a>
+		</div>
 	</div>
+
+	<div class="more-from-user-container" id="items-trending">
+		<h3>Trending</h3>
+		<div id="loading"></div>
+	</div>
+
 	<% unless current_user.authentications.count == 2 %>
-		<div class="stats-container" style="height:100%; margin-top: 20px; ">
-			<div>
-				<p><i>Paint the Town is better social</i></p>
-				<ul class="connect unstyled">
-					<% unless current_user.has_facebook?.present? %>
-						<li class="facebook"><a href="/auth/facebook">Connect to Facebook</a></li>
-					<% end %>
-					<% unless current_user.has_twitter?.present? %>
-						<li class="twitter"><a href="/auth/twitter">Connect to Twitter</a></li>
-					<% end %>
+		<div class="social">
+			<p>Paint the Town is better social</p>
+				<% unless current_user.has_facebook?.present? %>
+					<a href="#"><div class="facebook"></div>Connect to Facebook</a>
+				<% end %>
+				<% unless current_user.has_twitter?.present? %>
+					<a href="#"><div class="twitter"></div>Connect to Twitter</a>
+				<% end %>
 				</ul>
-			</div>
 		</div>
 	<% end %>
 
-	<div class="more-from-right-container" style="margin-top:20px;">
-		<div class="more-from-user-container" id="items-trending">
-			<div class="more-from-user-header">Trending</div>
-			<div id="loading" style="margin:10px;"></div>
-
-		</div>
-	</div>
-</div>
+</div> <!-- End right container -->
 
 <% else %>
 <!-- Hero Container -->

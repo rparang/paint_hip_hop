@@ -7,7 +7,7 @@
 	  <ul class="nav floatright">
 	  <li><a href="<%= post_path %>"><div class="post"></div>Post track</a></li>
 	  <li>
-		<a href="<%= user_path(current_user.id) %>">
+		<a href="<%= user_path(current_user) %>">
 		<% unless current_user.image == nil %>
 		  <img src="<%= current_user.image %>" />
 		<% end %>

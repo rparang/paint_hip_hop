@@ -18,25 +18,30 @@
 	  	  <div class="play"></div>
 	  	</div>
 	  	<div class="info floatleft" id="info-<%= feed_item.id %>">
-	  		<a class="title" href="<%= video_path(feed_item) %>"><%= feed_item.title %></a>
-	  		<% unless css_class =="voted" %>
+	  		<a class="title" id="title-<%= feed_item.id %>" href="<%= video_path(feed_item) %>"><%= feed_item.title %></a>
+	  		<p id="description-<%= feed_item.id %>"><%= feed_item.description %></p>
+	  		<% if signed_in? && current_user.vote?(feed_item.id) %>
+					<div class="actions voted" id="actions-<%= feed_item.id %>">
+		  		  <span class="like"><div class="sunglasses"></div><span>Liked</span></span>
+		  		</div>
+		  	<% elsif signed_in? %>
 		  		<div class="actions" id="actions-<%= feed_item.id %>">
 		  		  <span class="like" id="vote-<%= feed_item.id %>"><div class="sunglasses"></div><span>Like</span></span>
 		  		</div>
 		  	<% else %>
-		  		<div class="actions voted" id="actions-<%= feed_item.id %>">
-		  		  <span class="like"><div class="sunglasses"></div><span>Liked</span></span>
+		  		<div class="actions">
+		  		  <span class="like" onclick="window.location='<%= signin_path %>'; return false;"><div class="sunglasses"></div><span>Like</span></span>
 		  		</div>
-	  		<% end %>
+		  	<% end %>
 	    </div>
 	  </div>
 	  <div class="meta">
-	  	<span><div class="sunglasses <%= css_class %>" id="sunglasses-<%= feed_item.id %>"></div><a href="#" id="points-value-<%= feed_item.id %>"><%= pluralize(feed_item.votes_count, 'person') %> liked this</a></span>
+	  	<span><div class="sunglasses <%= css_class %>" id="sunglasses-<%= feed_item.id %>"></div><a href="javascript:;" id="points-value-<%= feed_item.id %>"><%= pluralize(feed_item.votes_count, 'person') %> liked this</a></span>
 	  	<span class="dot">&#8901;</span>
 	  	<span><div class="comment"></div><span id="comment-<%= feed_item.id %>"><%= pluralize(feed_item.comments.count, 'comment') %></span></span>
 	  </div>
 	  
-		  <div class="faces" id="faces-<%= feed_item.id %>" style="border-bottom: 1px dotted #EEE;margin-bottom: 7px;">
+		  <div class="faces" id="faces-<%= feed_item.id %>">
 		  	<% unless feed_item.votes.empty? %>
 		  	<% feed_item.votes.each do |u| %>
 					<% u.user.image == nil ? image = "/assets/default-small.png" : image = u.user.image %>
@@ -45,7 +50,6 @@
 				<% end %>
 		  </div>
 	  
-	  <% unless feed_item.comments.empty? %>
 		  <div id="comments-container">
 				<%= render :partial => 'videos/comment_item', :collection => feed_item.comments %>
 				<% if signed_in? %>
@@ -58,79 +62,47 @@
 						<% end %>
 					</div>
 			  <% else %>
-			    <%= link_to "Sign in to comment", signin_path %>
+			    <a class="signin-wrapper" href="<%= signin_path %>"><div class="signin"></div>Sign in to comment</a>
 			  <% end %>
 		  </div>
-		<% end %>
 		
+		<script type="text/javascript">
+			$("document").ready( function() {
+				var feed_item_id = "<%= feed_item.id %>";
+				var youtube_id = "<%= feed_item.youtube_id %>";
 
+				//Add and delete comments on feed
+				addCommentOnFeed(feed_item_id);
+				deleteComment();
 
+				//Show song once cover image is clicked
+				expandPlayer(youtube_id,feed_item_id);
+				$("#points-value-"+feed_item_id).click(function() {
+					$("#faces-"+feed_item_id).fadeToggle(150);
+				});
 
+				//Truncate long titles
+				var title = "#title-"+feed_item_id;
+				var description = "#description-"+feed_item_id;
+				truncateText(title,60);
+				truncateText(description,50);
 
-
-
-
-			<script type="text/javascript">
+				//Disable empty comment input
 				$input = $(".comment-input");
 				if ($input.val() == "") {
 					$(".button").attr('disabled', 'disabled'); //REDO
-				}
+				};
 
-
-
-			</script>
-
-		<script type="text/javascript">
-			$("document").ready( function() {
-			  var video = "<iframe title='YouTube video player' width='568' height='310' src='http://www.youtube.com/embed/<%= feed_item.youtube_id %>?wmode=opaque&autoplay=1' frameborder='0' allowfullscreen></iframe>";
-			  $("#cover-<%= feed_item.id %>").click(function() {
-			  	$("#media-container-<%= feed_item.id %>").fadeOut(150, function() {
-			  		$("#cover-<%= feed_item.id %>").removeClass('floatleft').html(video);
-			  		$("#media-container-<%= feed_item.id %>").fadeIn(150);
-			  		$("#info-<%= feed_item.id %>").css('width','543px');
-			  	});
-			  	
-			  });
-
-<% if signed_in? %>
-			  $("#vote-<%= feed_item.id %>").click(function() {
-			  	var video_id = "<%= feed_item.id %>";
-		  		var current_user_id = "<%= current_user.id %>";
-			  	addPointOnMedia(video_id,current_user_id, true);
-			  });
-<% end %>
-
-$('#form-<%= feed_item.id %>').submit(function() {  
-    var valuesToSubmit = $(this).serialize();
-    $.ajax({
-      type: "POST",
-      url: $(this).attr('action'), //sumbits it to the given url of the form
-      data: valuesToSubmit,
-    }).done(function(data){
-        alert(data);
-        buildCommentOnFeed(data);
-       });
-    return false; // prevents normal behaviour
-  });
-
-
+				//Vote
+				<% if signed_in? %>
+					var current_user_id = "<%= current_user.id %>";
+					$("#vote-"+feed_item_id).click(function() {
+						addPointOnMedia(feed_item_id,current_user_id, true);
+					});
+				<% end %>
 
 			});
 		</script>
 
-
-<script type="text/javascript">
-	var shortText = $("#video-title-<%= feed_item.id %>").text()
-	if (shortText.length > 45) {
-		var shortText = $("#video-title-<%= feed_item.id %>").text().trim().substring(0,42)+"..."
-	}
-	else {
-		var shortText = $("#video-title-<%= feed_item.id %>").text()
-	}
-	$("#video-title-<%= feed_item.id %>").html(shortText);
-</script>
-
 	</div>
 </div>
-
-<!-- if liked background is 5E7291 -->

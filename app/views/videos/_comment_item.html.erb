@@ -14,7 +14,7 @@
 	</div>
 	<div class="comment-time">
 		<% if current_user?(comment_item.user) %>
-			<%= link_to "", comment_item, :method => :delete, :class => "comment-delete", :title => "Delete comment" %>
+			<%= link_to "", comment_item, :method => :delete, :class => "comment-delete", :id => "comment-delete-#{comment_item.id}", :title => "Delete comment" %>
 		<% end %>
 	</div>
 </div>

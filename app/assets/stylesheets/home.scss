@@ -1,0 +1,166 @@
+@import 'variables';
+@import 'mixins';
+
+.current-video-container {
+  h3 {
+  	margin-bottom: 6px;
+  }
+  .meta {
+  	text-align: center;
+		font-style: italic;
+		font-size: 12px;
+  	.points {
+			color: gray;
+			background: $yellow;
+			border-bottom: 1px solid $yellow*0.95;
+		}
+		.active {
+			color: gray;
+			background: $grayLighter;
+		}
+  }
+  .meta div {
+  	padding: 2px 0 2px 0;
+  }
+	
+	.image-title {
+		@include clearfix();
+		margin-top: 8px;
+		.image {
+			img {
+				width: 110px;
+			}
+		}
+
+		.title {
+			width: 125px;
+			margin-left: 10px;
+			a.video-title {
+				line-height: 14px;
+				display: inline-block;
+				font-size: 13px;
+			}
+			a.edit-wrapper{
+				font-size: 11px;
+				color: $grayLight;
+				.edit {
+					background: url("sprite.png") no-repeat -156px -4px;
+					display: inline-block;
+					padding-left: 14px;
+					height: 14px;
+					vertical-align: middle;
+					margin-right: 4px;
+					opacity: 0.5;
+				}
+			}
+		}
+	}
+}
+
+.stats-container {
+	h3 {
+		margin-bottom: 6px;
+	}
+	.stats {
+		background: $grayLighter;
+		padding: 8px;
+		a {
+			font-size: 12px;
+			display: block;
+			color: $gray;
+			margin-bottom: 2px;
+			width: 120px;
+			div {
+				display: inline-block;
+				vertical-align: middle;
+				@include transition();
+			}
+		}
+		.sunglasses {
+      background: url("sprite.png") no-repeat -135px -50px;
+      padding-left: 34px;
+      height: 13px;
+		}
+		.tracks {
+      background: url("sprite.png") no-repeat -212px -24px;
+			padding-left: 34px;
+			height: 17px;
+			opacity: .7;
+		}
+		.followers {
+      background: url("sprite.png") no-repeat -211px -1px;
+			padding-left: 34px;
+			height: 17px;
+			opacity: .7;
+		}
+		.following {
+      background: url("sprite.png") no-repeat -211px -48px;
+			padding-left: 34px;
+			height: 17px;
+			opacity: .7;
+		}
+	}
+}
+
+.feed-options{
+	@include clearfix();
+	font-size: 12px;
+	border-bottom: 2px solid #D9D4D4;
+	margin-bottom: 20px;
+	padding-bottom: 5px;
+	div {
+		display: inline-block;
+		vertical-align: middle;
+		@include transition();
+		color: $grayLight;
+	}
+	a {
+		color: $grayLight;
+	}
+	.floatleft a {
+		margin-right: 8px;
+	}
+	.loading {
+		margin-left: 106px;
+	}
+	.feed {
+		background: url("sprite.png") no-repeat -222px -137px;
+		padding-left: 19px;
+		height: 18px;
+		opacity: .3;
+	}
+	.new {
+		background: url("sprite.png") no-repeat -220px -112px;
+		padding-left: 19px;
+		height: 18px;
+		opacity: .3;
+	}
+	.people {
+    background: url("sprite.png") no-repeat -218px -2px;
+		padding-left: 20px;
+		height: 18px;
+		opacity: .3;
+	}
+	.top {
+    background: url("sprite.png") no-repeat -194px -115px;
+		padding-left: 18px;
+		height: 17px;
+		opacity: .3;
+	}
+	.feed:hover,.new:hover,.people:hover {
+		opacity: .9;
+	}
+	.floatleft a:hover {
+		.feed,.new,.people {
+			opacity: .9;
+		}
+	}
+	.floatright a {
+		margin-left: 3px;
+	}
+}
+
+
+
+
+

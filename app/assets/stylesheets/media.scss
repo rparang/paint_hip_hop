@@ -171,11 +171,6 @@
   margin-bottom: 12px;
 }
 
-.more-from-right-container {
-  width: $rightcontainerWidth;
-  float: right;
-}
-
 #comments-container {
   .video-comments-count-container {
 
@@ -269,84 +264,5 @@
   }
   .button:hover{
     background: $grayLight;
-  }
-}
-
-
-
-.more-from-user-container {
-	width: 100%;
-	.more-from-user-header {
-    font-size: 14px;
-    font-weight: bold;
-    padding: 0px 0 8px 0px;
-    border-bottom: 1px solid #D9D4D4;
-
-		span {
-			font-size: 12px;
-			font-weight: normal;
-      font-style: italic;
-      color: #444;
-      border: 1px solid rgba(243, 235, 172, 0.1);
-      -webkit-border-radius: 5px;
-      -moz-border-radius: 5px;
-      background-color: #F3F0D5;
-      padding: 2px 8px 2px 8px;
-			margin-left: 10px;
-		}
-	}
-
-  .more-from-user-item {
-    overflow: auto;
-    padding: 10px 8px 10px 0px;
-    border-bottom: 1px solid #D9D4D4;
-  
-    .more-from-user-image {
-      float: left;
-      a img {
-        width: 110px;
-      }
-    }
-
-    .more-from-video-info {
-      float: right;
-      width: 120px;
-      line-height: 15px;
-
-      a {
-        font-size: 12px;
-        font-weight: bold;
-        display: block;
-        margin-bottom: 5px;
-      }
-
-      div {
-        font-size: 11px;
-        color: $grayLight;
-        display: inline-block;
-        .vote {
-          background: url("sprite.png") no-repeat -101px -6px;
-          display: inline-block;
-          padding-left: 16px;
-          height: 12px;
-          vertical-align: middle;
-          opacity: .5;
-        }
-        .comment {
-          background: url("sprite.png") no-repeat -121px -6px;
-          display: inline-block;
-          padding-left: 16px;
-          height: 12px;
-          vertical-align: middle;
-          opacity: .5;
-          margin-left: 4px;
-        }
-
-      }
-    }
-  }
-
-  .more-from-user-item:hover {
-    background-color: #f7f7f7;
   }
 }

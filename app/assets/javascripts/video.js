@@ -7,21 +7,22 @@ function loadSongs(el, pagelessHTML, pagelessPagesCount) {
   $.each(el, function(key,value){
     $(value)
     .bind("ajax:beforeSend", function(evt, xhr, settings){
-      var $label = $(value);
-      $label.data('origText', $(this).text() ); //Store label
-      $label.text("Loading...");
-      $('#results').empty();
+      //var $label = $(value);
+      //$label.data('origText', $(this).text() ); //Store label
+      //$label.text("Loading...");
+      $('#loading-feed').toggle();
     })
     .bind("ajax:success", function(evt, data, status, xhr){
       $('#results').html(data); //Replace HTML within #results with data, which is populated with the shared/feed partial
+      $('#loading-feed').toggle();
       if (value == "#feed") {
         $('#results').append(pagelessHTML); //Append Pageless loader div that
       //is removed once the #results is replaced using the html() method
       }
     })
     .bind('ajax:complete', function(evt, xhr, status){
-      var $label = $(value);
-      $(value).text($label.data('origText')); //Restore label
+      //var $label = $(value);
+      //$(value).text($label.data('origText')); //Restore label
     })
   });
 };
@@ -48,7 +49,7 @@ function buildTrending(data) {
   var limit = 4;
   $.each(data, function(i,item) {
     if(i > limit) return false;
-    var img_url = 'http://i.ytimg.com/vi/'+item.youtube_id+'/default.jpg';
+    var img_url = 'http://i2.ytimg.com/vi/'+item.youtube_id+'/mqdefault.jpg';
     var base_url = '/videos/'+item.id;
     $("<div>").attr({
       class: 'more-from-user-item',
@@ -72,8 +73,8 @@ function buildTrending(data) {
       })
       .html(item.title)
       .appendTo("#item-info-"+i);
-    $("<p>")
-      .html(item.votes_count + ' points')
+    $("<div>")
+      .html("<div class='vote'></div>"+item.votes_count)
       .appendTo("#item-info-"+i);
   });
 }
@@ -97,6 +98,7 @@ function getSongs(who) {
       orderby: 'relevance'
     },
     function(data) {
+      $("<div class='search-header'>Select a song to preview and post...</div>").appendTo("#search-results");
       if (data != null) {
         $.each(data.feed.entry, function(i, video) {
           searchView(video); //Build video search markup
@@ -118,7 +120,7 @@ function searchView(video) {
   var video_title = video.title.$t;
   var video_link = video.link[0].href.split("&")[0];
   var video_duration = video.media$group.media$content[0].duration;
-  var $h1 = $('<h1>')
+  var $h6 = $('<h6>')
             .attr({
               title: video_title,
               alt: video_title
@@ -142,13 +144,13 @@ function searchView(video) {
       id: 'r-' + video_id,
       class: 'search-right'
     }).appendTo('#d-'+video.id.$t.split(":")[3]);
-  $h1.html(video.title.$t).appendTo('#r-'+video.id.$t.split(":")[3]);
+  $h6.html(video.title.$t).appendTo('#r-'+video.id.$t.split(":")[3]);
   $("<p>").html(video_duration).appendTo('#r-'+video.id.$t.split(":")[3]);
 
 }
 
 
-//Add vote on media page
+//Add vote on media and feed
 //--------------------------------------------------------
 
 function addPointOnMedia(video_id, current_user_id, isFeed) {
@@ -223,6 +225,20 @@ function buildCommentOnMedia(data) {
   $("#comment-form-container").before("<div class='comment-item' id='comment-"+obj.comment.id+"'><div class='comment-image'><a href='"+obj.path+"'><img src="+image+" title='"+obj.name+"' /></a></div><div class='comment-username'><a href='"+obj.path+"'>"+obj.name+"</a><p>"+obj.comment.content+"</p></div><div class='comment-time'></div></div>");
 };
 
+function addCommentOnFeed(feed_id) {
+  $('#form-'+feed_id).submit(function() {  
+    var valuesToSubmit = $(this).serialize();
+    $.ajax({
+      type: "POST",
+      url: $(this).attr('action'),
+      data: valuesToSubmit,
+    }).done(function(data){
+        buildCommentOnFeed(data);
+       });
+    return false;
+  });
+};
+
 function buildCommentOnFeed(data) {
   var obj = jQuery.parseJSON(data)
   var image;
@@ -250,3 +266,33 @@ function deleteComment() {
   return false;
   });
 };
+
+
+//Expand player in feed
+//--------------------------------------------------------
+
+function expandPlayer(youtube_id, feed_item_id) {
+  var video = "<iframe title='YouTube video player' width='568' height='310' src='http://www.youtube.com/embed/"+youtube_id+"?wmode=opaque&autoplay=1' frameborder='0' allowfullscreen></iframe>";
+  $("#cover-"+feed_item_id).click(function() {
+    $("#media-container-"+feed_item_id).fadeOut(150, function() {
+      $("#cover-"+feed_item_id).removeClass('floatleft').html(video);
+      $("#media-container-"+feed_item_id).fadeIn(150);
+      $("#info-"+feed_item_id).css('width','543px');
+    });
+  });
+};
+
+function truncateText(element,text_length) {
+  var shortText = $(element).text();
+  if (shortText.length > text_length) {
+    var text = shortText.trim().substring(0,text_length)+"...";
+  }
+  else {
+    var text = shortText;
+  }
+  $(element).html(text);
+};
+
+
+
+

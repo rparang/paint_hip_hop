@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_filter :signed_in_user, :only => [:edit, :update]
   before_filter :correct_user,   :only => [:edit, :update]
   before_filter :admin_user,     :only => :destroy
-  
+  respond_to :html, :xml, :json
   
   def show
     @user = User.find(params[:id])
@@ -46,6 +46,13 @@ class UsersController < ApplicationController
   
   def index
     @users = User.all
+    respond_with do |format|
+      format.html do
+        if request.xhr?
+          render :partial => 'shared/users', :layout => false
+        end
+      end
+    end
   end
   
   def update

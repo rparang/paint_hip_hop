@@ -6,36 +6,275 @@
   @include clearfix();
   #image {
     img { 
-      height: 170px;
+      height: 150px;
+      @include image-round(4px);
     }
   }
   .user-info {
-    padding: 5px 0 0 18px;
-    p {
-      font-size: 14px;
-      margin-top: 4px;
+    margin-left: 15px;
+    width: 450px;
+    h1 {
+      font-size: 34px;
+      line-height: 38px;
+      color: $grayDark;
     }
-    .social {
-      a.facebook {
-        overflow: hidden;
-        img {
-          margin-top: -20px;
+    p {
+      font-size: 16px;
+      margin: 6px 0 12px 0;
+      color: $gray;
+    }
+    .facebook {
+      background: url("sprite.png") no-repeat -189px -78px;
+      display: inline-block;
+      padding-left: 24px;
+      height: 23px;
+      vertical-align: middle;
+    }
+    .twitter {
+      background: url("sprite.png") no-repeat -218px -78px;
+      display: inline-block;
+      padding-left: 24px;
+      height: 23px;
+      vertical-align: middle;
+    }
+  }
+  .follow-wrapper {
+    float: right;
+    margin-top: -70px;
+    a {
+      font-size: 13px;
+    }
+    .button {
+      display: inline-block;
+      position: relative;
+      background: #555;
+      color: #BFBEBE;
+      font-size: 18px;
+      line-height: 18px;
+      border-radius: 4px;
+      border: none;
+      padding: 0;
+      @include button_transition();
+      a {
+        display: block;
+        text-shadow: none;
+        color: white;
+        text-align: center;
+        padding: 9px 11px 9px 12px;
+        .edit {
+          background: url("sprite.png") no-repeat -192px -167px;
+          display: inline-block;
+          padding-left: 21px;
+          height: 23px;
+          vertical-align: middle;
+          margin-right: 7px;
         }
       }
-      a.twitter {
-        overflow: hidden;
-        padding-left: 5px;
-        img {
-          margin-top: -20px;
+    }
+    .button:hover {
+      background: $gray * 1.4;
+    }
+
+  }
+}
+
+.follow {
+  font-size: 12px;
+  color: $grayLighter;
+  padding: 7px;
+}
+
+
+//Update Profile
+
+.update-profile-field{
+  margin-bottom: 18px;
+  font-size: 14px;
+  color: $gray;
+  label {
+    display: inline-block;
+    margin-bottom: 8px;
+    color: $grayLight2;
+    font-size: 17px;
+  }
+  span {
+    display:block;
+  }
+  a{
+    margin-left: 3px;
+    font-size: 11px;
+  }
+  .username {
+    background: url("sprite.png") no-repeat -171px -48px;
+    display: inline-block;
+    padding-left: 22px;
+    height: 30px;
+    vertical-align: middle;
+    opacity: .6;
+  }
+  .bio {
+    background: url("sprite.png") no-repeat -221px -160px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 30px;
+    vertical-align: middle;
+    opacity: .5;
+  }
+  .email {
+    background: url("sprite.png") no-repeat -221px -189px;
+    display: inline-block;
+    padding-left: 23px;
+    height: 30px;
+    vertical-align: middle;
+    opacity: .6;
+  }
+  .password {
+    background: url("sprite.png") no-repeat -193px -190px;
+    display: inline-block;
+    padding-left: 23px;
+    height: 30px;
+    vertical-align: middle;
+    opacity: .6;
+  }
+  .auth {
+    background: url("sprite.png") no-repeat -147px -21px;
+    display: inline-block;
+    padding-left: 22px;
+    height: 30px;
+    vertical-align: middle;
+    opacity: .6;
+  }
+  .facebook {
+    background: url("sprite.png") no-repeat -189px -78px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 23px;
+    vertical-align: middle;
+  }
+  .twitter {
+    background: url("sprite.png") no-repeat -218px -78px;
+    display: inline-block;
+    padding-left: 28px;
+    height: 23px;
+    vertical-align: middle;
+  }
+
+}
+.save{
+    background: url("sprite.png") no-repeat -195px -220px;
+    display: inline-block;
+    padding-left: 24px;
+    height: 25px;
+    vertical-align: middle;
+    margin-left: 21px;
+  }
+
+.update-profile-buttons {
+
+  input.new-video-submit {
+
+  }
+}
+
+.update-profile-notify {
+  input {
+
+  }
+  p {
+  }
+}
+
+.edit-profile {
+  h1 {
+    font-size: 29px;
+    line-height: 33px;
+    margin-bottom: 12px;
+  }
+  input[type="text"], input[type="password"], textarea {
+    height: 40px;
+    width: 100%;
+    color: $gray;
+    font-size: 20px;
+    padding: 0 5px 0 5px;
+    @include image-round(3px);
+  }
+  textarea {
+    height: 57px;
+    padding: 6px;
+  }
+  .social {
+    background: none;
+    padding: 0;
+  }
+}
+
+//User Index
+
+.user-list-header {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+div.user-listing-container {
+  @include clearfix();
+  border-bottom: 1px solid #D9D4D4;
+  padding: 7px 0 7px 0;
+  div.user-image {
+    float: left;
+    width: 61px;
+    img{
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+      width: 50px;
+    }
+  }
+
+  div.user-listing-wrapper {
+    float: left;
+    width: 485px;
+    .user-listing {
+      margin: 0;
+
+      .user-name {
+        font-size: 16px;
+        a {
+            color: $grayDarker;
         }
+
+        span {
+          font-style: italic;
+          font-size: 11px;
+          color: #444;
+          border: 1px solid rgba(243, 235, 172, 0.1);
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          border-radius: 5px;
+          background-color: #f3f0d5;
+          padding: 1px 4px 1px 4px;
+          margin-left: 8px;
+        }
+      }
+
+      .user-description {
+        line-height: 16px;
+        margin: 0px 0 4px 0;
+        color: #9c9c9c;
+        font-size: 13px;
+      }
+
+      .user-video {
+        color: $grayLight;
+        font-size: 12px;
+
+        a {
+          color: $grayDarker;
+        }
+
       }
     }
   }
-  .follow {
-    margin: 6px 6px 0 0;
-    a {
-      font-size: 12px;
-      margin: 6px 6px 0 0;
-    }
+  div.user-follow-container {
+    float: right;
   }
 }

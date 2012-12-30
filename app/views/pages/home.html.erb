@@ -29,7 +29,7 @@
 		<script>
 		  $(document).ready(function(){
 		    pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
-		    elemIds = {'feed': '#feed', 'recent': '#recent', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
+		    elemIds = {'feed': '#feed', 'recent': '#recent', 'people': '#people', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
 		    loadSongs(elemIds, pagelessHTML, "<%= @feed_items.total_pages %>");
 		  });
 		</script>
@@ -87,25 +87,18 @@
 		<div class="social">
 			<p>Paint the Town is better social</p>
 				<% unless current_user.has_facebook?.present? %>
-					<a href="#"><div class="facebook"></div>Connect to Facebook</a>
+					<a href="/auth/facebook/"><div class="facebook"></div>Connect to Facebook</a>
 				<% end %>
 				<% unless current_user.has_twitter?.present? %>
-					<a href="#"><div class="twitter"></div>Connect to Twitter</a>
+					<a href="/auth/twitter/"><div class="twitter"></div>Connect to Twitter</a>
 				<% end %>
 				</ul>
 		</div>
 	<% end %>
-
-</div> <!-- End right container -->
+</div>
 
 <% else %>
-<!-- Hero Container -->
-<div id="hero">
-	<h1>The hit factory</h1>
-	<h2>Share new music with friends. Get points.</h2>
-	<%= link_to image_tag("sign-in-facebook.png", :alt => "Paint the Town"), '/auth/facebook' %>
-</div>
-<!-- End Hero Container -->
+
 <div class="left-container">
 	<div class="video-feed-header">Recent Videos</div>
 	<div id="results">
@@ -115,17 +108,9 @@
 	</div>
 </div>
 <div class="right-container">
-	<div class="stats-container" style="height: 100%;">
-		<div class="stats-header">How's it work?</div>
-		<div>
-			<h3>Post a song</h3>
-			<p>Share the song that you love with your followers</p>
-			<h3>Get points</h3>
-			<p>The community may give it points if it's not terrible</p>
-			<h3>Post again if...</h3>
-			<p>...your song receives two or more points or you wait 24 hours</p>
-			<%= link_to "Get started now", signin_path %>
-		</div>
+	<div class="more-from-user-container" id="items-trending">
+		<h3>Trending</h3>
+		<div id="loading"></div>
 	</div>
 </div>
 

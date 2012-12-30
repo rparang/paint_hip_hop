@@ -1,23 +1,34 @@
 <div class="left-container">
-  <div class="new-video-header">Update your video</div>
-  <div class="new-video-preview">
-    <iframe title='YouTube video player' width='560' height='315' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
-  </div>
-
-  <%= form_for(@video) do |f| %>
-    <div class="new-video-title">
-      <%= f.label :title %>
-      <%= f.text_field :title, :size => "100", :value => @video.title %>
-    </div>
-    <div class="new-video-description">
-      <%= f.label :description %>
-      <%= f.text_area :description, :size => "60x12", :value => @video.description %>
-    </div>
-    <div class="new-video-buttons">
-      <input class="btn new-video-back" type="button" value="Back" onclick="window.location.href='/post?s=<%= escape_javascript(params[:s]) %>'"> 
-      <%= f.submit "Update", :class => "btn-primary new-video-submit" %>
+  <div class="new-track">
+  <h1>Update your track</h1>
+  <a href="<%= root_path %>">&#8249;&#8249;Back</a>
+  <% if @video.errors.any? %>
+    <div class="alert">
+      <ul class="error-list unstyled">
+      <% @video.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
     </div>
   <% end %>
-
-  <%= link_to "Delete video?", @video, :method => :delete, :confirm => "Are you sure? The video and its votes and comments won't be coming back.", :title => "Delete #{@video.title}", :class => "delete-video" %>
+  <div class="player">
+    <iframe title='YouTube video player' width='620' height='340' src='http://www.youtube.com/embed/<%= @video.youtube_id %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
+  </div>
+  <%= form_for(@video) do |f| %>
+    <ul class="form unstyled">
+      <li>
+        <div class="title"></div>
+        <%= f.text_field :title, :placeholder => "Title", :value => @video.title, :class=> "image-round-3", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+      </li>
+      <li>
+        <div class="comment"></div>
+        <%= f.text_field :description, :placeholder => "Comment", :value => @video.description, :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
+      </li>
+    </ul>
+    <span class="button post-button floatright">
+      <div class="post"></div>
+      <%= f.submit "Update" %>
+    </span>
+  <% end %>
+  </div>
 </div>

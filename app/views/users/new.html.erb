@@ -1,11 +1,19 @@
+<script type="text/javascript">
+  $('document').ready(function() {
+    if ( $("#error_explanation")[0]) {
+      $('body').addClass('body-black');
+    }
+  });
+</script>
+
 <div class="sign-in-container">
   <div class="signup-big"></div>
   <h1>Sign Up</h1>
   <% unless session[:omniauth] %>
-  <div id="auth-buttons">
-    <a href="/auth/facebook/" class="button facebook"><div class="facebook-icon"></div>Sign in with Facebook</a>
-    <a href="/auth/twitter/" class="button twitter"><div class="twitter-icon"></div>Sign in with Twitter</a>
-  </div>
+    <div id="auth-buttons">
+      <a href="/auth/facebook/" class="button facebook"><div class="facebook-icon"></div>Sign in with Facebook</a>
+      <a href="/auth/twitter/" class="button twitter"><div class="twitter-icon"></div>Sign in with Twitter</a>
+    </div>
   <% end %>
   <div id="sign-in-form">
     <%= form_for(@user) do |f| %>

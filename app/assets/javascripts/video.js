@@ -3,7 +3,7 @@
 //--------------------------------------------------------
 
 function loadSongs(el, pagelessHTML, pagelessPagesCount) {
-  console.log(pagelessPagesCount);
+  //console.log(pagelessPagesCount);
   $.each(el, function(key,value){
     $(value)
     .bind("ajax:beforeSend", function(evt, xhr, settings){
@@ -209,7 +209,6 @@ function addCommentOnMedia() {
       url: $(this).attr('action'), //sumbits it to the given url of the form
       data: valuesToSubmit,
     }).done(function(data){
-        alert(data);
         buildCommentOnMedia(data);
        });
     return false; // prevents normal behaviour

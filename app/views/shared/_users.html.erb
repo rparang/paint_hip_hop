@@ -1,0 +1,34 @@
+<% @users.each do |u| %>
+	<div class="user-listing-container">
+		<div class="user-image">
+			<a href="<%= user_path(u) %>">
+				<% unless u.image.nil? %>
+					<img src="<%= u.image %>" title="<%= u.username %>" />
+				<% else %>
+					<%= image_tag "default.png", :title => u.username %>
+				<% end %>
+			</a>
+		</div>
+		<div class="user-listing-wrapper">
+			<ul class="unstyled user-listing">
+				<li class="user-name"><%= link_to u.username, u %>
+					<% unless u.points.nil? %>
+						<span><%= u.points %></span>
+					<% end %>
+				</li>
+				<li class="user-description">Joined about <%= time_ago_in_words(u.created_at) %> ago</li>
+				<% unless u.videos.first.nil? %>
+				<li class="user-video">Current video: <%= link_to u.videos.first.title, u.videos.first %></li>
+				<% end %>
+			</ul>
+		</div>
+		<% if signed_in? %>
+			<div class="user-follow-container">
+				<div class="user-follow">
+					<% @user = u %>
+					<%= render 'users/follow_form' %>
+				</div>
+			</div>
+		<% end %>
+	</div>
+<% end %>

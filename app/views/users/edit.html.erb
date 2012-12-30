@@ -1,51 +1,66 @@
 <div class="left-container">
-  <div class="update-profile-header">Edit Your Account</div>
-
+  <div class="edit-profile">
+    <h1>Edit Profile</h1>
     <%= form_for(@user) do |f| %>
       <%= render 'shared/error_messages', object: f.object %>
-
       <div class="update-profile-field">
+        <div class="username"></div>
         <%= f.label :username %>
-        <%= f.text_field :username, :maxlength => 30 %>
+        <%= f.text_field :username, :size => "53", :maxlength => "30", :autocomplete => "off" %>
       </div>
 
-      <div class="update-profile-textfield">
+      <div class="update-profile-field">
+        <div class="bio"></div>
         <%= f.label :bio %>
-        <%= f.text_area :bio, :cols => "30", :rows => "10", :maxlength => 155 %>
+        <%= f.text_area :bio, :cols => "30", :rows => "3", :maxlength => "140", :autocomplete => "off" %>
       </div>
 
       <div class="update-profile-field">
-      <%= f.label :email %>
-      <%= f.text_field :email, :maxlength => 155 %>
+        <div class="email"></div>
+        <%= f.label :email %>
+        <%= f.text_field :email, :size => "53", :maxlength => "140", :autocomplete => "off" %>
       </div>
 
       <div class="update-profile-field">
-      <%= f.label :password %>
-      <%= f.password_field :password, :maxlength => 155 %>
+        <div class="password"></div>
+        <%= f.label :password %>
+      <%= f.password_field :password, :size => "53", :maxlength => "30", :autocomplete => "off" %>
       </div>
 
       <div class="update-profile-field">
-      <%= f.label :password_confirmation, "Confirmation" %>
-      <%= f.password_field :password_confirmation, :maxlength => 155 %>
+        <div class="password"></div>
+        <%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, :size => "53", :maxlength => "30", :autocomplete => "off" %>
       </div>
 
-      <div class="update-profile-field update-profile-notify">
-      <%= f.label "Send me an email" %>
-      <div><%= f.check_box :notify_follow %> when someone follows me</div>
-      <div><%= f.check_box :notify_comment %> when someone comments on my video </div>
-      <!--<div><%= f.check_box :notify_post_available %> when someone follows me</div> -->
+      <div class="update-profile-field">
+        <div class="email"></div>
+        <%= f.label "Send me an email" %>
+        <div><%= f.check_box :notify_follow %> when someone follows me</div>
+        <div><%= f.check_box :notify_comment %> when someone comments on my video </div>
       </div>
 
-      <div class="update-profile-buttons">
-      <%= f.submit "Save Changes", class: "btn btn-large btn-primary" %>
+      <div class="update-profile-field">
+        <div class="auth"></div>
+        <%= f.label "Authentications" %>
+        <% if !@authentications.empty? %>
+          <% @authentications.each do |a| %>
+              <span><div class="<%= a.provider %>"></div><%= a.provider %><%= link_to "Delete", a, :method => :delete, :confirm => "Are you sure you want to delete this authentication?" %></span>
+          <% end %>
+        <% else %>
+          <div class="social">
+            <a href="/auth/facebook/"><div class="facebook"></div>Connect to Facebook</a>
+            <a href="/auth/twitter/"><div class="twitter"></div>Connect to Twitter</a>
+          </div>
+        <% end %>
       </div>
+
+      <span class="button post-button floatright">
+        <div class="save"></div>
+        <%= f.submit "Save" %>
+      </span>
     <% end %>
 
-    <div class="update-profile-buttons">
-      <% if !@authentications.nil? %>
-      <% @authentications.each do |a| %>
-          <p><%= a.provider %></p><%= link_to "Delete", a, :method => :delete, :confirm => "Are you sure you want to delete this authentication?" %>
-      <% end %>
-      <% end %>
-    </div>
+
+  </div>
 </div>

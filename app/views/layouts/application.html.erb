@@ -8,7 +8,7 @@
   <%= render 'layouts/ga' %>
   <%= yield :head %>
 </head>
-<body class="<%= @black_page || request.fullpath == users_path ? 'body-black' : ''%>">
+<body class="<%= @black_page ? 'body-black' : ''%>">
 	<%= render 'layouts/fb' %>
 	<%= render 'layouts/header' %>
 

@@ -23,40 +23,49 @@
 
 <div class="left-container">
   <div class="new-track">
-  <h1>Preview and Post</h1>
-  <a href="/post?s=<%= escape_javascript(params[:s]) %>">&#8249;&#8249;Back</a>
-  <div class="player">
-    <iframe title='YouTube video player' width='620' height='340' src='http://www.youtube.com/embed/<%= @vid.video_id.split(":").last %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
-  </div>
-  <%= form_for(@video) do |f| %>
-    <ul class="form unstyled">
-      <li>
-        <div class="title"></div>
-        <%= f.text_field :title, :placeholder => "Title", :value => @vid.title, :class=> "image-round-3", :size => "53", :maxlength => "30", :autocomplete => "off" %>
-      </li>
-      <li>
-        <div class="comment"></div>
-        <%= f.text_field :description, :placeholder => "Comment", :value => @email, :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
-        <%= f.hidden_field :youtube_id, :value => @vid.video_id.split(":").last %>
-        <%= f.hidden_field :duration, :value => @vid.duration %>
-      </li>
-    </ul>
-    <div class="share">
-      <div id="facebook">
-        <%= f.check_box :share_facebook, :id => "share-facebook" %>
-        <div class="facebook"></div>
-        <%= f.label :share_facebook, "Share on Facebook" %><a href="/auth/facebook" id="connect-facebook" style="display:none;" target="_blank">Connect account</a>
+    <h1>Preview and Post</h1>
+    <a href="<%= root_path %>">&#8249;&#8249;Back</a>
+    <% if @video.errors.any? %>
+      <div class="alert">
+        <ul class="error-list unstyled">
+        <% @video.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
       </div>
-      <div id="twitter">
-        <%= f.check_box :share_twitter, :id => "share-twitter" %>
-        <div class="twitter"></div>
-        <%= f.label :share_twitter, "Share on Twitter" %><a href="/auth/twitter" id="connect-twitter" style="display:none;" target="_blank">Connect account</a>
-      </div>
+    <% end %>
+    <div class="player">
+      <iframe title='YouTube video player' width='620' height='340' src='http://www.youtube.com/embed/<%= @vid.video_id.split(":").last %>?wmode=opaque' frameborder='0' allowfullscreen></iframe>
     </div>
-    <span class="button post-button floatright">
-      <div class="post"></div>
-      <%= f.submit "Post" %>
-    </span>
-  <% end %>
+    <%= form_for(@video) do |f| %>
+      <ul class="form unstyled">
+        <li>
+          <div class="title"></div>
+          <%= f.text_field :title, :placeholder => "Title", :value => @vid.title, :class=> "image-round-3", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+        </li>
+        <li>
+          <div class="comment"></div>
+          <%= f.text_field :description, :placeholder => "Comment", :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
+          <%= f.hidden_field :youtube_id, :value => @vid.video_id.split(":").last %>
+          <%= f.hidden_field :duration, :value => @vid.duration %>
+        </li>
+      </ul>
+      <div class="share">
+        <div id="facebook">
+          <%= f.check_box :share_facebook, :id => "share-facebook" %>
+          <div class="facebook"></div>
+          <%= f.label :share_facebook, "Share on Facebook" %><a href="/auth/facebook" id="connect-facebook" style="display:none;" target="_blank">Connect account</a>
+        </div>
+        <div id="twitter">
+          <%= f.check_box :share_twitter, :id => "share-twitter" %>
+          <div class="twitter"></div>
+          <%= f.label :share_twitter, "Share on Twitter" %><a href="/auth/twitter" id="connect-twitter" style="display:none;" target="_blank">Connect account</a>
+        </div>
+      </div>
+      <span class="button post-button floatright">
+        <div class="post"></div>
+        <%= f.submit "Post" %>
+      </span>
+    <% end %>
   </div>
 </div>

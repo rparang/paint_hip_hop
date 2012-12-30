@@ -1,36 +1,33 @@
-<div class="left-container user">
-	<div id="image" class="floatleft">
-		<% unless @user.image.nil? %>
-			<a href="<%= @user.image_big %>"><img src="<%= @user.image_big %>" title="<%= @user.username %>" /></a>
-		<% else %>
-			<%= image_tag "default-big.png", :title => @user.username, :style => "height: 140px; padding: 6px 9px 24px 17px;"%>
-		<% end %>
-	</div>
-	<div class="user-info floatleft">
-		<h1><%= @user.username %></h1>
-		<p><%= @user.bio %></p>
-		<ul class="social unstyled">
-			<% if @user.has_facebook?.present? %>
-				<li><a href="https://www.facebook.com/<%= @user.facebook_uid %>" target="_blank" class="facebook floatleft"><img src="/assets/facebook.png" title="facebook"/></a></li>
-			<% end %>
-			<% if @user.has_twitter?.present? %>
-				<li><a href="https://twitter.com/account/redirect_by_id?id=<%= @user.twitter_uid %>" target="_blank" class="twitter floatleft"><img src="/assets/twitter.png" title="twitter"/></a></li>
-			<% end %>
-	</div>
-	<div class="follow floatright">
-		<% if signed_in? %>
-			<%= render 'users/follow_form' %>
-			<% if current_user?(@user) %>
-				<a href="<%= edit_user_path(current_user) %>" class="btn btn-large">Edit Profile</a>
-			<% end %>
-		<% end %>
-	</div>
-
-</div>
+<% @user.image == nil ? image = "/assets/default-big.png" : image = @user.image_big %>
 
 <div class="left-container">
+	<div class="user">
+		<div id="image" class="floatleft">
+			<a href="<%= image %>"><img src="<%= image %>" title="<%= @user.username %>" /></a>
+		</div>
+		<div class="user-info floatleft">
+			<h1><%= @user.username %></h1>
+			<p><%= @user.bio %></p>
+			<% if @user.has_facebook?.present? %>
+				<a href="https://www.facebook.com/<%= @user.facebook_uid %>" target="_blank"><div class="facebook"></div></a>
+			<% end %>
+			<% if @user.has_twitter?.present? %>
+				<a href="https://twitter.com/account/redirect_by_id?id=<%= @user.twitter_uid %>" target="_blank"><div class="twitter"></div></a>
+			<% end %>
+			<div class="follow-wrapper">
+				<% if signed_in? %>
+					<%= render 'users/follow_form' %>
+					<% if current_user?(@user) %>
+						<div class="button">
+							<a href="<%= edit_user_path(current_user) %>"><div class="edit"></div>Edit Profile</a>
+						</div>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+	</div>
 
-	<div class="video-feed-header">Videos from <%= @user.username %></div>
+	<div class="results">
 		<% if @feed_items.empty? && current_user == @user %>
 			<div style="font-size: 20px; text-align: center; margin: 37px; line-height: 29px;">You haven't posted any videos yet. <br /><a href="<%= post_path %>" style="font-size: 25px">Make your first post</a>.</div>
 		<% elsif @feed_items.empty? %>
@@ -38,17 +35,18 @@
 		<% else %>
 			<%= render 'shared/feed' %>
 		<% end %>
+	</div>
+
 </div>
 
-
 <div class="right-container">
-
 	<div class="stats-container">
-		<div class="stats-header"><%= @user.username %>'s stats</div>
-		<ul class="list-stats unstyled">
-			<li class="list-points"><a href="<%= user_path(@user) %>"><b><%= @user.points %></b> total points</a></li>
-			<li class="list-followers"><a href="<%= followers_user_path(@user) %>"><b><%= @user.followers.count %></b> followers</a></li>
-			<li class="list-following"><a href="<%= following_user_path(@user) %>"><b><%= @user.following.count %></b> following</a></li>
+		<h3>Stats</h3>
+		<div class="stats">
+			<a href="<%= user_path(@user) %>"><div class="sunglasses"></div><%= pluralize(@user.points, "point") %></a>
+			<a href="<%= user_path(@user) %>"><div class="tracks"></div><%= pluralize(@user.videos.count, "track") %></a>
+			<a href="<%= followers_user_path(@user) %>"><div class="followers"></div><%= pluralize(@user.followers.count, "follower") %></a>
+			<a href="<%= following_user_path(@user) %>"><div class="following"></div><%= @user.following.count %> following</a>
+		</div>
 	</div>
-	
 </div>

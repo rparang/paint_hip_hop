@@ -10,9 +10,11 @@ function loadSongs(el, pagelessHTML, pagelessPagesCount) {
       //var $label = $(value);
       //$label.data('origText', $(this).text() ); //Store label
       //$label.text("Loading...");
+      $('#results').css('opacity','0.5');
       $('#loading-feed').toggle();
     })
     .bind("ajax:success", function(evt, data, status, xhr){
+      $('#results').css('opacity','1');
       $('#results').html(data); //Replace HTML within #results with data, which is populated with the shared/feed partial
       $('#loading-feed').toggle();
       if (value == "#feed") {

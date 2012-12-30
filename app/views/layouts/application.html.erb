@@ -22,5 +22,13 @@
 
 	</div>
 	<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>
+	<script type="text/javascript">
+	$('document').ready(function() {
+		$close = $(".alert a");
+		$close.click( function() {
+		  $(".alert").fadeOut();
+		});
+	});
+	</script>
 </body>
 </html>

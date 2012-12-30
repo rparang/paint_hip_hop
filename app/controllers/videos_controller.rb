@@ -108,7 +108,7 @@ class VideosController < ApplicationController
   def create
     @video = current_user.videos.build(params[:video])
     if @video.save
-      flash[:success] = "Your Video is now live. #{ActionController::Base.helpers.link_to "Click", '#'}".html_safe
+      flash[:success] = "Your Video is now live. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
       facebook_share(params[:video], @video) #If the user has selected the checkbox to share on Facebook
       twitter_share(params[:video])          #If the user has selected the checkbox to share on Twitter
       redirect_to @video
@@ -126,7 +126,7 @@ class VideosController < ApplicationController
           message = "#{params[:title]} on @thepaintapp:" + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
           current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
         rescue
-          flash[:error] = "There was a problem sharing your video. We're looking into it."
+          flash[:error] = "There was a problem sharing your video. We're looking into it. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
         end
       end
   end
@@ -145,7 +145,7 @@ class VideosController < ApplicationController
           target = ""
           current_user.share_video_facebook(token, message, title, url, caption, description, thumb_url, target)
         rescue
-          flash[:error] = "There was a problem sharing your video. We're looking into it."
+          flash[:error] = "There was a problem sharing your video. We're looking into it. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
         end
       end    
   end
@@ -157,7 +157,7 @@ class VideosController < ApplicationController
   def update
     @video = Video.find(params[:id])
     if @video.update_attributes(params[:video])
-      flash[:success] = "Your video was updated successfully!"
+      flash[:success] = "Your video was updated successfully. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
       redirect_to @video
     else
       render 'edit'
@@ -166,7 +166,7 @@ class VideosController < ApplicationController
 
   def destroy
     Video.find(params[:id]).destroy
-    flash[:success] = "Your video was deleted. Good riddance."
+    flash[:success] = "Your video was deleted. Good riddance. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
     redirect_to root_path
   end
 

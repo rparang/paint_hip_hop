@@ -6,13 +6,13 @@
 	  <% if signed_in? %>
 	  <ul class="nav floatright">
 	  <li><a href="<%= post_path %>"><div class="post"></div>Post track</a></li>
-	  <li>
-		<a href="<%= user_path(current_user) %>">
-		<% unless current_user.image == nil %>
-		  <img src="<%= current_user.image %>" />
-		<% end %>
-		<%= current_user.username %>
-		</a>
+	  <li class="pic">
+			<a href="<%= user_path(current_user) %>">
+				<% unless current_user.image == nil %>
+				  <img src="<%= current_user.image %>" />
+				<% end %>
+				<%= current_user.username %>
+			</a>
 	  </li>
 	  <li><a href="<%= edit_user_path(current_user) %>"><div class="edit"></div></a></li>
 	  <li><a href="<%= signout_path %>"><div class="signout"></div></a></li>

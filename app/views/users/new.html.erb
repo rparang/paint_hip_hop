@@ -22,20 +22,20 @@
       <ul class="form unstyled">
         <li>
           <div class="username"></div>
-          <%= f.text_field :username, :placeholder => "Username", :value => @nickname, :size => "53", :maxlength => "30", :autocomplete => "off" %>
+          <%= f.text_field :username, :placeholder => "Username", :value => @nickname, :size => "50", :maxlength => "30", :autocomplete => "off" %>
         </li>
         <li>
           <div class="email"></div>
-          <%= f.text_field :email, :placeholder => "Email", :value => @email, :size => "53", :maxlength => "255", :autocomplete => "off" %>
+          <%= f.text_field :email, :placeholder => "Email", :value => @email, :size => "50", :maxlength => "255", :autocomplete => "off" %>
         </li>
         <% unless session[:omniauth] %>
         <li>
           <div class="password"></div>
-          <%= f.password_field :password, :placeholder => "Password", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+          <%= f.password_field :password, :placeholder => "Password", :size => "50", :maxlength => "30", :autocomplete => "off" %>
         </li>
         <li>
           <div class="password_confirmation"></div>
-          <%= f.password_field :password_confirmation, :placeholder => "Password Confirmation", :size => "53", :maxlength => "30", :autocomplete => "off" %>
+          <%= f.password_field :password_confirmation, :placeholder => "Password Confirmation", :size => "50", :maxlength => "30", :autocomplete => "off" %>
         </li>
         <% end %>
       </ul>

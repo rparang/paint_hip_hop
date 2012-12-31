@@ -99,6 +99,10 @@
 
 <% else %>
 
+<% content_for :hero do  %>
+	<%= render :partial => 'layouts/hero' %>
+<% end %>
+
 <div class="left-container">
 	<h3>Recent Tracks</h3>
 	<div id="results">

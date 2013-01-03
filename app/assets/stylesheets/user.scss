@@ -6,7 +6,7 @@
   @include clearfix();
   #image {
     img { 
-      height: 150px;
+      max-width: 150px;
       @include image-round(4px);
     }
   }
@@ -20,7 +20,7 @@
     }
     p {
       font-size: 16px;
-      margin: 6px 0 12px 0;
+      margin: 11px 0 12px 0;
       color: $gray;
     }
     .facebook {
@@ -40,7 +40,7 @@
   }
   .follow-wrapper {
     float: right;
-    margin-top: -70px;
+    margin-top: -80px;
     a {
       font-size: 13px;
     }

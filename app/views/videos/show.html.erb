@@ -100,7 +100,9 @@
 			</div>
 			<div class="more-from-video-info">
 			  <a class="title" href="<%= video_path(v) %>"><%= v.title %></a>
-			  <a class="artist" href="<%= artist_path(v.artist) %>"><%= v.artist.name %></a>
+			  <% unless v.artist.nil? %>
+			  	<a class="artist" href="<%= artist_path(v.artist) %>"><%= v.artist.name %></a>
+			  <% end %>
 			  <div><div class="vote"></div><%= v.votes.count %></div>
 			  <div><div class="comment"></div><%= v.comments.count %></div>
 			</div>

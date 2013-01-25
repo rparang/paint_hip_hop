@@ -16,13 +16,18 @@
   </div>
   <%= form_for(@video) do |f| %>
     <ul class="form unstyled">
-      <li>
-        <div class="title"></div>
-        <%= f.text_field :title, :placeholder => "Title", :value => @video.title, :class=> "image-round-3", :size => "53", :maxlength => "155", :autocomplete => "off" %>
+      <li style="margin-left: 36px;">Artist
+        <div class="artist"></div>
+        <% @artist.nil? ? artist = "" : artist = @artist.name %>
+        <%= f.text_field :artist_name, :value => artist, :class=> "image-round-3", :id => "artist", :size => "53", :maxlength => "155", :autocomplete => "off" %>
       </li>
-      <li>
+      <li style="margin-left: 45px;">Title
+        <div class="title"></div>
+        <%= f.text_field :title, :value => @video.title, :class=> "image-round-3", :size => "53", :maxlength => "155", :autocomplete => "off" %>
+      </li>
+      <li>Comment
         <div class="comment"></div>
-        <%= f.text_field :description, :placeholder => "Comment", :value => @video.description, :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
+        <%= f.text_field :description, :value => @video.description, :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
       </li>
     </ul>
     <span class="button post-button floatright">

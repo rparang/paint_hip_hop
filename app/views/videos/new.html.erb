@@ -19,8 +19,6 @@
       //$("#share-twitter").attr('checked','checked');
     }
 
-
-
     var title = '<%= raw @vid.title %>';
     //alert(title);
     title = title.toLowerCase().replace(/\b[a-z]/g, function(letter) {
@@ -57,17 +55,17 @@
     </div>
     <%= form_for(@video) do |f| %>
       <ul class="form unstyled">
-        <li>
+        <li style="margin-left: 36px;">Artist
           <div class="artist"></div>
-          <%= f.text_field :artist_name, :placeholder => "Artist", :class=> "image-round-3", :id => "artist", :size => "53", :maxlength => "155", :autocomplete => "off" %>
+          <%= f.text_field :artist_name, :class=> "image-round-3", :id => "artist", :size => "53", :maxlength => "155", :autocomplete => "off" %>
         </li>
-        <li>
+        <li style="margin-left: 45px;">Title
           <div class="title"></div>
-          <%= f.text_field :title, :placeholder => "Title", :class=> "image-round-3", :id => "title", :size => "53", :maxlength => "155", :autocomplete => "off" %>
+          <%= f.text_field :title, :class=> "image-round-3", :id => "title", :size => "53", :maxlength => "155", :autocomplete => "off" %>
         </li>
-        <li>
+        <li>Comment
           <div class="comment"></div>
-          <%= f.text_field :description, :placeholder => "Comment", :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
+          <%= f.text_field :description, :class=> "image-round-3", :size => "53", :maxlength => "255", :autocomplete => "off" %>
           <%= f.hidden_field :youtube_id, :value => @vid.video_id.split(":").last %>
           <%= f.hidden_field :duration, :value => @vid.duration %>
         </li>

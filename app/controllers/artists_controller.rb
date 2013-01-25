@@ -12,6 +12,8 @@ class ArtistsController < ApplicationController
   end
 
   def destroy
-  	
+  	Artist.find(params[:id]).destroy
+    flash[:success] = "Artist was deleted. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
+    redirect_to artists_path
   end
 end

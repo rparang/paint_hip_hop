@@ -125,49 +125,31 @@ class VideosController < ApplicationController
     end
   end
 
-  def twitter_share(params)
-    if params[:share_twitter] == "1"
-        begin
-          token = current_user.authentications.where(:provider => "twitter")[0].token
-          secret = current_user.authentications.where(:provider => "twitter")[0].secret
-          message = "#{params[:title]} on @thepaintapp:" + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
-          current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
-        rescue
-          flash[:error] = "There was a problem sharing your video. We're looking into it. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
-        end
-      end
-  end
-
-  def facebook_share(params, video)
-    if params[:share_facebook] == "1"
-        begin
-          token = current_user.authentications.where(:provider => "facebook")[0].token
-          message = ""
-          title = video.title
-          url_extension = "#{video.id} #{title}".parameterize
-          url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/#{url_extension}"
-          caption = MESSAGE
-          description = video.description
-          thumb_url = "http://i.ytimg.com/vi/#{video.youtube_id}/default.jpg"
-          target = ""
-          current_user.share_video_facebook(token, message, title, url, caption, description, thumb_url, target)
-        rescue
-          flash[:error] = "There was a problem sharing your video. We're looking into it. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
-        end
-      end    
-  end
-
   def edit
     @video = Video.find(params[:id])
+    @artist = @video.artist
   end
 
   def update
     @video = Video.find(params[:id])
-    if @video.update_attributes(params[:video])
-      flash[:success] = "Your video was updated successfully. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
-      redirect_to @video
+    @artist = params[:video][:artist_name]
+    @artist_lookup = Artist.find_by_name(@artist)
+    if @artist_lookup
+      if @video.update_attributes(params[:video].merge(:artist_id => @artist_lookup.id))
+        flash[:success] = "Your video was updated successfully. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
+        redirect_to @video
+      else
+        render 'edit'
+      end
     else
-      render 'edit'
+      Artist.create_new_artist(@artist)
+      @artist_lookup = Artist.find_by_name(@artist)
+      if @video.update_attributes(params[:video].merge(:artist_id => @artist_lookup.id))
+        flash[:success] = "Your video was updated successfully. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
+        redirect_to @video
+      else
+        render 'edit'
+      end
     end
   end
 
@@ -175,6 +157,38 @@ class VideosController < ApplicationController
     Video.find(params[:id]).destroy
     flash[:success] = "Your video was deleted. Good riddance. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
     redirect_to root_path
+  end
+
+  def twitter_share(params)
+    if params[:share_twitter] == "1"
+      begin
+        token = current_user.authentications.where(:provider => "twitter")[0].token
+        secret = current_user.authentications.where(:provider => "twitter")[0].secret
+        message = "#{params[:title]} on @thepaintapp:" + " #{request.protocol}#{request.host_with_port}#{request.fullpath}/#{@video.id}" 
+        current_user.share_video_twitter(TWITTER_CONSUMER_KEY, TWITTER_CONSUMER_SECRET, token, secret, message)
+      rescue
+        flash[:error] = "There was a problem sharing your video. We're looking into it. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
+      end
+    end
+  end
+
+  def facebook_share(params, video)
+    if params[:share_facebook] == "1"
+      begin
+        token = current_user.authentications.where(:provider => "facebook")[0].token
+        message = ""
+        title = video.title
+        url_extension = "#{video.id} #{title}".parameterize
+        url = "#{request.protocol}#{request.host_with_port}#{request.fullpath}/#{url_extension}"
+        caption = MESSAGE
+        description = video.description
+        thumb_url = "http://i.ytimg.com/vi/#{video.youtube_id}/default.jpg"
+        target = ""
+        current_user.share_video_facebook(token, message, title, url, caption, description, thumb_url, target)
+      rescue
+        flash[:error] = "There was a problem sharing your video. We're looking into it. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
+      end
+    end    
   end
 
 end

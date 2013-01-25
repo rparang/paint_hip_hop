@@ -1,9 +1,10 @@
-<style type="text/css">
-a { display: block;}
-</style>
-
 <h3>Artists</h3>
 <% @artists.each do |a| %>
-	<a href="<%= artist_path(a) %>"><%= a.name %></a>
+	<div>
+		<a href="<%= artist_path(a) %>"><%= a.name %></a> 
+		<% if signed_in? && current_user.admin == true %>
+			&nbsp;&nbsp;&nbsp;<%= link_to "delete", a, :method => :delete, :confirm => "Are you sure?" %>
+		<% end %>
+	</div>
 <% end %>
 

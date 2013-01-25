@@ -1,6 +1,5 @@
 class VideosController < ApplicationController
   before_filter :signed_in_user, :only => [:create, :destroy]
-  include VideoHelper
   respond_to :html, :xml, :json
  
   def search

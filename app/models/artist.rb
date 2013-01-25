@@ -3,6 +3,8 @@ class Artist < ActiveRecord::Base
 
 	has_many :videos, :foreign_key => 'artist_id'
 
+	scope :order_by, lambda { |o| {:order => o} } #For alphabetical order
+
 	def to_param
     "#{id} #{name}".parameterize
   end

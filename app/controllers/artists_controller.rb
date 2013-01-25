@@ -1,6 +1,7 @@
 class ArtistsController < ApplicationController
   def index
   	@artists = Artist.all
+    @artists = Artist.order_by('name ASC')#.collect {|x| [x.name, x.id] }
   end
 
   def show

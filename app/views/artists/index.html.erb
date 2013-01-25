@@ -2,7 +2,8 @@
 a { display: block;}
 </style>
 
-<h1>Artists#index</h1>
+<h3>Artists</h3>
 <% @artists.each do |a| %>
 	<a href="<%= artist_path(a) %>"><%= a.name %></a>
 <% end %>
+

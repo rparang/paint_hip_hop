@@ -71,7 +71,8 @@ function buildTrending(data) {
       id: 'item-info-'+i
       }).appendTo("#item-"+i);
     $("<a>").attr({
-      href: base_url
+      href: base_url,
+      class: 'title'
       })
       .html(item.title)
       .appendTo("#item-info-"+i);

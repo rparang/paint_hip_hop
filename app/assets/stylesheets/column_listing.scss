@@ -42,11 +42,16 @@
       float: right;
       width: 120px;
       line-height: 15px;
-
       a {
-        font-size: 12px;
-        font-weight: bold;
         display: block;
+      }
+      .title {
+        font-size: 13px;
+        font-weight: bold;
+        margin-bottom: 3px;
+      }
+      .artist {
+        font-size: 11px;
         margin-bottom: 5px;
       }
 
@@ -73,6 +78,14 @@
         }
 
       }
+    }
+  }
+  .artists-count {
+    margin-top: 16px;
+    display: block;
+    font-size: 14px;
+    span {
+      font-size: 36px;
     }
   }
 

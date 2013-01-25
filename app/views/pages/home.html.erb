@@ -83,6 +83,11 @@
 		<div id="loading"></div>
 	</div>
 
+	<div class="more-from-user-container">
+		<h3>Artists</h3>
+		<a class="artists-count" href="<%= artists_path %>"><span><%= @artists_count %></span> total</a>
+	</div>
+
 	<% unless current_user.authentications.count == 2 %>
 		<div class="social">
 			<p>Paint the Town is better social</p>
@@ -115,6 +120,10 @@
 	<div class="more-from-user-container" id="items-trending">
 		<h3>Trending</h3>
 		<div id="loading"></div>
+	</div>
+	<div class="more-from-user-container">
+		<h3>Artists</h3>
+		<a class="artists-count" href="<%= artists_path %>"><span><%= @artists_count %></span> total</a>
 	</div>
 </div>
 

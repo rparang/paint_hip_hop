@@ -10,6 +10,7 @@ class VideosController < ApplicationController
     @path = root_path
     @vote = Vote.new
     @comment = Comment.new(params[:vote])
+    @artists_count = Artist.all.count
     if signed_in?
       @feed_items = current_user.feed.paginate(:page => params[:page], :per_page => 10)
       respond_with do |format|

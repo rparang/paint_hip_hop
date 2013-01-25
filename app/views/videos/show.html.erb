@@ -93,15 +93,16 @@
   <div class="more-from-user-container">
     <div class="more-from-user-header"><%= @video.user.username %> <span><%= @video.user.points %></span></div>
 	  <% unless @user_videos.empty? %>
-		<% @user_videos.count.times do |v| %>
+		<% @user_videos.each do |v| %>
 		  <div class="more-from-user-item">
 		    <div class="more-from-user-image">
-			  <a href="<%= video_path(@user_videos[v]) %>"><img src="http://i.ytimg.com/vi/<%= @user_videos[v].youtube_id %>/mqdefault.jpg" /></a>
+			  <a href="<%= video_path(v) %>"><img src="http://i.ytimg.com/vi/<%= v.youtube_id %>/mqdefault.jpg" /></a>
 			</div>
 			<div class="more-from-video-info">
-			  <a href="<%= video_path(@user_videos[v]) %>"><%= @user_videos[v].title %></a>
-			  <div><div class="vote"></div><%= @user_videos[v].votes.count %></div>
-			  <div><div class="comment"></div><%= @user_videos[v].comments.count %></div>
+			  <a class="title" href="<%= video_path(v) %>"><%= v.title %></a>
+			  <a class="artist" href="<%= artist_path(v.artist) %>"><%= v.artist.name %></a>
+			  <div><div class="vote"></div><%= v.votes.count %></div>
+			  <div><div class="comment"></div><%= v.comments.count %></div>
 			</div>
 		  </div>
 		<% end %>

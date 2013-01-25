@@ -15,10 +15,11 @@
 #
 
 class Video < ActiveRecord::Base
-  attr_accessible :title, :user_id, :youtube_id, :description, :duration, :youtube_view_count, :share_facebook, :share_twitter
-  attr_accessor :share_facebook, :share_twitter
+  attr_accessible :title, :user_id, :youtube_id, :description, :duration, :youtube_view_count, :share_facebook, :share_twitter, :artist_id, :artist_name
+  attr_accessor :share_facebook, :share_twitter, :artist_name
   
   belongs_to :user
+  belongs_to :artist
   has_many :votes, :dependent => :destroy
   has_many :comments, :dependent => :destroy
 

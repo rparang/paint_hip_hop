@@ -8,7 +8,7 @@
       $("#facebook").css('color','#999');
     }
     else {
-      $("#share-facebook").attr('checked','checked');
+      //$("#share-facebook").attr('checked','checked');
     }
     if (has_twitter == "false") {
       $("#connect-twitter").show();
@@ -16,14 +16,32 @@
       $("#twitter").css('color','#999');
     }
     else {
-      $("#share-twitter").attr('checked','checked');
+      //$("#share-twitter").attr('checked','checked');
     }
+
+
+
+    var title = '<%= raw @vid.title %>';
+    //alert(title);
+    title = title.toLowerCase().replace(/\b[a-z]/g, function(letter) {
+      return letter.toUpperCase();
+    });
+    title = title.replace(/ *\[[^)]*\] */g, "").replace(/ *\([^)]*\) */g, "");
+    var splitTitle = title.split(/[,-]+/);
+    //var splitTitle = title.split("Ft.","-");
+    //alert(splitTitle.length);
+    if (splitTitle.length > 1){
+      $("#artist").val(splitTitle[0].trim());
+      $("#title").val(splitTitle[1].trim());
+    }
+
   });
 </script>
 
 <div class="left-container">
   <div class="new-track">
     <h1>Preview and Post</h1>
+    <h2><%= @vid.title %></h2>
     <a href="<%= root_path %>">&#8249;&#8249;Back</a>
     <% if @video.errors.any? %>
       <div class="alert">
@@ -40,8 +58,12 @@
     <%= form_for(@video) do |f| %>
       <ul class="form unstyled">
         <li>
+          <div class="artist"></div>
+          <%= f.text_field :artist_name, :placeholder => "Artist", :class=> "image-round-3", :id => "artist", :size => "53", :maxlength => "155", :autocomplete => "off" %>
+        </li>
+        <li>
           <div class="title"></div>
-          <%= f.text_field :title, :placeholder => "Title", :value => @vid.title, :class=> "image-round-3", :size => "53", :maxlength => "155", :autocomplete => "off" %>
+          <%= f.text_field :title, :placeholder => "Title", :class=> "image-round-3", :id => "title", :size => "53", :maxlength => "155", :autocomplete => "off" %>
         </li>
         <li>
           <div class="comment"></div>

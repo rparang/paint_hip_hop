@@ -97,16 +97,23 @@ class VideosController < ApplicationController
 
 
   def new
-    @yt_client = YouTubeIt::Client.new
-    query = params[:v]
-    @vid =  @yt_client.video_by("#{query}")
-    @video_image_url = @vid.thumbnails
+    client = YouTubeIt::Client.new
+    @query = params[:v]
+    @vid =  client.video_by("#{@query}")
     @video = Video.new
     @comment = Comment.new
   end
 
   def create
-    @video = current_user.videos.build(params[:video])
+    @artist = params[:video][:artist_name]
+    @artist_lookup = Artist.find_by_name(@artist)
+    if @artist_lookup #If we found existing artist record
+      @video = current_user.videos.build(params[:video].merge(:artist_id => @artist_lookup.id))
+    else
+      Artist.create_new_artist(@artist)
+      @artist_lookup = Artist.find_by_name(@artist)
+      @video = current_user.videos.build(params[:video].merge(:artist_id => @artist_lookup.id))
+    end
     if @video.save
       flash[:success] = "Your Video is now live. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
       facebook_share(params[:video], @video) #If the user has selected the checkbox to share on Facebook

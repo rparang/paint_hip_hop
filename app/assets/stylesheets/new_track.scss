@@ -20,6 +20,14 @@
     line-height: 33px;
   }
   ul.form {
+    .artist {
+      background: url("sprite.png") no-repeat -221px -160px;
+      display: inline-block;
+      padding-left: 28px;
+      height: 30px;
+      vertical-align: middle;
+      opacity: .5;
+    }
     .title {
       background: url("sprite.png") no-repeat -221px -160px;
       display: inline-block;

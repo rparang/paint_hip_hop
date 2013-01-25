@@ -1,10 +1,4 @@
 Jams::Application.routes.draw do
-  
-  get "authentications/index"
-
-  get "authentications/create"
-
-  get "authentications/destroy"
 
   root :to => 'videos#home'
   
@@ -28,12 +22,11 @@ Jams::Application.routes.draw do
   match '/signin',  :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
 
-  resources :relationships, :only => [:create, :destroy]
-
-  resources :votes, :only => [:create, :destroy]
-
+  resources :artists, :only => [:index, :show, :destroy]
+  resources :authentications, :only => [:create, :destroy]
   resources :comments
-  resources :authentications, :only => [:index, :create, :destroy]
+  resources :relationships, :only => [:create, :destroy]
+  resources :votes, :only => [:create, :destroy]
 
   match '/auth/:provider/callback' => 'authentications#create'
 

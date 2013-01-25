@@ -7,11 +7,11 @@
     @include clearfix();
 		.name {
 			font-size: 28px;
-      margin-bottom: 10px;
-      line-height: 30px;
+      margin-bottom: 6px;
+      line-height: 17px;
       font-weight: bold;
       color: $grayDarker;
-      a {
+      a.edit-media {
         font-size: 11px;
         color: $grayLight;
         top: -4px;
@@ -19,9 +19,21 @@
         white-space: nowrap;
       }
 		}
+    .name.artist {
+      line-height: 20px;
+      font-size: 19px;
+      color: gray;
+      font-weight: normal;
+      margin-bottom: 18px;
+      a {
+        font-size: 19px;
+        line-height: 20px;
+      }
+    }
     .left {
       float: left;
       width: 300px;
+      margin-top: 10px;
   		div.created-at {
   			color: $grayLight;
         font-size: 12px;

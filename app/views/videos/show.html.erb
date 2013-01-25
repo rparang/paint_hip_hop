@@ -20,8 +20,9 @@
   <div class="video-main">
 	<div class="video-header">
 	  <div class="name"><%= @video.title %>
-	    <% if current_user?(@video.user) %><a href="<%= edit_video_path(@video.id) %>" title="Edit #{@video.title}"><div class="edit"></div>Edit video</a><% end %>
+	    <% if current_user?(@video.user) %><a class="edit-media" href="<%= edit_video_path(@video.id) %>" title="Edit #{@video.title}"><div class="edit"></div>Edit track</a><% end %>
 	  </div>
+	  <% unless @video.artist.nil? %><div class="name artist">by <a href="<%= artist_path(@video.artist) %>"><%= @video.artist.name %></a></div><% end %>
 	  <div class="left">
 		<div class="created-at">
 		  <% @video.user.image == nil ? image = "/assets/default-small.png" : image = @video.user.image %>

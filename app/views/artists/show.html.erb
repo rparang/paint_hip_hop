@@ -1,0 +1,76 @@
+<script type="text/javascript">
+$('document').ready(function() {
+
+	function getArtistInfo(info, api_key) {
+		var name = "<%= raw @artist.name %>";
+		$.ajax({
+	  	url: 'http://developer.echonest.com/api/v4/artist/'+info+'?api_key='+api_key+'&name='+name+'&format=json',
+	  	dataType: "json",
+	  	type: "GET",
+	  	//beforeSend: showLoading()
+	  }).done(function(data) {
+	  	//console.log(data.response.biographies[0].text);
+	  	if (info == "biographies") {
+	  		console.log(data.response);
+	  		var bio = data.response.biographies[0].text;
+	  		$("#bio").html(bio);
+	  	}
+	  	if (info == "images") {
+	  		var image = data.response.images[0].url;
+	  		$("#a-image").attr('src',image);
+	  		$("#a-link").attr('href',image);
+	  	}
+	  	if (info == "news") {
+	  		var news = data.response.news[0].summary;
+	  		$("#news").html(news);
+	  	}
+	  	if (info == "twitter") {
+	  		console.log(data.response.artist.twitter);
+	  		var twitter_name = data.response.artist.twitter;
+	  		$("#a-twitter").attr('href','https://twitter.com/'+twitter_name);
+	  	}
+	  });
+	}
+
+	getArtistInfo("biographies", "45EHVLZCFIZYNZZG0");
+	getArtistInfo("images", "45EHVLZCFIZYNZZG0");
+	getArtistInfo("twitter", "45EHVLZCFIZYNZZG0");
+	getArtistInfo("news", "45EHVLZCFIZYNZZG0");
+
+});
+
+</script>
+
+<div class="left-container">
+	<div class="user">
+		<div id="image" class="floatleft">
+			<a id="a-link" href="#"><img src="" id="a-image" title="<%= @artist.name %>" /></a>
+		</div>
+		<div class="user-info floatleft">
+			<h1><%= @artist.name %></h1>
+			<a href="#" target="_blank" id="a-twitter"><div class="twitter"></div></a>
+			<!--<p id="bio"></p>-->
+			<!--<p id="news"></p>-->
+		</div>
+	</div>
+	<div class="results">
+		<% unless @feed_items.empty? %>
+			<%= render 'shared/feed' %>
+		<% end %>
+	</div>
+</div>
+<!--
+<h1><%= @artist.name %></h1>
+<img src="" id="image" />
+<div id="bio"></div>
+<div id="news"></div>
+<% @videos.each do |v| %>
+	<a href="#"><%= v.title %></a>
+<% end %>
+<p>URLs</p>
+<p>Images</p>
+<p>News</p>
+<p>Twitter</p>
+<p>how many tracks on PTT</p>
+<p>Can we suggest a video from this artist?</p>
+<p>Industry News</p>-->

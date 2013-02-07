@@ -34,4 +34,10 @@ Jams::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # Defaults host name for ActionMailer and is supposed to provide absolute URLs
+  config.action_mailer.default_url_options = {
+    :host => 'localhost:3000',
+    :only_path => false
+  }
 end

@@ -1,5 +1,5 @@
 class UserMailer < ActionMailer::Base
-  default from: "Paint the Town <notifications@paintthetownapp.com>"
+  default from: "Paint the Town <notifications@paintapp.co>"
   default content_type: 'text/html'
 
   def welcome_email(user)
@@ -9,6 +9,7 @@ class UserMailer < ActionMailer::Base
   end
 
   def video_comment_email(video, commenting_user, comment)
+    @video = video
   	@user = video.user
   	@commenting_user = commenting_user
   	@comment = comment

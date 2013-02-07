@@ -3,7 +3,7 @@ class VotesController < ApplicationController
   respond_to :html, :xml, :json
 
   def new
-	@vote = Vote.new
+		@vote = Vote.new
   end
 
   def create
@@ -17,7 +17,6 @@ class VotesController < ApplicationController
 	  respond_with do |format|
 	    format.html do
 		  if request.xhr?
-		    #render :text => "#{@video.votes.count} points" #Not surfacing text
 		    render :json => {:vote_count => @video.votes.count,
 												 :name => @vote.user.username,
 												 :image => @vote.user.image,

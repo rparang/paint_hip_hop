@@ -43,7 +43,7 @@
       <div class="update-profile-field">
         <div class="auth"></div>
         <%= f.label "Authentications" %>
-        <% if !@authentications.empty? %>
+        <% if @authentications %>
           <% @authentications.each do |a| %>
               <span><div class="<%= a.provider %>"></div><%= a.provider %><%= link_to "Delete", a, :method => :delete, :confirm => "Are you sure you want to delete this authentication?" %></span>
           <% end %>

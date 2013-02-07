@@ -10,6 +10,7 @@ gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'koala'
 gem 'twitter'
+gem 'delayed_job_active_record'
 
 group :development do
   gem 'sqlite3'

@@ -1,0 +1,11 @@
+<img src="http://localhost:3000/assets/logo.png" />
+
+<h1><%= @user.username %>,</h1>
+
+<p><%= @commenting_user.username %> commented on your track "<%= @video.title %>":</p>
+
+</p>"<%= @comment.content %>"</p>
+
+<%= link_to "See Comment", video_url(@video) %>
+
+<p>Edit email settings: <%= edit_user_url(@user) %></p>

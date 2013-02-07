@@ -9,11 +9,10 @@ class CommentsController < ApplicationController
 	@comment = current_user.comments.build(params[:comment])
 	@video = Video.find(params[:comment][:video_id])
 	if @comment.save
-	  #UserMailer.video_comment_email(@video, current_user, @comment).deliver if @video.user.notify_comment == true
+	  UserMailer.delay.video_comment_email(@video, current_user, @comment)# if @video.user.notify_comment == true
 	  respond_with do |format|
 	    format.html do
 		  if request.xhr?
-		    #render :text => "#{@video.votes.count} points" #Not surfacing text
 		    render :json => {:comment => @comment, :comment_count => @video.comments.count, :path => user_path(@comment.user), :name => @comment.user.username, :image => @comment.user.image, :video_id => @video.id}
 		  end
 		end

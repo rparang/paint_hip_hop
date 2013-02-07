@@ -1,9 +1,9 @@
 ActionMailer::Base.smtp_settings = {
   :address				=> "smtp.gmail.com",
   :port					=> 587,
-  :domain				=> "paintthetownapp.com",
+  :domain				=> "paintapp.co",
   :user_name			=> "paintthetownapp",
-  :password				=> "Decemb23",
+  :password				=> "hardinthepaint",
   :authentication		=> "plain",
   :enable_starttls_auto => true
 }

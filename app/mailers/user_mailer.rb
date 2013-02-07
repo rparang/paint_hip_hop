@@ -4,7 +4,7 @@ class UserMailer < ActionMailer::Base
 
   def welcome_email(user)
     @user = user
-  	@url  = "http://localhost:3000/signin"
+  	@url  = "http://paintapp.co/signin"
   	mail(:to => user.email, :from => "Paint the Town", :subject => "Welcome to Paint the Town")
   end
 

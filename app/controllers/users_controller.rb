@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       @user.apply_omniauth(omniauth)
     end
     if @user.save
-      #UserMailer.welcome_email(@user).deliver
+      UserMailer.delay.welcome_email(@user)
       session[:omniauth] = nil
       sign_in @user
       flash[:success] = "Welcome to Paint the Town! Let's have a toast."

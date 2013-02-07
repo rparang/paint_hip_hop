@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
 	@comment = current_user.comments.build(params[:comment])
 	@video = Video.find(params[:comment][:video_id])
 	if @comment.save
-	  UserMailer.delay.video_comment_email(@video, current_user, @comment)# if @video.user.notify_comment == true
+	  UserMailer.delay.video_comment_email(@video, current_user, @comment) if @video.user.notify_comment == true
 	  respond_with do |format|
 	    format.html do
 		  if request.xhr?

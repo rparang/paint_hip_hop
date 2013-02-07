@@ -5,11 +5,9 @@
 		<div style="padding: 0 20px 10px 20px;">
 			<p style="font-weight: bold;font-size: 14px;margin: 0;"><%= @user.username %>,</p>
 
-			<p style="font-size: 14px;margin: 0; margin-top: 3px;"><%= @commenting_user.username %> commented on your track "<%= @video.title %>":</p>
+			<p style="font-size: 15px; margin: 12px 0 6px 0;"><%= @follower_user.username %> is now following you on Paint the Town!</p>
 
-			<p style="font-size: 15px; margin: 12px 0 6px 0;">"<%= @comment.content %>"</p>
-
-			<a href="<%= video_url(@video) %>" style="text-decoration: none; font-size: 13px; color: #467590;">See Comment</a>
+			<a href="<%= user_url(@follower_user) %>" style="text-decoration: none; font-size: 13px; color: #467590;">See <%= @follower_user.username %>'s profile</a>
 
 			<p style="font-size: 11px; color: gray; width: 530px; margin-top: 20px;">This message was sent to <a style="text-decoration: none;color: #467590;" href="#"><%= @user.email %></a>. If you don't want to receive these emails from Paint the Town in the future, edit your <a href="<%= edit_user_url(@user) %>" style="text-decoration: none;color: #467590;">email settings</a>.</p>
 		</div>

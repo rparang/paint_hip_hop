@@ -7,9 +7,7 @@ class AuthenticationsController < ApplicationController
   	omniauth = request.env['omniauth.auth']
     authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
     if authentication
-      #Need to check to see if token, secret, social_url, social_image has changed. consider dropping social_url and social image
       sign_in(authentication.user)
-      #flash[:success] = "Signed in successfully"
       redirect_to root_path
     elsif current_user
       omniauth['info']['urls']['Twitter'] ? omniauth_social_url = omniauth['info']['urls']['Twitter'] : omniauth_social_url = omniauth['info']['urls']['Facebook']
@@ -23,6 +21,7 @@ class AuthenticationsController < ApplicationController
       user.apply_omniauth(omniauth)
       if user.save
         sign_in(user)
+        UserMailer.delay.welcome_email(user)
         #flash[:success] = "Signed in successfully"
         redirect_to authentications_path
       else

@@ -4,7 +4,7 @@ class RelationshipsController < ApplicationController
 	def create
 		@user = User.find(params[:relationship][:followed_id])
 		current_user.follow!(@user)
-		#UserMailer.follow_email(@user, current_user).deliver if @user.notify_follow == true
+		UserMailer.delay.follow_email(@user, current_user) if @user.notify_follow == true
 		respond_to do |format|
 			format.html { redirect_to @user }
 			format.js

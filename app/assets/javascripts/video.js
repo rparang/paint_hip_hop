@@ -236,15 +236,26 @@ function addCommentOnFeed(feed_id) {
       type: "POST",
       url: $(this).attr('action'),
       data: valuesToSubmit,
+      beforeSend: fadeComment(feed_id)
     }).done(function(data){
         buildCommentOnFeed(data);
+        restoreComment(data);
        });
     return false;
   });
 };
 
+function fadeComment(feed_id) {
+  $("#comment-form-container-"+feed_id).css('opacity', 0.5);
+}
+
+function restoreComment(data) {
+  var obj = jQuery.parseJSON(data);
+  $("#comment-form-container-"+obj.video_id).css('opacity', 1.0);
+}
+
 function buildCommentOnFeed(data) {
-  var obj = jQuery.parseJSON(data)
+  var obj = jQuery.parseJSON(data);
   var image;
   obj.image == null ? image = "/assets/default-small.png" : image = obj.image;
   $("#comment-"+obj.video_id).text(obj.comment_count+" comments");

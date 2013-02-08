@@ -1,7 +1,14 @@
 <script type="text/javascript">
 	$("document").ready( function() {
-		xhr_get("<%= escape_javascript(topdayjson_path) %>");
+		xhr_get("<%= escape_javascript(topweekjson_path) %>");
 	})
+
+  $(document).ready(function(){
+    pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
+    elemIds = {'feed': '#feed', 'recent': '#recent', 'people': '#people', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
+    loadSongs(elemIds, pagelessHTML, "<%= @feed_items.total_pages %>");
+  });
+
 </script>
 
 <% if signed_in? %>
@@ -20,28 +27,16 @@
 	    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
 	    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
 		</div>
-<!--
-			<%= link_to "Day", day_path, :remote => true, :id => 'day' %>
--->
 	</div>
-	<%= render 'shared/search' %>
-	<% unless current_user.feed.empty? %>
-		<script>
-		  $(document).ready(function(){
-		    pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
-		    elemIds = {'feed': '#feed', 'recent': '#recent', 'people': '#people', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
-		    loadSongs(elemIds, pagelessHTML, "<%= @feed_items.total_pages %>");
-		  });
-		</script>
 
-			<div id="results">
-			  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. Remaining are sent from controller
-	                                       after Pageless requests asynchronously -->
-		      <%= will_paginate @feed_items %> <!-- Keep to show pagination if JS is disabled. Requesting ?page=2 doesn't 
-		                                            work though as 'sort' template doesn't render to prevent multiple template requests once Pageless fires.  -->
-		      <%= pageless(@feed_items.total_pages, @path) %> <!-- First param is total number of pages sent back by will_paginate gem, which should descrease in count.
-		                                                           Second param is path to request more data.   -->
-			</div>
+	<%= render 'shared/search' %>
+
+	<% unless current_user.feed.empty? %>
+		<div id="results">
+		  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. -->
+      <%= will_paginate @feed_items %> <!-- Keep to show pagination if JS is disabled. -->
+      <%= pageless(@feed_items.total_pages, @path) %>
+		</div>
 	<% else %>
 		<div style="padding: 30px;font-size: 20px;">You're not following anyone. Check out some <%= link_to "suggested people", users_path %>.</div>
 	<% end %>
@@ -109,7 +104,19 @@
 <% end %>
 
 <div class="left-container">
-	<h3>Recent Tracks</h3>
+	<div class="feed-options">
+		<div class="floatleft">
+			<%= link_to raw("<div class='new'></div>New"), videos_path, :remote => true, :id => 'recent' %>
+			<%= link_to raw("<div class='people'></div>People"), users_path, :remote => true, :id => 'people' %>
+		</div>
+		<div class="loading floatleft" style="display:none;" id="loading-feed"></div>
+		<div class="floatright">
+			<div class="top"></div>Top:
+			<%= link_to "Week", week_path, :remote => true, :id => 'week' %>
+	    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
+	    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
+		</div>
+	</div>
 	<div id="results">
 		<%= render 'shared/feed' %>
 		<%= will_paginate @feed_items %>

@@ -32,8 +32,9 @@ class VideosController < ApplicationController
     end
   end
 
-  def top_day_json
+  def top_week_json
     @items = Video.top_week_videos
+    #@artists = @items.collect {|t| t.artist.name }
     respond_to do |format|
       format.json { render :json => @items }
     end

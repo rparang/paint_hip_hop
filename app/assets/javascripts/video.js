@@ -35,7 +35,7 @@ function loadSongs(el, pagelessHTML, pagelessPagesCount) {
 
 function xhr_get(url) {
   $.ajax ({
-    url: '/topdayjson',
+    url: url,
     dataType: "json",
     type: "GET",
     processData: false,
@@ -49,7 +49,9 @@ function xhr_get(url) {
 
 function buildTrending(data) {
   var limit = 4;
+  //console.log(data);
   $.each(data, function(i,item) {
+    //console.log(item);
     if(i > limit) return false;
     var img_url = 'http://i2.ytimg.com/vi/'+item.youtube_id+'/mqdefault.jpg';
     var base_url = '/videos/'+item.id;

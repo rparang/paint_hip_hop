@@ -16,7 +16,7 @@ Jams::Application.routes.draw do
   match '/week', :to => 'videos#top_week'
   match '/month', :to => 'videos#top_month'
   match '/alltime', :to => 'videos#top_alltime'
-  match '/topdayjson', :to => 'videos#top_day_json'
+  match '/topweekjson', :to => 'videos#top_week_json'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin',  :to => 'sessions#new'

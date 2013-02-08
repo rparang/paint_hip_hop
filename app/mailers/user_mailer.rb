@@ -13,7 +13,7 @@ class UserMailer < ActionMailer::Base
   	@user = video.user
   	@commenting_user = commenting_user
   	@comment = comment
-  	mail(:to => video.user.email, :from => "Paint the Town", :subject => "#{@commenting_user.username} commented on your video")
+  	mail(:to => video.user.email, :from => "Paint the Town", :subject => "#{@commenting_user.username} commented on your track")
   end
 
   def follow_email (user, follower_user)

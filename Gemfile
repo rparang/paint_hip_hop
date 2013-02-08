@@ -11,6 +11,7 @@ gem 'omniauth-facebook'
 gem 'koala'
 gem 'twitter'
 gem 'delayed_job_active_record'
+gem 'hirefire'
 
 group :development do
   gem 'sqlite3'

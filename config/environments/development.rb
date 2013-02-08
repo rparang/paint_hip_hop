@@ -40,4 +40,5 @@ Jams::Application.configure do
     :host => 'localhost:3000',
     :only_path => false
   }
+
 end

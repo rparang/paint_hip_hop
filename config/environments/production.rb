@@ -70,5 +70,5 @@ Jams::Application.configure do
     :only_path => false
   }
 
-  heroku config:add HIREFIRE_EMAIL='reza.parang@gmail.com' HIREFIRE_PASSWORD='Decemb23'
+  heroku config:add HIREFIRE_EMAIL=reza.parang@gmail.com HIREFIRE_PASSWORD=Decemb23
 end

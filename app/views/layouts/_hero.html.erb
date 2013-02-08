@@ -4,7 +4,7 @@
     <h2>Discover the best hip hop tracks to share with your friends</h2>
     <a href="/auth/facebook/" class="button facebook"><div class="facebook-icon"></div>Sign up with Facebook</a>
     <a href="<%= signup_path %>" class="email">or with an email address</a>
-    <div class="meta">
+    <div class="learn">
     	<div>
     		<span class="icon note"></span>
     		Paint the Town is a fresh new take on finding the best hip-hop music without the clutter
@@ -15,10 +15,10 @@
     	</div>
     	<div>
             <span class="icon access"></span>
-    		Access your tracks from anywhere you are on any device
+    		Access your Paint the Town tracks from anywhere on any device
     	</div>
     </div>
-    <a href="#" id="learn-more">Learn more</a>
+    <a href="javascript:;" id="learn-more">Learn more</a>
   </div>
 </div>
 
@@ -26,7 +26,7 @@
     $('document').ready( function() {
     	$("#learn-more").click( function() {
     		$(".hero-wrapper").toggleClass('tall');
-            $(".meta").toggle();
+            $(".learn").toggle();
     	});
     });
 </script>

@@ -39,6 +39,13 @@ class VideosController < ApplicationController
     end
   end
 
+  def playlist_signed_out
+    @tracks = Video.limit(30)
+    respond_to do |format|
+      format.json { render :json => @tracks }
+    end
+  end
+
   def top_week_json
     @items = Video.top_week_videos
     #@artists = @items.collect {|t| t.artist.name }

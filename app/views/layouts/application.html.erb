@@ -32,9 +32,10 @@
 
 	<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>
 	<script type="text/javascript">
-
+	
+	<% signed_in? ? path = playlist_path : path = playlist_signed_out_path  %>
 	var field = new Field(0);
-	var results = $.getValues("<%= escape_javascript(playlist_path) %>");
+	var results = $.getValues("<%= escape_javascript(path) %>");
 
 	var tracks = [];
 	$.each(results, function (i,item) {

@@ -32,6 +32,13 @@ class VideosController < ApplicationController
     end
   end
 
+  def playlist
+    @tracks = Video.from_users_following(current_user).limit(30)
+    respond_to do |format|
+      format.json { render :json => @tracks }
+    end
+  end
+
   def top_week_json
     @items = Video.top_week_videos
     #@artists = @items.collect {|t| t.artist.name }
@@ -119,7 +126,7 @@ class VideosController < ApplicationController
       flash[:success] = "Your Video is now live. #{ActionController::Base.helpers.link_to "Close", '#'}".html_safe
       facebook_share(params[:video], @video) #If the user has selected the checkbox to share on Facebook
       twitter_share(params[:video])          #If the user has selected the checkbox to share on Twitter
-      redirect_to @video
+      redirect_to root_path
     else
       flash[:error] = "Something went wrong with your video. We're looking into it."
       redirect_to root_path

@@ -1,137 +1,99 @@
 <script type="text/javascript">
 	$("document").ready( function() {
-		xhr_get("<%= escape_javascript(topweekjson_path) %>");
+    var elemIds = {'feed': '#feed', 'recent': '#recent', 'people': '#people', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
+    var pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
+    getTrending("<%= escape_javascript(topweekjson_path) %>");
+    filterFeed(elemIds, pagelessHTML, "<%= @feed_items.total_pages %>");
 	})
-
-  $(document).ready(function(){
-    pagelessHTML = "<%= escape_javascript(pageless(10, @path)) %>";
-    elemIds = {'feed': '#feed', 'recent': '#recent', 'people': '#people', 'day': '#day', 'week': '#week', 'month': '#month', 'alltime': '#alltime'};
-    loadSongs(elemIds, pagelessHTML, "<%= @feed_items.total_pages %>");
-  });
-
 </script>
 
 <% if signed_in? %>
-<div class="left-container">
+	<div class="left-container">
 
-	<div class="feed-options">
-		<div class="floatleft">
-			<%= link_to raw("<div class='feed'></div>Feed"), root_path, :remote => true, :id => 'feed' %>
-			<%= link_to raw("<div class='new'></div>New"), videos_path, :remote => true, :id => 'recent' %>
-			<%= link_to raw("<div class='people'></div>People"), users_path, :remote => true, :id => 'people' %>
-		</div>
-		<div class="loading floatleft" style="display:none;" id="loading-feed"></div>
-		<div class="floatright">
-			<div class="top"></div>Top:
-			<%= link_to "Week", week_path, :remote => true, :id => 'week' %>
-	    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
-	    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
-		</div>
-	</div>
-
-	<%= render 'shared/search' %>
-
-	<% unless current_user.feed.empty? %>
-		<div id="results">
-		  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. -->
-      <%= will_paginate @feed_items %> <!-- Keep to show pagination if JS is disabled. -->
-      <%= pageless(@feed_items.total_pages, @path) %>
-		</div>
-	<% else %>
-		<div style="padding: 30px;font-size: 20px;">You're not following anyone. Check out some <%= link_to "suggested people", users_path %>.</div>
-	<% end %>
-</div>
-
-<div class="right-container">
-	<% unless current_user.videos.first.nil? %>
-		<div class="current-video-container">
-			<h3>Your Current Track</h3>
-			<div class="meta">
-				<div class="points"><%= pluralize(current_user.current_video.votes_count, "point") %>, <%= pluralize(current_user.current_video.comments.count, "comment") %></div>
-				<div class="active">Active: <%= time_ago_in_words(current_user.current_video.created_at) %></div>
+		<div class="feed-options">
+			<div class="floatleft">
+				<%= link_to raw("<div class='feed'></div>Feed"), root_path, :remote => true, :id => 'feed' %>
+				<%= link_to raw("<div class='new'></div>New"), videos_path, :remote => true, :id => 'recent' %>
+				<%= link_to raw("<div class='people'></div>People"), users_path, :remote => true, :id => 'people' %>
 			</div>
-
-			<div class="image-title">
-				<div class="image floatleft">
-					<a href="<%= video_path(current_user.current_video) %>"><img src="http://i2.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/mqdefault.jpg" /></a>
-				</div>
-				<div class="title floatleft">
-					<a href="<%= video_path(current_user.current_video) %>" class="video-title" id="video-title"><%= current_user.current_video.title %></a>
-					<a href="<%= edit_video_path(current_user.current_video) %>" class="edit-wrapper"><div class="edit"></div>Edit</a>
-				</div>
+			<div class="loading floatleft" style="display:none;" id="loading-feed"></div>
+			<div class="floatright">
+				<div class="top"></div>Top:
+				<%= link_to "Week", week_path, :remote => true, :id => 'week' %>
+		    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
+		    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
 			</div>
 		</div>
-	<% end %>
 
-	<div class="stats-container">
-		<h3>Your Stats</h3>
-		<div class="stats">
-			<a href="<%= user_path(current_user) %>"><div class="sunglasses"></div><%= pluralize(current_user.points, "point") %></a>
-			<a href="<%= user_path(current_user) %>"><div class="tracks"></div><%= pluralize(current_user.videos.count, "track") %></a>
-			<a href="<%= followers_user_path(current_user) %>"><div class="followers"></div><%= pluralize(current_user.followers.count, "follower") %></a>
-			<a href="<%= following_user_path(current_user) %>"><div class="following"></div><%= current_user.following.count %> following</a>
+		<%= render 'shared/search' %>
+
+		<% unless current_user.feed.empty? %>
+			<div id="results">
+			  <%= render 'shared/feed' %> <!-- Render first count of feed items with render. -->
+	      <%= will_paginate @feed_items %> <!-- Keep to show pagination if JS is disabled. -->
+	      <%= pageless(@feed_items.total_pages, @path) %>
+			</div>
+		<% else %>
+			<div style="padding: 30px;font-size: 20px;">You're not following anyone. Check out some <%= link_to "suggested people", users_path %>.</div>
+		<% end %>
+	</div>
+
+	<div class="right-container">
+		<%= render 'shared/playlist' %>
+		<% unless current_user.videos.first.nil? %>
+			<%= render 'shared/current_track' %>
+		<% end %>
+		<%= render 'shared/stats' %>
+		<div class="more-from-user-container">
+			<h3>Artists</h3>
+			<a class="artists-count" href="<%= artists_path %>"><span><%= @artists_count %></span> total</a>
 		</div>
-	</div>
 
-	<div class="more-from-user-container">
-		<h3>Artists</h3>
-		<a class="artists-count" href="<%= artists_path %>"><span><%= @artists_count %></span> total</a>
-	</div>
-
-	<div class="more-from-user-container" id="items-trending">
-		<h3>Trending</h3>
-		<div id="loading"></div>
-	</div>
-
-	<% unless current_user.authentications.count == 2 %>
-		<div class="social">
-			<p>Paint the Town is better social</p>
-				<% unless current_user.has_facebook?.present? %>
-					<a href="/auth/facebook/"><div class="facebook"></div>Connect to Facebook</a>
-				<% end %>
-				<% unless current_user.has_twitter?.present? %>
-					<a href="/auth/twitter/"><div class="twitter"></div>Connect to Twitter</a>
-				<% end %>
-				</ul>
+		<div class="more-from-user-container" id="items-trending">
+			<h3>Trending</h3>
+			<div id="loading"></div>
 		</div>
-	<% end %>
-</div>
+
+		<% unless current_user.authentications.count == 2 %>
+			<%= render 'shared/social' %>
+		<% end %>
+	</div>
 
 <% else %>
 
-<% content_for :hero do  %>
-	<%= render :partial => 'layouts/hero' %>
-<% end %>
+	<% content_for :hero do  %>
+		<%= render :partial => 'layouts/hero' %>
+	<% end %>
 
-<div class="left-container">
-	<div class="feed-options">
-		<div class="floatleft">
-			<%= link_to raw("<div class='new'></div>New"), videos_path, :remote => true, :id => 'recent' %>
-			<%= link_to raw("<div class='people'></div>People"), users_path, :remote => true, :id => 'people' %>
+	<div class="left-container">
+		<div class="feed-options">
+			<div class="floatleft">
+				<%= link_to raw("<div class='new'></div>New"), videos_path, :remote => true, :id => 'recent' %>
+				<%= link_to raw("<div class='people'></div>People"), users_path, :remote => true, :id => 'people' %>
+			</div>
+			<div class="loading floatleft" style="display:none;" id="loading-feed"></div>
+			<div class="floatright">
+				<div class="top"></div>Top:
+				<%= link_to "Week", week_path, :remote => true, :id => 'week' %>
+		    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
+		    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
+			</div>
 		</div>
-		<div class="loading floatleft" style="display:none;" id="loading-feed"></div>
-		<div class="floatright">
-			<div class="top"></div>Top:
-			<%= link_to "Week", week_path, :remote => true, :id => 'week' %>
-	    <%= link_to "Month", month_path, :remote => true, :id => 'month' %>
-	    <%= link_to "All", alltime_path, :remote => true, :id => 'alltime' %>
+		<div id="results">
+			<%= render 'shared/feed' %>
+			<%= will_paginate @feed_items %>
+			<%= pageless(@feed_items.total_pages, root_path, "#results") %>
 		</div>
 	</div>
-	<div id="results">
-		<%= render 'shared/feed' %>
-		<%= will_paginate @feed_items %>
-		<%= pageless(@feed_items.total_pages, root_path, "#results") %>
+	<div class="right-container">
+		<div class="more-from-user-container">
+			<h3>Artists</h3>
+			<a class="artists-count" href="<%= artists_path %>"><span><%= @artists_count %></span> total</a>
+		</div>
+		<div class="more-from-user-container" id="items-trending">
+			<h3>Trending</h3>
+			<div id="loading"></div>
+		</div>
 	</div>
-</div>
-<div class="right-container">
-	<div class="more-from-user-container">
-		<h3>Artists</h3>
-		<a class="artists-count" href="<%= artists_path %>"><span><%= @artists_count %></span> total</a>
-	</div>
-	<div class="more-from-user-container" id="items-trending">
-		<h3>Trending</h3>
-		<div id="loading"></div>
-	</div>
-</div>
 
 <% end %>

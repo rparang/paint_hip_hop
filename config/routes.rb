@@ -17,6 +17,7 @@ Jams::Application.routes.draw do
   match '/month', :to => 'videos#top_month'
   match '/alltime', :to => 'videos#top_alltime'
   match '/topweekjson', :to => 'videos#top_week_json'
+  match '/playlist', :to => 'videos#playlist'
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin',  :to => 'sessions#new'
@@ -29,5 +30,7 @@ Jams::Application.routes.draw do
   resources :votes, :only => [:create, :destroy]
 
   match '/auth/:provider/callback' => 'authentications#create'
+
+  match '/about' => 'pages#about'
 
 end

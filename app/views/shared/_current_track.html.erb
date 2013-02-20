@@ -1,0 +1,17 @@
+<div class="current-video-container">
+	<h3>Your Current Track</h3>
+	<div class="meta">
+		<div class="points"><%= pluralize(current_user.current_video.votes_count, "point") %>, <%= pluralize(current_user.current_video.comments.count, "comment") %></div>
+		<div class="active">Active: <%= time_ago_in_words(current_user.current_video.created_at) %></div>
+	</div>
+
+	<div class="image-title">
+		<div class="image floatleft">
+			<a href="<%= video_path(current_user.current_video) %>"><img src="http://i2.ytimg.com/vi/<%= current_user.current_video.youtube_id %>/mqdefault.jpg" /></a>
+		</div>
+		<div class="title floatleft">
+			<a href="<%= video_path(current_user.current_video) %>" class="video-title" id="video-title"><%= current_user.current_video.title %></a>
+			<a href="<%= edit_video_path(current_user.current_video) %>" class="edit-wrapper"><div class="edit"></div>Edit</a>
+		</div>
+	</div>
+</div>

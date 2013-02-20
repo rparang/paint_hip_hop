@@ -22,13 +22,49 @@
 		<%= yield %>
 
 	</div>
+
+	<div>
+		<div>Hello
+		</div>
+
+	</div>
+
+
 	<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>
 	<script type="text/javascript">
+
+	var field = new Field(0);
+	var results = $.getValues("<%= escape_javascript(playlist_path) %>");
+
+	var tracks = [];
+	$.each(results, function (i,item) {
+	  tracks.push(item.youtube_id);
+	});
+
+	function onytplayerStateChange(newState) {
+	  if (newState == 0) {
+	    field.setValue(field.getValue() + 1);
+	    loadNewVideo(tracks[field.getValue()], field.getValue());
+	  }
+	}
+
 	$('document').ready(function() {
 		$close = $(".alert a");
 		$close.click( function() {
 		  $(".alert").fadeOut();
 		});
+
+		$('#next').click( function() {
+	    field.setValue(field.getValue() + 1);
+	    $r = field.getValue();
+	    loadNewVideo(tracks[field.getValue()], $r);
+	  });
+	  $('#back').click( function() {
+	    field.setValue(field.getValue() - 1);
+	    $r = field.getValue();
+	    loadNewVideo(tracks[field.getValue()], $r);
+	  });
+		initialize(field.getValue(), tracks[field.getValue()]);
 	});
 	</script>
 </body>

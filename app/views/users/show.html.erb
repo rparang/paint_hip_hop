@@ -40,13 +40,6 @@
 </div>
 
 <div class="right-container">
-	<div class="stats-container">
-		<h3>Stats</h3>
-		<div class="stats">
-			<a href="<%= user_path(@user) %>"><div class="sunglasses"></div><%= pluralize(@user.points, "point") %></a>
-			<a href="<%= user_path(@user) %>"><div class="tracks"></div><%= pluralize(@user.videos.count, "track") %></a>
-			<a href="<%= followers_user_path(@user) %>"><div class="followers"></div><%= pluralize(@user.followers.count, "follower") %></a>
-			<a href="<%= following_user_path(@user) %>"><div class="following"></div><%= @user.following.count %> following</a>
-		</div>
-	</div>
+	<%= render 'shared/playlist' %>
+	<%= render 'shared/stats' %>
 </div>

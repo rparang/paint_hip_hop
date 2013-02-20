@@ -78,8 +78,8 @@
 				addCommentOnFeed(feed_item_id);
 				deleteComment();
 
-				//Show song once cover image is clicked
-				expandPlayer(youtube_id,feed_item_id);
+				//Play song once cover image is clicked
+				playFeedTrack(youtube_id,feed_item_id);
 				$("#points-value-"+feed_item_id).click(function() {
 					$("#faces-"+feed_item_id).fadeToggle(150);
 				});
@@ -100,7 +100,7 @@
 				<% if signed_in? %>
 					var current_user_id = "<%= current_user.id %>";
 					$("#vote-"+feed_item_id).click(function() {
-						addPointOnMedia(feed_item_id,current_user_id, true);
+						addVoteOnMedia(feed_item_id,current_user_id, true);
 					});
 				<% end %>
 

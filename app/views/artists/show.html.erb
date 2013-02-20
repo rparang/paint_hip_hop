@@ -59,18 +59,6 @@ $('document').ready(function() {
 		<% end %>
 	</div>
 </div>
-<!--
-<h1><%= @artist.name %></h1>
-<img src="" id="image" />
-<div id="bio"></div>
-<div id="news"></div>
-<% @videos.each do |v| %>
-	<a href="#"><%= v.title %></a>
-<% end %>
-<p>URLs</p>
-<p>Images</p>
-<p>News</p>
-<p>Twitter</p>
-<p>how many tracks on PTT</p>
-<p>Can we suggest a video from this artist?</p>
-<p>Industry News</p>-->
+<div class="right-container">
+	<%= render 'shared/playlist' %>
+</div>

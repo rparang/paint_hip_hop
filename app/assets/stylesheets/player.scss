@@ -1,0 +1,43 @@
+@import 'variables';
+@import 'mixins';
+
+#playlist-container {
+  background-color: $grayLighter;
+  padding-bottom: 10px;
+}
+
+#yt-player-wrapper {
+  margin: 0;
+}
+
+#track-listing {
+  list-style-position:inside;
+  margin-top: 5px;
+}
+
+.track.selected {
+  font-weight: bold;
+}
+.track {
+  font-size: 11px;
+  font-weight: normal;
+  color: lighten($grayLight, 17%);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  padding: 1px 0 1px 10px;
+  span {
+    color: $gray;
+    margin-left: 2px;
+  }
+}
+.track:hover {
+  background-color: darken($grayLighter, 5%);
+  cursor: pointer;
+}
+
+@for $i from 0 through 8 {
+  #t-#{$i} span {
+    padding-left: 6px; 
+  }
+}

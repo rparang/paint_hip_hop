@@ -1,6 +1,0 @@
-$("#points-value").html("<%= @video.votes.count %><span> Points</span>")
-$("#video-votes-ajax").html("<%= escape_javascript(render('videos/unvote')) %>")
-
-//Home feed
-$("#vote-ajax-<%= @video.id %>").html("<%= @video.votes.count %>")
-$("#vote-button-<%= @video.id %>").html("<div><i>Point removed</i></div>")

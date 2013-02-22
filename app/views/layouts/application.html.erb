@@ -27,7 +27,9 @@
 	<script type="text/javascript">
 
 	<% signed_in? ? path = playlist_path : path = playlist_signed_out_path  %>
-	var field = new Field(0);
+	var field = new Field(0); //Track playlist index
+	var playState = new Field("stopped"); //Set default to paused play state
+	var youtubeStateId = new Field(0); //Set default to 0
 	var results = $.getValues("<%= escape_javascript(path) %>");
 
 	var tracks = [];
@@ -40,6 +42,12 @@
 	    field.setValue(field.getValue() + 1);
 	    loadNewVideo(tracks[field.getValue()], field.getValue());
 	  }
+	  if (newState == 1 && playState.getValue() != "playing") {
+			playState.setValue("playing");
+		}
+		if (newState == 2 && playState.getValue() != "paused") {
+			playState.setValue("paused");
+		}
 	}
 
 	$('document').ready(function() {
@@ -59,6 +67,7 @@
 	    loadNewVideo(tracks[field.getValue()], $r);
 	  });
 		initialize(field.getValue(), tracks[field.getValue()]);
+		youtubeStateId.setValue(tracks[field.getValue()]);
 	});
 	</script>
 </body>

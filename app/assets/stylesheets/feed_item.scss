@@ -72,10 +72,15 @@
           padding-left: 32px;
           height: 45px;
           vertical-align: middle;
-          opacity: 0.7;
+          opacity: 0.85;
           position: absolute;
           margin: 36px 0 0 92px;
-          @include transition();
+          //@include transition();
+        }
+        .play.pause {
+          background: url("sprite.png") no-repeat -10px -246px;
+          padding-left: 36px;
+          margin: 36px 0 0 88px;
         }
       }
       .cover:hover {

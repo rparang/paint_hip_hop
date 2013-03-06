@@ -48,7 +48,7 @@ function buildPlaylist(i, item) {
 
 function updatePlaylistStyle(track_index) {
   $s = $("#t-"+track_index);
-  $('.track').removeClass('selected'); //Clear all songs with selected class
+  $('.track').removeClass('selected'); //Clear all songs with 'selected' class
   $s.addClass('selected');
 }
 
@@ -60,6 +60,27 @@ function removePlayCoverStyle() {
   $(".cover").children('#play').removeClass('pause');
 }
 
+function showPlayer() {
+  if (playState.getValue() !== "stopped") {
+    $('#player-container').show();
+  }
+}
+
+function updateTrackName() {
+  $('#track-name').html(track_name[field.getValue()]);
+}
+
+function updateButtonPlay() {
+  if ($('#playpause').hasClass('paused')) {
+    $('#playpause').removeClass('paused')
+  }
+}
+
+function updateButtonPause() {
+  if (!$('#playpause').hasClass('paused')) {
+    $('#playpause').addClass('paused');
+  }
+}
 
 
 function playFeedTrack(youtube_id, feed_item_id) {
@@ -74,17 +95,18 @@ function playFeedTrack(youtube_id, feed_item_id) {
         pause();
         playState.setValue("paused");
         removePlayCoverStyle();
+        updateButtonPause();
       }
       else {
         play();
         playState.setValue("playing");
         addPlayCoverStyle(feed_item_id);
+        updateButtonPlay();
       }
     }
     else {
       field.setValue(track_index); //Set playlist index
       loadNewVideo(youtube_id, track_index, feed_item_id);
-      playState.setValue("playing");
     }
   });
 };
@@ -98,23 +120,30 @@ function loadPlayer(track_id) {
 }
 
 function loadNewVideo(track_id, track_index, feed_item_id) {
-  updatePlaylistStyle(track_index);
+  updatePlaylistStyle(track_index); //Playlist selected item
+  updateTrackName(); //Track name on player
+  updateButtonPlay(); //Make track player show pause button while playing
   removePlayCoverStyle();
   addPlayCoverStyle(feed_item_id);
 
   ytapiplayer.loadVideoById(track_id);
   youtubeStateId.setValue(track_id);
+
+  playState.setValue("playing");
+  showPlayer();
+
 }
 
 function initialize(start_index, track_id) {
   loadPlayer(track_id);
   updatePlaylistStyle(start_index);
+  playState.setValue("stopped");
 }
 
 function updatePlayerInfo() {
   if(ytplayer && ytplayer.getDuration) {
-    $('#videoDuration').html(ytplayer.getDuration());
-    $('#videoCurrentTime').html(ytplayer.getCurrentTime());
+    $('#videoDuration').html(secondsToHms(ytplayer.getDuration()));
+    $('#videoCurrentTime').html(secondsToHms(ytplayer.getCurrentTime()));
     $('#bytesTotal').html(ytplayer.getVideoBytesTotal());
     $("#startBytes").html(ytplayer.getVideoStartBytes());
     $("#bytesLoaded").html(ytplayer.getVideoBytesLoaded());

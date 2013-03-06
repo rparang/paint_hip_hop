@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <title>Paint the Town</title>
@@ -24,29 +24,44 @@
 	</div>
 
 	<%= render 'layouts/footer' unless request.fullpath == signup_path || request.fullpath == signin_path %>
+
+
+
+
 	<script type="text/javascript">
 
 	<% signed_in? ? path = playlist_path : path = playlist_signed_out_path  %>
 	var field = new Field(0); //Track playlist index
-	var playState = new Field("stopped"); //Set default to paused play state
+	var playState = new Field(0); //Set default to paused play state
 	var youtubeStateId = new Field(0); //Set default to 0
 	var results = $.getValues("<%= escape_javascript(path) %>");
 
 	var tracks = [];
+	var track_name = [];
+
 	$.each(results, function (i,item) {
+	  track_name.push(item.title);
 	  tracks.push(item.youtube_id);
 	});
 
 	function onytplayerStateChange(newState) {
 	  if (newState == 0) {
 	    field.setValue(field.getValue() + 1);
-	    loadNewVideo(tracks[field.getValue()], field.getValue());
+	    track_index = field.getValue();
+	    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Gross hack
+	    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
 	  }
 	  if (newState == 1 && playState.getValue() != "playing") {
 			playState.setValue("playing");
+			showPlayer();
+			updateButtonPlay();
+			$feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
+			addPlayCoverStyle($feed_item_id);
 		}
 		if (newState == 2 && playState.getValue() != "paused") {
 			playState.setValue("paused");
+			updateButtonPause();
+			removePlayCoverStyle();
 		}
 	}
 
@@ -56,19 +71,40 @@
 		  $(".alert").fadeOut();
 		});
 
+		$('#playpause').click( function() {
+			if ($(this).hasClass('paused')) {
+				$(this).removeClass('paused')
+				$feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
+				play();
+				addPlayCoverStyle($feed_item_id);
+			}
+			else {
+				$(this).addClass('paused');
+				pause();
+				removePlayCoverStyle();
+			}
+		});
+
 		$('#next').click( function() {
 	    field.setValue(field.getValue() + 1);
-	    $r = field.getValue();
-	    loadNewVideo(tracks[field.getValue()], $r);
+	    track_index = field.getValue();
+	    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
+	    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
+	    //alert(track_name[field.getValue()]);
 	  });
 	  $('#back').click( function() {
 	    field.setValue(field.getValue() - 1);
-	    $r = field.getValue();
-	    loadNewVideo(tracks[field.getValue()], $r);
+	    track_index = field.getValue();
+	    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
+	    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
 	  });
 		initialize(field.getValue(), tracks[field.getValue()]);
 		youtubeStateId.setValue(tracks[field.getValue()]);
 	});
 	</script>
+
+
+
+
 </body>
 </html>

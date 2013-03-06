@@ -7,7 +7,7 @@
 	<a class="user" href="<%= user_path(feed_item.user) %>"><img src="<%= image %>" class="image-round-3"/></a>
   </div>
   <div class="feed-inner">
-	  <div class="user-container">
+	  <div class="user-container" id="<%= feed_item.youtube_id %>" data-id="<%= feed_item.id %>">
 	    <a class="user" href="<%= user_path(feed_item.user) %>"><%= feed_item.user.username %></a>
 		<span class="video-user-points"><%= feed_item.user.points %></span>
 		<span class="time"><div class="clock"></div><%= time_ago_in_words(feed_item.created_at) %> ago</span>

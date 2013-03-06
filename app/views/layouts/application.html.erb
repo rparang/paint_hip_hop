@@ -86,20 +86,24 @@
 		});
 
 		$('#next').click( function() {
-	    field.setValue(field.getValue() + 1);
-	    track_index = field.getValue();
-	    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
-	    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
-	    //alert(track_name[field.getValue()]);
+			if (field.getValue() < 29 ) {
+				field.setValue(field.getValue() + 1);
+		    track_index = field.getValue();
+		    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
+		    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
+			}
 	  });
 	  $('#back').click( function() {
-	    field.setValue(field.getValue() - 1);
-	    track_index = field.getValue();
-	    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
-	    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
+	  	if (field.getValue() > 0) {
+		    field.setValue(field.getValue() - 1);
+		    track_index = field.getValue();
+		    $feed_item_id = $('#'+tracks[field.getValue()]).data('id'); //Turrible hack
+		    loadNewVideo(tracks[field.getValue()], track_index, $feed_item_id);
+	  	}
 	  });
+
 		initialize(field.getValue(), tracks[field.getValue()]);
-		youtubeStateId.setValue(tracks[field.getValue()]);
+
 	});
 	</script>
 

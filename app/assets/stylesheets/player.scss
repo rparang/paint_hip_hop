@@ -106,3 +106,8 @@
 .back {
 	background: url("sprite.png") no-repeat -178px -257px;
 }
+
+.inactive, .inactive:hover {
+	opacity: 0.2;
+	cursor: default;
+}

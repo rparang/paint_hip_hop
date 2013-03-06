@@ -82,6 +82,18 @@ function updateButtonPause() {
   }
 }
 
+function updateButtonBack() {
+  if (field.getValue() < 1) {
+    $('#back').addClass('inactive');
+  }
+  else if (field.getValue() > 28) {
+    $('#next').addClass('inactive');
+  }
+  else {
+    $('.controls').children().removeClass('inactive');
+  }
+}
+
 
 function playFeedTrack(youtube_id, feed_item_id) {
   $("#cover-"+feed_item_id).click(function() {
@@ -123,6 +135,7 @@ function loadNewVideo(track_id, track_index, feed_item_id) {
   updatePlaylistStyle(track_index); //Playlist selected item
   updateTrackName(); //Track name on player
   updateButtonPlay(); //Make track player show pause button while playing
+  updateButtonBack(); //Update back button depending on playlist index
   removePlayCoverStyle();
   addPlayCoverStyle(feed_item_id);
 
@@ -138,6 +151,7 @@ function initialize(start_index, track_id) {
   loadPlayer(track_id);
   updatePlaylistStyle(start_index);
   playState.setValue("stopped");
+  youtubeStateId.setValue(tracks[field.getValue()]);
 }
 
 function updatePlayerInfo() {

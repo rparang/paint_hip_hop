@@ -1,32 +1,23 @@
 <div class="hero-container">
   <div class="hero-wrapper">
-    <h1>The Hip Hop Music Experiment</h1>
-    <h2>Discover the best hip hop tracks to share with your friends</h2>
-    <a href="/auth/facebook/" class="button facebook"><div class="facebook-icon"></div>Sign up with Facebook</a>
-    <a href="<%= signup_path %>" class="email">or with an email address</a>
-    <div class="learn">
-    	<div>
-    		<span class="icon note"></span>
-    		Paint the Town is a fresh new take on finding the best hip-hop music without the clutter
-    	</div>
-    	<div>
-            <span class="icon share"></span>
-    		Find and share your new hits with friends on Facebook and Twitter
-    	</div>
-    	<div>
-            <span class="icon access"></span>
-    		Access your Paint the Town tracks from anywhere on any device
-    	</div>
+    <div class="promo">
+        <h6>Trinidad James, Juicy J, 2 Chainz, and hundreds more...</h6>
+        <h1>The Internet's Hip Hop</h1><br />
+        <h1>Music Experience</h1><br /><br />
+        <h2>Discover breaking new hits in the rap world,</h2><br />
+        <h2>gain rep points for posting popular tracks,</h2><br /> 
+        <h2>and listen while you twerk</h2>
+        <div class="button-wrapper">
+            <a href="/auth/facebook/" class="button facebook"><div class="promo-icon facebook-icon"></div>Sign in with Facebook</a>
+            <a href="<%= signup_path %>" class="button"><div class="promo-icon email-icon"></div>Sign up</a>
+        </div>
     </div>
-    <a href="javascript:;" id="learn-more">Learn more</a>
   </div>
 </div>
 
 <script type="text/javascript">
-    $('document').ready( function() {
-    	$("#learn-more").click( function() {
-    		$(".hero-wrapper").toggleClass('tall');
-            $(".learn").toggle();
-    	});
-    });
+    var covers = ['drake', 'juicyj', 'twochainz'];
+    var random_number = Math.floor(Math.random()*3);
+    cover = covers[random_number];
+    $('.hero-container').addClass(cover);
 </script>

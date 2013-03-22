@@ -48,7 +48,7 @@ nav {
           text-decoration: none;
           color: #9C9C9C;
           font-size: 13px;
-          padding: 13px 10px 0px 10px;
+          padding: 15px 10px 12px 10px;
 
           img {
             margin: 0;
@@ -56,45 +56,34 @@ nav {
             position: relative;
             top: -1px;
           }
-
-          .post {
-            background: url("sprite.png") no-repeat -19px -2px;
+          .about, .post, .edit, .signout, .signup, .signin {
             display: inline;
             opacity: .5;
             @include transition();
             padding-left: 22px;
+          }
+          .about {
+            background: url("sprite.png") no-repeat -238px -3px;
+          }
+
+          .post {
+            background: url("sprite.png") no-repeat -19px -2px;
           }
 
           .edit {
             background: url("sprite.png") no-repeat -38px -2px;
-            display: inline;
-            opacity: .5;
-            @include transition();
-            padding-left: 22px;
           }
 
           .signout {
             background: url("sprite.png") no-repeat -58px -2px;
-            display: inline;
-            opacity: .5;
-            @include transition();
-            padding-left: 22px;
           }
 
           .signup {
             background: url("sprite.png") no-repeat 2px -2px;
-            display: inline;
-            opacity: .5;
-            @include transition();
-            padding-left: 22px;
           }
 
           .signin {
             background: url("sprite.png") no-repeat -79px -1px;
-            display: inline;
-            opacity: .5;
-            @include transition();
-            padding-left: 22px;
           }
 
           img {
@@ -108,7 +97,7 @@ nav {
         }
         a:hover, a.selected {
           color: $white;
-          .post,.edit,.signout,.signup,.signin { opacity: 1; }
+          .about,.post,.edit,.signout,.signup,.signin { opacity: 1; }
         }
 			}
 

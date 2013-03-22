@@ -3,26 +3,25 @@
   <div id="nav-wrapper">
   	<div class="nav-container">
 	  <%= link_to logo, root_path %>
-	  <% if signed_in? %>
 	  <ul class="nav floatright">
-	  <li><a href="<%= post_path %>"><div class="post"></div>Post track</a></li>
-	  <li class="pic">
-			<a href="<%= user_path(current_user) %>">
-				<% unless current_user.image == nil %>
-				  <img src="<%= current_user.image %>" />
-				<% end %>
-				<%= current_user.username %>
-			</a>
-	  </li>
-	  <li><a href="<%= edit_user_path(current_user) %>"><div class="edit"></div></a></li>
-	  <li><a href="<%= signout_path %>"><div class="signout"></div></a></li>
+	  		<li><a href="<%= about_path %>"><div class="about"></div>About</a></li>
+	  	<% if signed_in? %>
+			  <li><a href="<%= post_path %>"><div class="post"></div>Post track</a></li>
+			  <li class="pic">
+					<a href="<%= user_path(current_user) %>">
+						<% unless current_user.image == nil %>
+						  <img src="<%= current_user.image %>" />
+						<% end %>
+						<%= current_user.username %>
+					</a>
+			  </li>
+			  <li><a href="<%= edit_user_path(current_user) %>"><div class="edit"></div></a></li>
+			  <li><a href="<%= signout_path %>"><div class="signout"></div></a></li>
+		  <% else %>
+			  <li><a href="<%= signup_path %>">&#43;<div class="signup"></div>Sign Up</a></li>
+			  <li><a href="<%= signin_path %>"><div class="signin"></div>Sign In</a></li>
+			<% end %>
 	  </ul>
-	  <% else %>
-	  <ul class="nav floatright">
-	  <li><a href="<%= signup_path %>">&#43;<div class="signup"></div>Sign Up</a></li>
-	  <li><a href="<%= signin_path %>"><div class="signin"></div>Sign In</a></li>
-	  </ul>
-	<% end %>
 	</div>
   </div>
 </nav>

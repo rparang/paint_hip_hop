@@ -239,6 +239,9 @@ input[type="submit"] {
         background: rgba(0, 0, 0, 0.79);
         display: inline;
         padding: 0 5px 0 5px;
+        a:hover {
+        color: lighten($linkColor, 10%);
+      }
       }
       h6 {
         font-size: 14px;
@@ -293,6 +296,7 @@ input[type="submit"] {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  background-color: $black;
 }
 .hero-container.twochainz {
   background: url("/assets/2chainz_cover.jpg") no-repeat center -30px;
@@ -300,6 +304,7 @@ input[type="submit"] {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  background-color: $black;
 }
 .hero-container.juicyj {
   background: url("/assets/juicyj_cover.jpg") no-repeat center -30px;
@@ -307,6 +312,7 @@ input[type="submit"] {
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
+  background-color: $black;
 }
 
 .loading {
@@ -315,3 +321,29 @@ input[type="submit"] {
   background-repeat: no-repeat;
   height: 10px;
 }
+
+//About
+.about {
+  h1,h2 {
+    color: $grayDark;
+  }
+  h1 {
+    font-size: 40px;
+    line-height: 42px;
+    margin-bottom: 14px;
+  }
+  h2{
+    font-size: 32px;
+    line-height: 34px;
+    margin-bottom: 12px;
+    margin-top: 20px;
+  }
+  p {
+    color: $gray;
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 24px;
+  }
+}
+
+

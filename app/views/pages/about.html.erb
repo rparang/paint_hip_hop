@@ -1,93 +1,23 @@
-<div class="right-container">
-  <div id="yt-player-wrapper"><div id="yt-player">Loading...</div></div>
+<% unless signed_in? %>
+    <% content_for :hero do  %>
+        <%= render :partial => 'layouts/hero' %>
+    <% end %>
+<% end %>
 
-  <div id="tracks-listing-container">
-    <ol id="track-listing"></ol>
+<div class="left-container">
+  <div class="about">
+    <h1>What is Paint the Town?</h1>
+    <p>Paint the Town is a hip hop music app. We built the site to showcase and share the best and newest rap tunes without any clutter.</p>
+    <p>You know that song throughout the day that <a href="http://paintapp.co/videos/219-zip-a-double-cup" target="_blank">gets you pumped up</a> or <a href="http://paintapp.co/videos/625-all-gold-everything" target="_blank">stuck in your head</a>? This is the place to share it - follow people with similar music tastes and discover rap tunes you didn't know about.</p>
+    <h2>How does it work?</h2>
+    <p>Find people with music tastes you like and follow them. When they share music, it will show up in your feed. This is also how your playlist is built - it's a changing list of what your friends are listening to and sharing.</p>
+    <p>To post a track, search for a song at the top of your feed. Once the song is shared, it will be sent to all the people that follow you and will also show up in their playlists. Swag.</p>
+    <p>Popular tracks will earn you rep points. Rep points are achieved by people liking your track.</p>
+    <h2>Who runs the site?</h2>
+    <p>The site was built by <a href="http://paintapp.co/users/4-rap-game-bill-clinton" target="_blank">Reza Parang</a>. If you have any questions or run into any issues, <a href="https://twitter.com/RezaParang" target="_blank">send a message on Twitter</a> and I'll get to it as soon as possible.</p>
+    <p>Thanks for checking the site out - Much love.</p>
   </div>
-
-  <a href="javascript:void(0);" onclick="play();">Play</a> | 
-  <a href="javascript:void(0);" onclick="pause();">Pause</a> | 
-  <a href="javascript:void(0);" onclick="stop();">Stop</a> | 
-  <a href="javascript:void(0);" onclick="loadNewVideo('GrsJDy8VjZk', 0);">load</a> | 
-  <a href="javascript:void(0);" onclick="halfMute(50);">Half mute</a> |
-  <a href="javascript:void(0);" id="next">Next -></a> |
-  <a href="javascript:void(0);" id="back">Back</a>
-
-  <div id="videoInfo">
-    <p>Player state: <span id="playerState">--</span></p>
-    <p>Current Time: <span id="videoCurrentTime">--:--</span> | Duration: <span id="videoDuration">--:--</span></p>
-    <p>Bytes Total: <span id="bytesTotal">--</span> | Start Bytes: <span id="startBytes">--</span> | Bytes Loaded: <span id="bytesLoaded">--</span></p>
-  </div>
-
 </div>
-
-
-
-
-<style type="text/css">
-#yt-player-wrapper {
-  margin: 0;
-}
-
-#track-listing {
-  list-style-position:inside;
-}
-
-.track.selected {
-  font-weight: bold;
-}
-.track {
-  font-size: 12px;
-  font-weight: normal;
-  color: #f3f3f3;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-}
-
-.track span {
-  color: gray;
-}
-#id-1 span {
-  padding-left: 3px;
-
-}
-
-</style>
-
-<script type="text/javascript">
-
-var field = new Field(0);
-//var tracks = <%= raw @video_ids %>;
-//var tracks_length = tracks.length;
-//var tracks;
-
-$('document').ready( function () {
-
-  //var results = xhr_get("<%= escape_javascript(playlist_path) %>", "playlist");
-  var results = $.getValues("<%= escape_javascript(playlist_path) %>");
-  //console.log(results);
-
-  var tracks = [];
-  $.each(results, function (i,item) {
-    tracks.push(item.youtube_id);
-  });
-  //alert(a);
-  $('#next').click( function() {
-    field.setValue(field.getValue() + 1);
-    $r = field.getValue();
-    loadNewVideo(tracks[field.getValue()], $r);
-  });
-  $('#back').click( function() {
-    field.setValue(field.getValue() - 1);
-    $r = field.getValue();
-    loadNewVideo(tracks[field.getValue()], $r);
-  });
-
-  initialize(field.getValue(), tracks[field.getValue()]);
-
-})
-
-
-
-</script>
+<div class="right-container">
+    <img src="/assets/logo-big.png" />
+</div>

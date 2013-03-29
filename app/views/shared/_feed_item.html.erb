@@ -20,7 +20,7 @@
 	  	<div class="info floatleft" id="info-<%= feed_item.id %>">
 	  		<a class="title" id="title-<%= feed_item.id %>" href="<%= video_path(feed_item) %>"><%= feed_item.title %></a>
 				<% unless feed_item.artist.nil? %>
-					 <a class="title artist" href="<%= artist_path(feed_item.artist) %>"><%= feed_item.artist.name %></a>
+					 <%= link_to feed_item.artist.name, artist_path(feed_item.artist), :class => "title artist", :id =>"artist_name-#{feed_item.id}" %>
 				<% end %>	
 	  		<p id="description-<%= feed_item.id %>"><%= feed_item.description %></p>
 	  		<% if signed_in? && current_user.vote?(feed_item.id) %>
@@ -104,6 +104,14 @@
 					});
 				<% end %>
 
+				//var $el = $('#artist_name-'+feed_item_id); //Use for remote calls for artists
+				//Remote.container($el);
+
+				/*$('#artist_name-'+feed_item_id).bind("ajax:success", function(evt, data, status, xhr){
+					console.log(data);
+					$('.container').html(data);
+				});
+*/
 			});
 		</script>
 

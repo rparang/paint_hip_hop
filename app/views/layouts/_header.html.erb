@@ -1,8 +1,8 @@
-<% logo = image_tag("logo.png", :alt => "Paint the Town", :class => "floatleft") %>
+<% logo = image_tag("phh-logo-small.png", :alt => "Paint the Town", :class => "floatleft") %>
 <nav>
   <div id="nav-wrapper">
   	<div class="nav-container">
-	  <%= link_to logo, root_path %>
+	  <%= link_to logo, root_path, :id => "home" %>
 	  <ul class="nav floatright">
 	  		<li><a href="<%= about_path %>"><div class="about"></div>About</a></li>
 	  	<% if signed_in? %>

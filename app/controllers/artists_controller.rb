@@ -1,4 +1,6 @@
 class ArtistsController < ApplicationController
+  respond_to :html, :json
+
   def index
   	@artists = Artist.all
     @artists = Artist.order_by('name ASC')#.collect {|x| [x.name, x.id] }
@@ -9,6 +11,15 @@ class ArtistsController < ApplicationController
   	@videos = @artist.videos
     @feed_items = @artist.videos
     @comment = Comment.new
+    respond_with do |format|
+      format.html do 
+        if request.xhr?
+          render 'artists/show', :layout => false
+        else
+          render 'artists/show'
+        end
+      end
+    end
   end
 
   def destroy
